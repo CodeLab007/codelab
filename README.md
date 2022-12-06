@@ -1,4 +1,4 @@
-# Turborepo starter
+# Codelab Monorepo
 
 This is an official Yarn v1 starter turborepo.
 
