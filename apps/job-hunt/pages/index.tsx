@@ -17,7 +17,7 @@ export default function Home() {
           Welcome to <a href='https://nextjs.org'>JobHunt!</a>
         </h1>
 
-        <Button label='This is a button' primary={false} />
+        <Button label='This is a default button' primary={false} />
       </main>
 
       {/* <footer className={styles.footer}>
