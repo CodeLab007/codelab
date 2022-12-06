@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "init": "^0.1.2",
+    "react-scripts": "^5.0.1",
     "storybook": "^6.5.14"
   }
 }
