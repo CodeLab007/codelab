@@ -1,5 +1,5 @@
 {
-  "name": "codelab-job-hunt",
+  "name": "@codelab/job-hunt",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,7 +10,7 @@
     "test": "vitest"
   },
   "dependencies": {
-    "codelab-ui": "*",
+    "@codelab/ui": "*",
     "@types/node": "18.11.10",
     "@types/react-dom": "18.0.9",
     "date-fns": "^2.29.3",
