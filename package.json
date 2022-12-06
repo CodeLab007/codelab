@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "workspaces": [
+    "codelab-job-hunt",
+    "codelab-ui",
     "apps/*",
     "packages/*"
   ],
