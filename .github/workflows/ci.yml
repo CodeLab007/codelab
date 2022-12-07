@@ -8,7 +8,7 @@ on:
 jobs:
   build:
     container:
-      image: node:16
+      image: node:18
     runs-on: ubuntu-latest
     steps:
       - name: Get code
@@ -19,7 +19,7 @@ jobs:
           path: ~/.npm
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Build docker image
-        run: docker build ../ -t shumaslaghari/job-hunt-client:latest -f apps/job-hunt/docker/DockerFile
+        run: docker build apps/job-hunt -t shumaslaghari/job-hunt-client:latest -f apps/job-hunt/dockerfiles/DockerFile
       # - name: Login to Docker Hub
       #   uses: docker/login-action@v2
       #   with:
