@@ -1,0 +1,87 @@
+name: Deploy to PROD (main)
+
+on:
+  push:
+    branches: ['main']
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  # test:
+  #   name: Test
+  #   timeout-minutes: 15
+  #   runs-on: ubuntu-latest
+  #   # To use Remote Caching, uncomment the next lines and follow the steps below.
+  #   env:
+  #     TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+  #     TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+  #     TURBO_REMOTE_ONLY: true
+  #     CACHE_KEY: node-deps
+
+  #   steps:
+  #     - name: Check out code
+  #       uses: actions/checkout@v3
+  #       with:
+  #         fetch-depth: 2
+
+  #     - name: Setup Node.js environment
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: 16
+  #         cache: 'yarn'
+  #     - name: Cache dependencies
+  #       id: cache
+  #       uses: actions/cache@v3
+  #       with:
+  #         path: node_modules
+  #         key: ${{ env.CACHE_KEY }}-${{ hashFiles('**/package-lock.json') }}
+  #     - name: Install dependencies
+  #       if: steps.cache.outputs.cache-hit != 'true'
+  #       run: yarn
+
+  #     # - name: Build
+  #     #   run: yarn build
+
+  #     - name: Test
+  #       run: yarn test
+   build:
+    runs-on: ubuntu-latest
+    # Defining job outputs
+    outputs:
+      # Here we have set this output name as script-file and then using steps object provided by github actions to access a step which has id of publish, the step will have outputs object which will have script-file variable (which we have named down below if it was named something else then we could have acccessed it with that name)
+      script-file: ${{ steps.publish.outputs.script-file}}
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      
+      # One thing to understand is that if we have cached dependencies in any previous job then this job will also use the same cached version because github stores it in place accessible to all jobs even though all jobs run on seperate machines. The cache is even accessible across different workflows
+      - name: Cache depenencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Build docker image
+         run: docker build . -t shumaslaghari/job-hunt-client:latest
+
+      - name: Login to Docker Hub
+         uses: docker/login-action@v2
+         with:
+           username: ${{ secrets.DOCKERHUB_USERNAME }}
+           password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Push to Dockerhub
+        run: docker push shumaslaghari/job-hunt-client  
+
+  deploy:      
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+        - name: Connect to digital ocean via ssh and deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{secrets.DIGITALOCEAN_HOST}}
+          key: ${{secrets.DIGITALOCEAN_SSH_KEY}}
+          passphrase: ${{secrets.DIGITALOCEAN_SSH_PASSPHRASE}}
+        script: |
+          docker-compose up -f ./docker/docker-compose.prod.yml
