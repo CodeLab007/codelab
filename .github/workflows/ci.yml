@@ -3,14 +3,12 @@ name: Deploy to PROD (main)
 on:
   push:
     branches: ['main']
-  pull_request:
-    types: [closed]
+  # pull_request:
+  #   types: [closed]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    # Defining job outputs
-    outputs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
