@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev --port 3001",
     "build": "next build",
+    "build:docker": "cd ../../ && docker build . -f apps/job-hunt/Dockerfile -t shumaslaghari/job-hunt-client:latest --build-arg SCOPE=@codelab/job-hunt --build-arg PORT=3001",
     "start": "next start",
     "lint": "next lint"
   },
