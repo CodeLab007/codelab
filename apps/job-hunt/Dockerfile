@@ -7,6 +7,7 @@ RUN apk add --no-cache libc6-compat
 RUN apk update
 # Set working directory
 WORKDIR /app
+# Install turbo globally
 RUN yarn global add turbo
 COPY . .
 RUN turbo prune --scope='@codelab/job-hunt' --docker
@@ -26,7 +27,7 @@ RUN yarn install
 # Build the project
 COPY --from=builder /app/out/full/ .
 COPY turbo.json turbo.json
-RUN yarn turbo run build --filter='@codelab/job-hunt'...
+RUN yarn turbo run build --filter='@codelab/job-hunt'
 
 FROM node:alpine AS runner
 WORKDIR /app
@@ -44,4 +45,4 @@ COPY --from=installer /app/apps/job-hunt/package.json .
 # COPY --from=installer --chown=nextjs:nodejs /app/apps/job-hunt/.next/standalone ./
 # COPY --from=installer --chown=nextjs:nodejs /app/apps/job-hunt/.next/static ./apps/job-hunt/.next/static
 
-CMD node apps/job-hunt/server.js
+CMD ["yarn","run","start"]
