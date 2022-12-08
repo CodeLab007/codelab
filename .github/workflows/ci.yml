@@ -28,7 +28,7 @@ jobs:
     #   - name: Push to Dockerhub
     #     run: docker push shumaslaghari/job-hunt-client:latest
   deploy:
-    needs: build
+    # needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Connect to digital ocean via ssh and deploy
