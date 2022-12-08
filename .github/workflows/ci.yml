@@ -7,8 +7,8 @@ on:
   #   types: [closed]
 jobs:
   build:
-  # container:
-  #   image: node:18
+    # container:
+    #   image: node:18
     runs-on: ubuntu-latest
     steps:
       - name: Get code
@@ -27,17 +27,18 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Push to Dockerhub
         run: docker push shumaslaghari/job-hunt-client:latest
-  # deploy:
-  #   # needs: build
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Connect to digital ocean via ssh and deploy
-  #       uses: appleboy/ssh-action@master
-  #       with:
-  #         username: ${{secrets.DIGITALOCEAN_USERNAME}}
-  #         host: ${{secrets.DIGITALOCEAN_HOST}}
-  #         key: ${{secrets.DIGITALOCEAN_SSH_KEY}}
-  #         passphrase: ${{secrets.DIGITALOCEAN_SSH_PASSPHRASE}}
-  #         script: |
-  #           docker pull shumaslaghari/job-hunt-client:latest
-  #           docker-compose up -f ./codelab/job-hunt/docker-compose.prod.yml
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Connect to digital ocean via ssh and deploy
+        uses: appleboy/ssh-action@master
+        with:
+          username: ${{secrets.DIGITALOCEAN_USERNAME}}
+          host: ${{secrets.DIGITALOCEAN_HOST}}
+          key: ${{secrets.DIGITALOCEAN_SSH_KEY}}
+          passphrase: ${{secrets.DIGITALOCEAN_SSH_PASSPHRASE}}
+          script: |
+            docker pull shumaslaghari/job-hunt-client:latest
+            cd /codelab/job-hunt
+            docker-compose up
