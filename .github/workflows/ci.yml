@@ -19,7 +19,7 @@ jobs:
           path: ~/.npm
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Build docker image
-        run: docker build . -t shumaslaghari/job-hunt-client:latest -f ./apps/job-hunt/
+        run: docker build . -t shumaslaghari/job-hunt-client:latest -f ./apps/job-hunt/Dockerfile
 
   # deploy:
   #   - name: Login to Docker Hub
