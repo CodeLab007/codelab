@@ -7,7 +7,6 @@ RUN apk add --no-cache libc6-compat
 RUN apk update
 # Set working directory
 WORKDIR /app
-# Install turbo globally
 RUN yarn global add turbo
 COPY . .
 RUN turbo prune --scope='@codelab/job-hunt' --docker
@@ -27,22 +26,22 @@ RUN yarn install
 # Build the project
 COPY --from=builder /app/out/full/ .
 COPY turbo.json turbo.json
-RUN yarn turbo run build --filter='@codelab/job-hunt'
+RUN yarn turbo run build --filter='@codelab/job-hunt'...
 
 FROM node:alpine AS runner
 WORKDIR /app
 
 # Don't run production as root
-# RUN addgroup --system --gid 1001 nodejs
-# RUN adduser --system --uid 1001 nextjs
-# USER nextjs
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+USER nextjs
 
 COPY --from=installer /app/apps/job-hunt/next.config.js .
 COPY --from=installer /app/apps/job-hunt/package.json .
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
-# COPY --from=installer --chown=nextjs:nodejs /app/apps/job-hunt/.next/standalone ./
-# COPY --from=installer --chown=nextjs:nodejs /app/apps/job-hunt/.next/static ./apps/job-hunt/.next/static
+COPY --from=installer --chown=nextjs:nodejs /app/apps/job-hunt/.next/standalone ./
+COPY --from=installer --chown=nextjs:nodejs /app/apps/job-hunt/.next/static ./apps/job-hunt/.next/static
 
-CMD ["yarn","run","start"]
+CMD node apps/job-hunt/server.js
