@@ -40,5 +40,5 @@ jobs:
           passphrase: ${{secrets.DIGITALOCEAN_SSH_PASSPHRASE}}
           script: |
             docker pull shumaslaghari/job-hunt-client:latest
-            cd /codelab/job-hunt
+            cd ./codelab/job-hunt
             docker-compose up
