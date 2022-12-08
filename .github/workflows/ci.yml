@@ -20,7 +20,6 @@ jobs:
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Build docker image
         run: docker build . -t shumaslaghari/job-hunt-client:latest -f ./apps/job-hunt/Dockerfile
-
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -31,12 +30,12 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Push to Dockerhub
-        run: docker push shumaslaghari/job-hunt-client
+        run: docker push shumaslaghari/job-hunt-client:latest
       - name: Connect to digital ocean via ssh and deploy
         uses: appleboy/ssh-action@master
         with:
           host: ${{secrets.DIGITALOCEAN_HOST}}
           key: ${{secrets.DIGITALOCEAN_SSH_KEY}}
           passphrase: ${{secrets.DIGITALOCEAN_SSH_PASSPHRASE}}
-        script: |
-          docker-compose up -f ./docker-compose.prod.yml
+          script: |
+            docker-compose up -f ./docker-compose.prod.yml
