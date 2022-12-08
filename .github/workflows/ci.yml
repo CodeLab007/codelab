@@ -6,7 +6,7 @@ on:
   # pull_request:
   #   types: [closed]
 jobs:
-  build:
+  # build:
     # container:
     #   image: node:18
     # runs-on: ubuntu-latest
