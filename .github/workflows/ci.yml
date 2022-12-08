@@ -1,4 +1,4 @@
-name: @codelab/jobhunt - Deploy to PROD (main)
+name: codelab/jobhunt - Deploy to PROD (main)
 on:
   push:
     branches: ['main']
