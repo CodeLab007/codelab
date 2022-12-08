@@ -14,7 +14,7 @@ services:
     stdin_open: true
     tty: true
     ports:
-      - '80:80'
+      - '80:3000'
     # Bind mount for live changes
     # volumes:
     # bind mount to over write content of container folder with out host folder (to reflect changes immediately)
