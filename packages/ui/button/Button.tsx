@@ -6,14 +6,5 @@ export interface IProps {
 }
 
 export const Button = ({ label, primary }: IProps) => {
-  return (
-    <button
-      className='btn'
-      style={{
-        color: primary ? 'black' : 'blue',
-      }}
-    >
-      {label}
-    </button>
-  );
+  return <button className="btn btn-secondary">Button 5</button>;
 };

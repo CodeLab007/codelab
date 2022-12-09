@@ -1,0 +1,165 @@
+// Theme Colors
+$primary: #fa6400;
+$secondary: #fa6400;
+$success: #19d16f;
+$info: #7e33e0;
+$danger: #fb2448;
+$light: #ced4da;
+$white: #fff;
+
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #6c757d !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black: #000;
+$dark: #313131;
+$warning: #ffa454;
+
+$theme-colors: (
+  'primary': $primary,
+  'secondary': $secondary,
+  'success': $success,
+  'info': $info,
+  'danger': $danger,
+  'light': $light,
+  'dark': $dark,
+  'warning': $warning,
+  'white': $white,
+);
+
+// Global Config
+$enable-button-pointers: true !default;
+
+$component-active-color: $white !default;
+$component-active-bg: $primary !default;
+
+$min-font-size: 12px;
+$clamp-scalar: 3vw;
+
+$min-contrast-ratio:   3 !default;
+$color-contrast-dark:      $black !default;
+$color-contrast-light:     $white !default;
+
+// Body
+$body-bg: $white !default;
+$body-color: $gray-900 !default;
+$body-text-align: null !default;
+
+// Base Font
+$font-size-min: 12px;
+
+$font-size-root: null !default;
+$font-size-base: 1rem !default; // Assumes the browser default, typically `16px`
+$font-size-sm: $font-size-base * 0.875 !default;
+$font-size-lg: $font-size-base * 1.25 !default;
+
+$font-weight-lighter: lighter !default;
+$font-weight-light: 300 !default;
+$font-weight-normal: 400 !default;
+$font-weight-semibold: 600 !default;
+$font-weight-bold: 700 !default;
+$font-weight-bolder: bolder !default;
+
+$font-weight-base: $font-weight-normal !default;
+
+$line-height-base: 1.5 !default;
+$line-height-sm: 1.25 !default;
+$line-height-lg: 2 !default;
+
+// Borders
+
+$border-width: 1px !default;
+$border-widths: (
+  1: 1px,
+  2: 2px,
+  3: 3px,
+  4: 4px,
+  5: 5px,
+) !default;
+
+$border-style: solid !default;
+$border-color: $gray-300 !default;
+$border-color-translucent: rgba($black, 0.175) !default;
+
+// Border radius
+$border-radius: 0.375rem !default;
+$border-radius-sm: 0.25rem !default;
+$border-radius-lg: 0.5rem !default;
+$border-radius-xl: 1rem !default;
+$border-radius-2xl: 2rem !default;
+$border-radius-pill: 50rem !default;
+
+// Input Button
+
+$input-btn-font-size: $font-size-base !default;
+$input-btn-line-height: $line-height-base !default;
+
+$input-btn-focus-width: 0.25rem !default;
+$input-btn-focus-color-opacity: 0.25 !default;
+$input-btn-focus-color: rgba($component-active-bg, $input-btn-focus-color-opacity) !default;
+$input-btn-focus-blur: 0 !default;
+$input-btn-focus-box-shadow: 0 0 $input-btn-focus-blur $input-btn-focus-width $input-btn-focus-color !default;
+
+$input-btn-padding-y-sm: 0.25rem !default;
+$input-btn-padding-x-sm: 0.5rem !default;
+$input-btn-font-size-sm: $font-size-sm !default;
+
+$input-btn-padding-y-lg: 0.5rem !default;
+$input-btn-padding-x-lg: 1rem !default;
+$input-btn-font-size-lg: $font-size-lg !default;
+
+$input-btn-border-width: $border-width !default;
+
+// Button
+$btn-padding-y: 0.375rem !default;
+$btn-padding-x: 0.75rem !default;
+$btn-font-family: null !default;
+$btn-font-size: $font-size-base !default;
+$btn-line-height: $line-height-base !default;
+$btn-white-space: null !default; // Set to `nowrap` to prevent text wrapping
+
+$btn-padding-y-sm: 0.25rem !default;
+$btn-padding-x-sm: 0.5rem !default;
+$btn-font-size-sm: $font-size-sm !default;
+
+$btn-padding-y-lg: 0.5rem !default;
+$btn-padding-x-lg: 1rem !default;
+$btn-font-size-lg: $font-size-lg !default;
+
+$btn-border-width: $border-width !default;
+
+$btn-font-weight: $font-weight-normal !default;
+$btn-box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0 !default;
+$btn-hover-box-shadow:rgba(0, 0, 0, 0.1) 0 4px 12px !default;
+$btn-focus-width: 0.25rem !default;
+$btn-focus-color-opacity: 0.25 !default;
+$btn-focus-color: rgba($component-active-bg, $input-btn-focus-color-opacity) !default;
+$btn-focus-box-shadow: 0 0 0 0.25rem $btn-focus-color !default;
+$btn-disabled-opacity: 0.65 !default;
+$btn-active-box-shadow: inset 0 3px 5px rgba($black, 0.125) !default;
+
+// $btn-link-color: var(--#{$prefix}link-color) !default;
+// $btn-link-hover-color: var(--#{$prefix}link-hover-color) !default;
+$btn-link-disabled-color: $gray-600 !default;
+
+// Allows for customizing button radius independently from global border radius
+$btn-border-radius: $border-radius !default;
+$btn-border-radius-sm: $border-radius-sm !default;
+$btn-border-radius-lg: $border-radius-lg !default;
+
+$btn-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+  border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !default;
+
+$btn-hover-bg-shade-amount: 15% !default;
+$btn-hover-bg-tint-amount: 15% !default;
+$btn-hover-border-shade-amount: 20% !default;
+$btn-hover-border-tint-amount: 10% !default;
+$btn-active-bg-shade-amount: 20% !default;
+$btn-active-bg-tint-amount: 20% !default;
+$btn-active-border-shade-amount: 25% !default;
+$btn-active-border-tint-amount: 10% !default;
