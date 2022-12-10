@@ -1,4 +1,4 @@
-import { Button } from '@codelab/ui';
+import { ClButton } from '@codelab/ui';
 import Head from 'next/head';
 
 import styles from '../scss/Home.module.css';
@@ -17,7 +17,7 @@ export default function Home() {
           Welcome to <a href='https://nextjs.org'>JobHunt!</a>
         </h1>
 
-        <Button label='This is a default button' primary={false} />
+        <ClButton variant='primary' >Click Me</ClButton>
       </main>
 
       {/* <footer className={styles.footer}>
