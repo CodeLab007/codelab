@@ -1,0 +1,6 @@
+{
+  "name": "lib",
+  "dependencies": {
+    "typescript": "^4.5.2"
+  }
+}
