@@ -6,23 +6,43 @@ import { ComponentAttrs } from '../types/general';
 
 import { classNames } from '../../lib/classNames';
 
-interface IProps extends ComponentAttrs {
-    
+type AccordionProps =
+  | ({ type: 'single' } & Accordion.AccordionSingleProps)
+  | ({ type: 'multiple' } & Accordion.AccordionImplMultipleProps);
+
+interface ITriggerProps extends Accordion.AccordionTriggerProps {
+  headerProps?: Accordion.AccordionHeaderProps;
 }
 
-export const ClAccordion = () => (
-  <Accordion.Root className='accordion' type='single' defaultValue='item-1' collapsible>
-    <Accordion.Item className='accordion__item' value='item-1'>
-      <AccordionTrigger>TR</AccordionTrigger>
-      <AccordionContent>Yes. It adheres to the WAI-ARIA design pattern.</AccordionContent>
-    </Accordion.Item>
-  </Accordion.Root>
-);
+interface IAccordionItemProps extends Accordion.AccordionItemProps {
+  triggerProps: ITriggerProps;
+  contentProps: Accordion.AccordionContentProps;
+}
 
-const AccordionTrigger = React.forwardRef<HTMLButtonElement, ComponentAttrs>(
-  ({ children, className = '', ...rest }, forwardedRef) => {
+export type IAccordionProps = AccordionProps & {
+  items: IAccordionItemProps[];
+};
+
+export const ClAccordion = ({ items, ...rest }: IAccordionProps) => {
+  const itemsJSX = items.map(({ triggerProps, contentProps, value, ...rest }) => (
+    <Accordion.Item key={value} value={value} className='accordion__item' {...rest}>
+      <AccordionTrigger {...triggerProps}>{triggerProps.children}</AccordionTrigger>
+      <AccordionContent {...contentProps} value={value}>
+        {contentProps.children}
+      </AccordionContent>
+    </Accordion.Item>
+  ));
+  return (
+    <Accordion.Root className='accordion' {...rest}>
+      {itemsJSX}
+    </Accordion.Root>
+  );
+};
+
+const AccordionTrigger = React.forwardRef<HTMLButtonElement, ITriggerProps>(
+  ({ children, className = '', headerProps, ...rest }, forwardedRef) => {
     return (
-      <Accordion.Header className='accordion__header'>
+      <Accordion.Header {...headerProps} className='accordion__header'>
         <Accordion.Trigger
           className={classNames('accordion__trigger', className)}
           {...rest}
@@ -37,7 +57,7 @@ const AccordionTrigger = React.forwardRef<HTMLButtonElement, ComponentAttrs>(
 );
 AccordionTrigger.displayName = 'AccordionTrigger';
 
-const AccordionContent = React.forwardRef<HTMLDivElement, ComponentAttrs>(
+const AccordionContent = React.forwardRef<HTMLDivElement, Accordion.AccordionItemProps>(
   ({ children, className = '', ...rest }, forwardedRef) => (
     <Accordion.Content
       className={classNames('accordion__content', className)}

@@ -1,6 +1,6 @@
 import { ComponentAttrs, Variant } from '../types/general';
 
-export interface IProps extends ComponentAttrs {
+export interface IButtonProps extends ComponentAttrs {
   variant: Variant;
   disabled?: boolean;
   onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
@@ -8,7 +8,7 @@ export interface IProps extends ComponentAttrs {
 
 import { classNames } from '../../lib/classNames';
 
-export const ClButton = ({ variant, children, className = '', ...rest }: IProps) => {
+export const ClButton = ({ variant, children, className = '', ...rest }: IButtonProps) => {
   return (
     <button className={classNames('btn', `btn-${variant}`, className)} {...rest}>
       {children}
