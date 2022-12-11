@@ -1,9 +1,34 @@
-import { ClButton } from '@codelab/ui';
+import { ClAccordion, ClButton, IAccordionProps } from '@codelab/ui';
 import Head from 'next/head';
 
 import styles from '../scss/Home.module.css';
 
 export default function Home() {
+  const accordionProps: IAccordionProps = {
+    type: 'single',
+    collapsible:true,
+    items: [
+      {
+        value: 'accordion-1',
+        triggerProps: {
+          children: 'item:1',
+        },
+        contentProps: {
+          children: 'item1',
+        },
+      },
+      {
+        value: 'accordion-2',
+        triggerProps: {
+          children: 'item:2',
+        },
+        contentProps: {
+          children: 'item2',
+        },
+      },
+    ],
+  };
+
   return (
     <div className={styles.container}>
       <Head>
@@ -13,22 +38,9 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href='https://nextjs.org'>JobHunt!</a>
-        </h1>
-
+        <ClAccordion {...accordionProps} />
         <ClButton variant='primary'>Click Me</ClButton>
       </main>
-
-      {/* <footer className={styles.footer}>
-        <a
-          href='https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          Powered by <span className={styles.logo}>JobHunt</span>
-        </a>
-      </footer> */}
     </div>
   );
 }
