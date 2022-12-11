@@ -11,7 +11,7 @@ export default function Home() {
       {
         value: 'accordion-1',
         triggerProps: {
-          children: 'item:1',
+          children: 'item1',
         },
         contentProps: {
           children: 'item1',
@@ -20,7 +20,7 @@ export default function Home() {
       {
         value: 'accordion-2',
         triggerProps: {
-          children: 'item:2',
+          children: 'item2',
         },
         contentProps: {
           children: 'item2',
