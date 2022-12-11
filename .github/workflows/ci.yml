@@ -1,0 +1,46 @@
+name: codelab/jobhunt - Deploy to PROD (main)
+on:
+  push:
+    branches: ['main']
+  workflow_dispatch:
+  # pull_request:
+  #   types: [closed]
+jobs:
+  build:
+    # container:
+    #   image: node:18
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Cache depenencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+      - name: Build docker image
+        run: docker build . -t shumaslaghari/job-hunt-client:latest -f ./apps/job-hunt/Dockerfile
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Push to Dockerhub
+        run: docker push shumaslaghari/job-hunt-client:latest
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Connect to digital ocean via ssh and deploy
+        uses: appleboy/ssh-action@master
+        with:
+          username: ${{secrets.DIGITALOCEAN_USERNAME}}
+          host: ${{secrets.DIGITALOCEAN_HOST}}
+          key: ${{secrets.DIGITALOCEAN_SSH_KEY}}
+          passphrase: ${{secrets.DIGITALOCEAN_SSH_PASSPHRASE}}
+          script: |
+            docker pull shumaslaghari/job-hunt-client:latest
+            cd ./codelab/job-hunt/prod
+            docker-compose pull
+            docker-compose up -d
+            exit

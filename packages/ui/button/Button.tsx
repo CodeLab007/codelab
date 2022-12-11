@@ -1,19 +1,17 @@
-import * as React from 'react';
+import { ComponentAttrs, Variant } from '../types/general';
 
-export interface IProps {
-  label: string;
-  primary: boolean;
+export interface IButtonProps extends ComponentAttrs {
+  variant: Variant;
+  disabled?: boolean;
+  onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
 }
 
-export const Button = ({ label, primary }: IProps) => {
+import { classNames } from '../../lib/classNames';
+
+export const ClButton = ({ variant, children, className = '', ...rest }: IButtonProps) => {
   return (
-    <button
-      className='btn'
-      style={{
-        color: primary ? 'black' : 'blue',
-      }}
-    >
-      {label}
+    <button className={classNames('btn', `btn-${variant}`, className)} {...rest}>
+      {children}
     </button>
   );
 };

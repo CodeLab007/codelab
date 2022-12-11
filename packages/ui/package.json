@@ -25,12 +25,16 @@
     "eslint": "^7.32.0",
     "eslint-config-custom": "*",
     "react": "^18.2.0",
+    "sass": "^1.56.2",
     "tsconfig": "*",
     "typescript": "^4.5.2"
   },
   "dependencies": {
+    "@radix-ui/react-accordion": "^1.0.1",
     "init": "^0.1.2",
+    "react-icons": "^4.7.1",
     "react-scripts": "^5.0.1",
-    "storybook": "^6.5.14"
+    "storybook": "^6.5.14",
+    "@codelab/lib": "*"
   }
 }
