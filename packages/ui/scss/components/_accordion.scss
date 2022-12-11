@@ -1,7 +1,7 @@
 .accordion {
   border-radius: 6px;
   width: 100%;
-  background-color: $primary;
+  background-color: $light;
   box-shadow: $box-shadow;
 
   &__item {
@@ -41,7 +41,7 @@
     box-shadow: $box-shadow-sm;
     background-color: white;
     &:hover {
-      background-color: $light;
+      background-color: $gray-100;
     }
     &[data-state='open'] {
       & > .accordion__chevron {
