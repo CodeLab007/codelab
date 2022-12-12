@@ -2,8 +2,6 @@ import React from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
 import { RxChevronDown } from 'react-icons/rx';
 
-import { ComponentAttrs } from '../types/general';
-
 import { classNames } from '../../lib/classNames';
 
 type AccordionProps =
