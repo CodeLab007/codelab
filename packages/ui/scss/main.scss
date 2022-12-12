@@ -2,11 +2,10 @@
 @import './abstracts/functions';
 @import './abstracts/mixins';
 
-// Base
+
 @import './base/globals';
 @import './base/resets';
 
-// components
 
 @import './components/button';
 @import './components/accordion';
