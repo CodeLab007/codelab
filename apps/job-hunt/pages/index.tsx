@@ -1,33 +1,11 @@
-import { ClAccordion, ClButton, IAccordionProps } from '@codelab/ui';
+import { ClTooltip } from '@codelab/ui';
 import Head from 'next/head';
 
 import styles from '../scss/Home.module.css';
 
 export default function Home() {
-  const accordionProps: IAccordionProps = {
-    type: 'single',
-    collapsible:true,
-    items: [
-      {
-        value: 'accordion-1',
-        triggerProps: {
-          children: 'item1',
-        },
-        contentProps: {
-          children: 'item1',
-        },
-      },
-      {
-        value: 'accordion-2',
-        triggerProps: {
-          children: 'item2',
-        },
-        contentProps: {
-          children: 'item2',
-        },
-      },
-    ],
-  };
+  
+  const triggerChildren = <button>Tooltip Trigger</button>
 
   return (
     <div className={styles.container}>
@@ -38,8 +16,8 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <ClAccordion {...accordionProps} />
-        <ClButton variant='primary'>Click Me</ClButton>
+
+      <ClTooltip triggerProps={{children:triggerChildren}}>Test tooltip</ClTooltip>
       </main>
     </div>
   );

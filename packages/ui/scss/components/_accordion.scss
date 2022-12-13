@@ -1,21 +1,21 @@
 .accordion {
-  border-radius: 6px;
+  color:$accordion-color;
   width: 100%;
-  background-color: $light;
-  box-shadow: $box-shadow;
+  background-color: $accordion-bg;
+  box-shadow: $accordion-box-shadow;
 
   &__item {
     overflow: hidden;
-    margin-top: 1px;
+    margin-top: $accordion-margin-top;
 
     &:first-child {
       margin-top: 0;
-      border-top-left-radius: 4px;
-      border-top-right-radius: 4px;
+      border-top-left-radius: $accordion-border-radius;
+      border-top-right-radius:$accordion-border-radius;
     }
     &:last-child {
-      border-bottom-left-radius: 4px;
-      border-bottom-right-radius: 4px;
+      border-bottom-left-radius: $accordion-border-radius;
+      border-bottom-right-radius: $accordion-border-radius;
     }
     &:focus-within {
       position: relative;
@@ -29,45 +29,42 @@
   &__trigger {
     font-family: inherit;
     background-color: transparent;
-    padding: 0 20px;
-    height: 45px;
+    padding: $accordion-padding-y $accordion-padding-x;
+    // height: 45px;
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-size: 15px;
-    line-height: 1;
-    color:$primary;
+    // color:$primary;
     box-shadow: $box-shadow-sm;
-    background-color: white;
+    background-color: $accordion-trigger-bg;
     &:hover {
-      background-color: $gray-100;
+      background-color: $accordion-trigger-hover-bg;
     }
     &[data-state='open'] {
       & > .accordion__chevron {
-        transform: rotate(180deg);
+        transform: $accordion-icon-transform;
       }
     }
   }
   &__content {
     overflow: hidden;
-    font-size: 15px;
-    color: $primary;
-    background-color: hsl(300, 7.7%, 97.5%);
+    background-color: $accordion-content-bg;
 
     &[data-state='open'] {
-      animation: slideDown 300ms cubic-bezier(0.87, 0, 0.13, 1);
+      animation: slideDown 300ms cubic-bezier(0.87, 0, 0.13, 1) ;
     }
     &[data-state='closed'] {
       animation: slideUp 300ms cubic-bezier(0.87, 0, 0.13, 1);
     }
     &__text {
-      padding: 15px 20px;
+      padding: $accordion-padding-y $accordion-padding-x;
     }
   }
   &__chevron {
-    color: $dark;
-    transition: transform 300ms cubic-bezier(0.87, 0, 0.13, 1);
+
+    color: $accordion-color;
+    transition: $accordion-icon-transition;
   }
 }
 
