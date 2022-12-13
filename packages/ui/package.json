@@ -1,6 +1,6 @@
 {
   "name": "@codelab/ui",
-  "version": "0.0.0",
+  "version": "2.0.0",
   "main": "./index.tsx",
   "types": "./index.tsx",
   "license": "MIT",
@@ -33,6 +33,7 @@
   "dependencies": {
     "@codelab/lib": "*",
     "@radix-ui/react-accordion": "^1.0.1",
+    "@radix-ui/react-tooltip": "^1.0.2",
     "init": "^0.1.2",
     "react-icons": "^4.7.1",
     "react-scripts": "^5.0.1",
