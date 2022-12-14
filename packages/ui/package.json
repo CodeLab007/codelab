@@ -1,9 +1,8 @@
 {
   "name": "@codelab/ui",
   "version": "0.0.1",
-  "main": "dist/index.js",
-  "module": "dist/index.es.js",
-  "types": "./src/types/general",
+  "main": "./index.ts",
+  "types": "./index.ts",
   "license": "MIT",
   "type": "module",
   "scripts": {
