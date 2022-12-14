@@ -1,10 +1,10 @@
-import { ClTooltip } from '@codelab/ui';
+import { ClButton, ClTooltip } from '@codelab/ui';
 import Head from 'next/head';
 
 import styles from '../scss/Home.module.css';
 
 export default function Home() {
-  const triggerChildren = <button>Tooltip Trigger</button>;
+  const triggerChildren = 'Tooltip Trigger';
 
   return (
     <div className={styles.container}>
@@ -16,6 +16,7 @@ export default function Home() {
 
       <main className={styles.main}>
         <ClTooltip triggerProps={{ children: triggerChildren }}>Test tooltip</ClTooltip>
+        <ClButton variant={'primary'}>Test button</ClButton>
       </main>
     </div>
   );
