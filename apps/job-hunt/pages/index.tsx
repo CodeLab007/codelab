@@ -22,7 +22,13 @@ export default function Home() {
         <ClButton variant={'primary'} aria-label='Test' title='This is a test'>
           Test button
         </ClButton>
-        <ClSwitch htmlFor='Test' label='Airplane mode' />
+        <ClSwitch
+          htmlFor='Test'
+          label='Airplane mode'
+          onTurnedOn={() => {
+            alert('Turned On');
+          }}
+        />
       </main>
     </div>
   );
