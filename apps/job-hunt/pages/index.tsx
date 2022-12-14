@@ -18,7 +18,10 @@ export default function Home() {
         <ClTooltip triggerProps={{ children: triggerChildren, className: 'btn btn-primary' }}>
           Test tooltip
         </ClTooltip>
-        {/* <ClButton variant={'primary'}>Test button</ClButton> */}
+
+        <ClButton variant={'primary'} aria-label='Test' title='This is a test'>
+          Test button
+        </ClButton>
       </main>
     </div>
   );

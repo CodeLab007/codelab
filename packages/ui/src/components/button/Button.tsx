@@ -1,13 +1,12 @@
-import { ComponentAttrs, Variant } from '../../types/general';
+import { Variant } from '../../types/general';
+import { classNames } from '@codelab/lib';
 
-export interface IButtonProps extends ComponentAttrs {
+export interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant: Variant;
   disabled?: boolean;
   onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
   text?: string;
 }
-
-import { classNames } from '@codelab/lib';
 
 export const ClButton = ({ variant, children, text, className = '', ...rest }: IButtonProps) => {
   return (
