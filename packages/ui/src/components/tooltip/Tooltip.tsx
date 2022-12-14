@@ -1,6 +1,6 @@
 import React from 'react';
 import * as Tooltip from '@radix-ui/react-tooltip';
-import { ComponentAttrs } from '../types/general';
+import { ComponentAttrs, Variant } from '../../types/general';
 
 export interface ITooltipProps extends ComponentAttrs {
   showArrow?: boolean;
