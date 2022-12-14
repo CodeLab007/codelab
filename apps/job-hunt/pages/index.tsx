@@ -4,8 +4,7 @@ import Head from 'next/head';
 import styles from '../scss/Home.module.css';
 
 export default function Home() {
-  
-  const triggerChildren = <button>Tooltip Trigger</button>
+  const triggerChildren = <button>Tooltip Trigger</button>;
 
   return (
     <div className={styles.container}>
@@ -16,8 +15,7 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-
-      <ClTooltip triggerProps={{children:triggerChildren}}>Test tooltip</ClTooltip>
+        <ClTooltip triggerProps={{ children: triggerChildren }}>Test tooltip</ClTooltip>
       </main>
     </div>
   );
