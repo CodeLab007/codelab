@@ -15,8 +15,10 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <ClTooltip triggerProps={{ children: triggerChildren }}>Test tooltip</ClTooltip>
-        <ClButton variant={'primary'}>Test button</ClButton>
+        <ClTooltip triggerProps={{ children: triggerChildren, className: 'btn btn-primary' }}>
+          Test tooltip
+        </ClTooltip>
+        {/* <ClButton variant={'primary'}>Test button</ClButton> */}
       </main>
     </div>
   );
