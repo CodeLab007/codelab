@@ -1,4 +1,4 @@
-import { ClButton, ClTooltip } from '@codelab/ui';
+import { ClButton, ClSwitch, ClTooltip } from '@codelab/ui';
 import Head from 'next/head';
 
 import styles from '../scss/Home.module.css';
@@ -22,6 +22,7 @@ export default function Home() {
         <ClButton variant={'primary'} aria-label='Test' title='This is a test'>
           Test button
         </ClButton>
+        <ClSwitch htmlFor='Test' label='Airplane mode' />
       </main>
     </div>
   );

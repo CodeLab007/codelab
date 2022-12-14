@@ -1,12 +1,4 @@
-@import './abstracts/functions';
-@import './abstracts/variables';
-@import './abstracts/mixins';
-
-
-@import './base/globals';
-@import './base/resets';
-
-
-@import './components/button';
-@import './components/accordion';
-@import './components/tooltip';
+// Import all the scss files here
+@import './abstracts';
+@import './base';
+@import './components';
