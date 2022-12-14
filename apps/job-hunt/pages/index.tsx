@@ -1,4 +1,3 @@
-import { ClAccordion, ClButton, IAccordionProps } from '@codelab/ui';
 import Head from 'next/head';
 
 import styles from '../scss/Home.module.css';
@@ -6,7 +5,7 @@ import styles from '../scss/Home.module.css';
 export default function Home() {
   const accordionProps: IAccordionProps = {
     type: 'single',
-    collapsible:true,
+    collapsible: true,
     items: [
       {
         value: 'accordion-1',
@@ -39,7 +38,7 @@ export default function Home() {
 
       <main className={styles.main}>
         <ClAccordion {...accordionProps} />
-        <ClButton variant='primary'>Click Me</ClButton>
+        <ClButton variant={'primary'}>Click Me</ClButton>
       </main>
     </div>
   );

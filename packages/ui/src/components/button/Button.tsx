@@ -1,4 +1,4 @@
-import { ComponentAttrs, Variant } from '../types/general';
+import { ComponentAttrs, Variant } from '../../types/general';
 
 export interface IButtonProps extends ComponentAttrs {
   variant: Variant;
@@ -7,7 +7,7 @@ export interface IButtonProps extends ComponentAttrs {
   text?: string;
 }
 
-import { classNames } from '../../lib/classNames';
+import { classNames } from '@codelab/lib';
 
 export const ClButton = ({ variant, children, text, className = '', ...rest }: IButtonProps) => {
   return (
