@@ -6,6 +6,7 @@
     "@codelab/job-hunt",
     "@codelab/ui",
     "@codelab/lib",
+    "@codelab/watcher",
     "@codelab/rollup-config",
     "apps/*",
     "packages/*"
