@@ -10,7 +10,7 @@ export interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEleme
 
 export const ClButton = ({ variant, children, text, className = '', ...rest }: IButtonProps) => {
   return (
-    <button className={classNames('btn', `btn-${variant}`, className)} {...rest}>
+    <button className={classNames('btn', `btn__${variant}`, className)} {...rest}>
       {text ? text : children}
     </button>
   );
