@@ -1,0 +1,6 @@
+body {
+  @include themed() {
+    color: t('text');
+    background: t('bg');
+  }
+}

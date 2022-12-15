@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
-import * as Switch from '@radix-ui/react-switch';
 import { classNames } from '@codelab/lib';
+import * as Switch from '@radix-ui/react-switch';
+import React from 'react';
 import { Variant } from '../../types/general';
+import { ClLabel } from '../label/Label';
 
 export interface ISwitchProps extends React.HTMLAttributes<HTMLFormElement> {
   variant?: Variant;
   name?: string;
-  disabled?: boolean;
-  defaultChecked?: boolean;
-  checked?: boolean;
-  required?: boolean;
-  value?: string;
+  disabled?: Switch.SwitchProps['disabled'];
+  defaultChecked?: Switch.SwitchProps['defaultChecked'];
+  checked?: Switch.SwitchProps['checked'];
+  required?: Switch.SwitchProps['required'];
+  value?: Switch.SwitchProps['value'];
   label?: string;
   htmlFor?: string;
-  onTurnedOn?: () => void;
-  onTurnedOff?: () => void;
+  onCheckedChange?: Switch.SwitchProps['onCheckedChange'];
 }
 
 export const ClSwitch = ({
@@ -27,22 +27,14 @@ export const ClSwitch = ({
   value,
   label,
   htmlFor,
-  onTurnedOn,
-  onTurnedOff,
+  onCheckedChange,
 }: ISwitchProps) => {
-  const handleChange = (event: any) => {
-    if (event) {
-      console.log(event);
-    } else {
-      console.log(event);
-    }
-  };
   return (
     <form>
-      <div className='flex__center'>
-        <label className='label' htmlFor={htmlFor}>
+      <div className='flex__center transition'>
+        <ClLabel className='label' style={{ paddingRight: '2px' }} htmlFor={htmlFor}>
           {label}
-        </label>
+        </ClLabel>
         <Switch.Root
           name={name}
           disabled={disabled}
@@ -50,12 +42,11 @@ export const ClSwitch = ({
           checked={checked}
           required={required}
           value={value}
-          onCheckedChange={(e) => {
-            handleChange(e);
-          }}
+          onCheckedChange={onCheckedChange}
           className={classNames('switch', `switch__${variant}`)}
           id={htmlFor}
         >
+          {/* <RxSun data-state={value} className='switch__icon' /> */}
           <Switch.Thumb className='switch__thumb' />
         </Switch.Root>
       </div>
