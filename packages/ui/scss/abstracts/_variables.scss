@@ -33,6 +33,34 @@ $theme-colors: (
 );
 
 // Global Config
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1150px,
+  xxl: 1330px,
+);
+
+$grid-breakpoints: (
+  xs: 400px,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px,
+);
+
+$spacer: 1rem !default;
+$spacers: (
+  0: 0,
+  1: $spacer * 0.25,
+  2: $spacer * 0.5,
+  3: $spacer,
+  4: $spacer * 1.5,
+  5: $spacer * 3,
+) !default;
+
 $enable-button-pointers: true !default;
 
 $component-active-color: $white !default;
@@ -178,7 +206,7 @@ $accordion-icon-transform: rotate(180deg) !default;
 $tooltip-border-radius: $border-radius-sm;
 $tooltip-padding-y: 0.625rem;
 $tooltip-padding-x: 0.9375rem;
-$tooltip-color: $body-color;
-$tooltip-bg: $body-bg;
+$tooltip-color: $body-bg;
+$tooltip-bg: $body-color;
 $tooltip-box-shadow: $box-shadow-sm, $box-shadow-sm, $box-shadow-sm;
-$tooltip-arrow-bg: $body-bg;
+$tooltip-arrow-bg: $body-color;

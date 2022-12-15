@@ -1,11 +1,11 @@
-import { ClTooltip } from '@codelab/ui';
+import { ClButton, ClToast } from '@codelab/ui';
 import Head from 'next/head';
+import { useState } from 'react';
 
 import styles from '../scss/Home.module.css';
 
 export default function Home() {
-  
-  const triggerChildren = <button>Tooltip Trigger</button>
+  const [open, setOpen] = useState(false);
 
   return (
     <div className={styles.container}>
@@ -16,8 +16,9 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-
-      <ClTooltip triggerProps={{children:triggerChildren}}>Test tooltip</ClTooltip>
+        <button className="btn btn-primary" onClick = {setOpen.bind(null,true)}>Open Toast</button>
+        <ClToast open={open} onOpenChange={setOpen} titleProps={{ children: 'Test' }} descriptionProps={{children:"This is the description of toast"}}></ClToast>
+        <ClButton variant='danger'>Test</ClButton>
       </main>
     </div>
   );

@@ -21,7 +21,7 @@ export const ClTooltip = ({
   return (
     <Tooltip.Provider {...providerProps}>
       <Tooltip.Root>
-        <Tooltip.Trigger {...triggerProps}>{triggerProps.children}</Tooltip.Trigger>
+        <Tooltip.Trigger  {...triggerProps}>{triggerProps.children}</Tooltip.Trigger>
         <Tooltip.Portal>
           <Tooltip.Content className='tooltip__content' {...contentProps}>
             {children}
