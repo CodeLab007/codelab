@@ -5,6 +5,7 @@
   "workspaces": [
     "@codelab/job-hunt",
     "@codelab/ui",
+    "@codelab/hooks",
     "@codelab/lib",
     "@codelab/watcher",
     "@codelab/rollup-config",

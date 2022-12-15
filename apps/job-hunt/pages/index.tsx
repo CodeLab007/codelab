@@ -1,6 +1,6 @@
 import { ClButton, ClLabel, ClSwitch, ClTooltip } from '@codelab/ui';
+import { useLocalStorage } from '@codelab/hooks';
 import Head from 'next/head';
-import { useState } from 'react';
 
 import styles from '../scss/Home.module.css';
 
@@ -8,7 +8,7 @@ export default function Home() {
   const triggerChildren = 'Tooltip Trigger';
 
   //set ts type to default or dark
-  const [theme, setTheme] = useState('default');
+  const [theme, setTheme] = useLocalStorage('theme', 'dark');
 
   const handleThemeChange = () => {
     if (theme === 'default') {
