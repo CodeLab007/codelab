@@ -2,7 +2,7 @@ import React from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
 import { RxChevronDown } from 'react-icons/rx';
 
-import { classNames } from '../../lib/classNames';
+import { classNames } from '@codelab/lib';
 
 type AccordionProps =
   | ({ type: 'single' } & Accordion.AccordionSingleProps)

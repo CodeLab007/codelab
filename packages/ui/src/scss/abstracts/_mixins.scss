@@ -43,18 +43,34 @@
   }
 }
 
-@mixin generateResponsiveClasses($class-prefix) {
-  @each $breakpoint in map-keys($grid-breakpoints) {
+@mixin flex-center() {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-    
-
-    .#{$class-prefix}-{
-
+@mixin generateResponsiveClasses($class-prefix, $property, $values-map, $unit: '') {
+  @each $breakpoint, $breakpoint-value in $grid-breakpoints {
+    @each $key, $value in $values-map {
+      @if $breakpoint == xs {
+        .#{$class-prefix}-#{$key} {
+          @if ($unit != '') {
+            #{$property}: $value $unit !important;
+          } @else {
+            #{$property}: $value !important;
+          }
+        }
+      } @else {
+        @media (min-width: $breakpoint-value) {
+          .#{$class-prefix}-#{$breakpoint}-#{$key} {
+            @if ($unit != '') {
+              #{$property}: $value $unit !important;
+            } @else {
+              #{$property}: $value !important;
+            }
+          }
+        }
+      }
     }
-
-  
-   
-    
   }
-  
 }

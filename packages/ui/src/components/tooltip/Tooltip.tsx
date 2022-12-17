@@ -1,8 +1,8 @@
 import React from 'react';
 import * as Tooltip from '@radix-ui/react-tooltip';
-import { ComponentAttrs } from '../types/general';
+import { ComponentAttrs, Variant } from '../../types/general';
 
-export interface ITooltipProps extends ComponentAttrs {
+export interface ITooltipProps extends Tooltip.TooltipProps {
   showArrow?: boolean;
   arrowProps?: Tooltip.TooltipArrowProps;
   triggerProps: Tooltip.TooltipTriggerProps;
@@ -17,10 +17,11 @@ export const ClTooltip = ({
   contentProps,
   providerProps,
   children,
+  ...rest
 }: ITooltipProps) => {
   return (
     <Tooltip.Provider {...providerProps}>
-      <Tooltip.Root>
+      <Tooltip.Root {...rest}>
         <Tooltip.Trigger  {...triggerProps}>{triggerProps.children}</Tooltip.Trigger>
         <Tooltip.Portal>
           <Tooltip.Content className='tooltip__content' {...contentProps}>

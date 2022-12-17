@@ -1,0 +1,19 @@
+
+
+// Margins
+@include generateResponsiveClasses(ms, margin-left, $spacers-with-auto);
+@include generateResponsiveClasses(me, margin-right, $spacers-with-auto);
+@include generateResponsiveClasses(mt, margin-top, $spacers-with-auto);
+@include generateResponsiveClasses(mb, margin-bottom, $spacers-with-auto);
+@include generateResponsiveClasses(mx, margin-inline, $spacers-with-auto);
+@include generateResponsiveClasses(my, margin-block, $spacers-with-auto);
+@include generateResponsiveClasses(m, margin, $spacers-with-auto);
+
+// Paddings
+@include generateResponsiveClasses(ps, padding-left, $spacers-with-auto);
+@include generateResponsiveClasses(pe, padding-right, $spacers-with-auto);
+@include generateResponsiveClasses(pt, padding-top, $spacers-with-auto);
+@include generateResponsiveClasses(pb, padding-bottom, $spacers-with-auto);
+@include generateResponsiveClasses(px, padding-inline, $spacers-with-auto);
+@include generateResponsiveClasses(py, padding-block, $spacers-with-auto);
+@include generateResponsiveClasses(p, padding , $spacers-with-auto);

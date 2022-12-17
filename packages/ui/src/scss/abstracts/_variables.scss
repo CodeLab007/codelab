@@ -1,3 +1,5 @@
+@use "sass:map";
+
 // Theme Colors
 $primary: #fa6400;
 $secondary: #fa6400;
@@ -61,6 +63,8 @@ $spacers: (
   5: $spacer * 3,
 ) !default;
 
+$spacers-with-auto:map.set($spacers,auto,auto);
+
 $enable-button-pointers: true !default;
 
 $component-active-color: $white !default;
@@ -77,7 +81,7 @@ $color-contrast-light: $white !default;
 $body-bg: $white !default;
 $body-color: $gray-900 !default;
 $body-text-align: null !default;
-
+$body-font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
 // Base Font
 $font-size-min: 12px;
 
