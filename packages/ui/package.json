@@ -32,6 +32,7 @@
     "babel-loader": "^8.3.0",
     "eslint": "^7.32.0",
     "eslint-config-custom": "*",
+    "formik": "^2.2.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rollup": "^3.7.3",
@@ -55,5 +56,6 @@
     "react-icons": "^4.7.1",
     "react-scripts": "^5.0.1",
     "storybook": "^6.5.14"
-  }
+  },
+  "peerDependencies": {}
 }

@@ -1,13 +1,11 @@
-import { ClButton, ClLabel, ClSwitch, ClToast, ClTooltip } from '@codelab/ui';
+import { ClTextInput, ClTextInputFormik } from '@codelab/ui';
 import { useLocalStorage } from '@codelab/hooks';
 import Head from 'next/head';
 
-
 import styles from '../scss/Home.module.css';
+import { Formik } from 'formik';
 
 export default function Home() {
-  const triggerChildren = 'Tooltip Trigger';
-
   //set ts type to default or dark
   const [theme, setTheme] = useLocalStorage('theme', 'dark');
 
@@ -28,22 +26,19 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <ClTooltip triggerProps={{ children: triggerChildren, className: 'btn btn-primary' }}>
-          Test tooltip
-        </ClTooltip>
-
-        <ClButton variant={'primary'} aria-label='Test' title='This is a test'>
-          Test button
-        </ClButton>
-        <ClSwitch
-          htmlFor='Test'
-          label={theme === 'dark' ? 'Dark mode' : 'Light mode'}
-          onCheckedChange={handleThemeChange}
-        />
-        <ClLabel htmlFor='Test'>Test label</ClLabel>
-        <ClToast title='Hello title'>
-          Welcome to the toast world
-        </ClToast>
+        <Formik
+          initialValues={{ name: 'jared' }}
+          onSubmit={(values, actions) => {
+            console.log(values);
+          }}
+        >
+          {(props) => (
+            <form onSubmit={props.handleSubmit}>
+              <ClTextInputFormik name='name' type='text' placeholder='Hello world' />
+              <button type='submit'>Submit</button>
+            </form>
+          )}
+        </Formik>
       </main>
     </div>
   );

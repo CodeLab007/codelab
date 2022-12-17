@@ -1,0 +1,22 @@
+.form-control{
+    padding: $input-padding-y $input-padding-x;
+    border-radius:$input-border-radius;
+    box-shadow:$input-box-shadow;
+    border: $input-border;
+    width:100%;
+    display: block;
+
+    &::placeholder{
+        color:$input-placeholder-color
+    }
+    &.is-invalid{
+        border-color: $input-invalid-border-color;
+    }
+}
+
+
+.invalid-feedback{
+    color: $input-invalid-feedback-color;
+    font-size: $input-invalid-feedback-font-size;
+    margin-top:$input-invalid-feedback-margin-top;
+}

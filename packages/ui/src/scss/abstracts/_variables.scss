@@ -63,6 +63,15 @@ $spacers: (
   5: $spacer * 3,
 ) !default;
 
+$headings: (
+  'h1': 3.3125rem,
+  'h2': 2.625rem,
+  'h3': 2.1875rem,
+  'h4': 1.625rem,
+  'h5': 1.125rem,
+  'h6': 1rem,
+);
+
 $spacers-with-auto: map.set($spacers, auto, auto);
 
 $enable-button-pointers: true !default;
@@ -77,8 +86,8 @@ $min-contrast-ratio: 3 !default;
 $color-contrast-dark: $black !default;
 $color-contrast-light: $white !default;
 
-$general-padding-x: 2rem;
-$general-padding-y: 1.25rem;
+$base-padding-x: 2rem;
+$base-padding-y: 1.25rem;
 
 // Body
 $body-bg: $white !default;
@@ -225,8 +234,8 @@ $toast-color: $body-color;
 $toast-bg: $body-bg;
 $toast-border-radius: $border-radius;
 $toast-box-shadow: $box-shadow;
-$toast-padding-right: $general-padding-x * 0.75;
-$toast-padding-y: $general-padding-y;
+$toast-padding-right: $base-padding-x * 0.75;
+$toast-padding-y: $base-padding-y;
 $toast-padding-left: 2rem;
 $toast-state-width: 6px;
 $toast-state-border-radius: 20px;
@@ -234,9 +243,21 @@ $toast-state-height: 70%;
 $toast-state-position: absolute;
 $toast-position-top: (100 - $toast-state-height) / 2;
 $toast-position-left: $toast-padding-left - ($toast-padding-left - 0.75rem);
-$toast-viewport-padding-x: $general-padding-x;
-$toast-viewport-padding-y: $general-padding-y;
+$toast-viewport-padding-x: $base-padding-x;
+$toast-viewport-padding-y: $base-padding-y;
 $toast-viewport-width: 26rem;
 $toast-viewport-max-width: 100vw;
-
 $toast-title-font-weight: $font-weight-semibold;
+
+
+// Form inputs
+$input-padding-x: $base-padding-x * 0.45;
+$input-padding-y: $base-padding-y * 0.45;
+$input-border-radius:$border-radius-sm;
+$input-box-shadow: $box-shadow-sm;
+$input-border:solid 1px $gray-500;
+$input-placeholder-color: $gray-600;
+$input-invalid-border-color:$danger;
+$input-invalid-feedback-color:$danger;
+$input-invalid-feedback-font-size:0.875em;
+$input-invalid-feedback-margin-top:0.25rem;
