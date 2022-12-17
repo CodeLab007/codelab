@@ -6,3 +6,10 @@
 body {
   font-family: $body-font-family;
 }
+
+.d-flex{
+  display: flex;
+}
+.flex-column{
+  flex-direction: column;
+}
