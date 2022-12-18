@@ -4,9 +4,11 @@
 
 //Variables
 $bg: 'bg';
+$bg-avatar: 'bg-avatar';
 $card-bg: 'card-bg';
 $text: 'text';
 $text-secondary: 'text-secondary';
+$text-avatar: 'text-avatar';
 $link: 'link';
 $hover: 'hover';
 $logo: 'logo';
@@ -37,18 +39,22 @@ $warning: #ffa454;
 
 //Light mode colors
 $bg--light: #fff;
+$bg--avatar--light: rgb(202, 199, 199);
 $text--light: #000;
 $text--2--light: #6c757d;
+$text--avatar--light: #fff;
 $brand--blue--light: #007bff;
 $hover--light: #e9ecef;
 $border--light: #dee2e6;
 
 //Dark mode colors
 $bg-dark: #313131;
+$bg--avatar--dark: rgb(54, 54, 54);
 $bg--dark--top: #313131;
 $bg--dark--bottom: #000;
 $text--dark: #fff;
 $text--2--dark: #adb5bd;
+$text--avatar--dark: #fff;
 $brand--blue--dark: #007bff;
 $hover--dark: #212529;
 $border--dark: #343a40;
@@ -328,17 +334,17 @@ $select-trigger-padding-y: $input-padding-y;
 $select-trigger-font-size: $font-size-sm;
 $select-trigger-height: 35px;
 $select-trigger-bg: $body-bg;
-$select-trigger-color:$body-color;
-$select-trigger-box-shadow:$input-box-shadow;
+$select-trigger-color: $body-color;
+$select-trigger-box-shadow: $input-box-shadow;
 $select-trigger-border: $input-border;
-$select-trigger-hover-bg:$check-input-hover-bg;
-$select-trigger-focus-box-shadow:$input-focus-box-shadow;
-$select-trigger-placeholder-color:$input-placeholder-color;
-$select-icon-color:$body-color;
-$select-content-bg:$select-trigger-bg;
-$select-content-border-radius:$select-trigger-border-radius;
-$select-content-box-shadow:$select-trigger-box-shadow;
-$select-content-border:$select-trigger-border;
-$select-viewport-padding-x:$base-padding-x * 0.2;
-$select-viewport-padding-y:$base-padding-x * 0.2;
-$select-item-border-radius:$input-border-radius;
+$select-trigger-hover-bg: $check-input-hover-bg;
+$select-trigger-focus-box-shadow: $input-focus-box-shadow;
+$select-trigger-placeholder-color: $input-placeholder-color;
+$select-icon-color: $body-color;
+$select-content-bg: $select-trigger-bg;
+$select-content-border-radius: $select-trigger-border-radius;
+$select-content-box-shadow: $select-trigger-box-shadow;
+$select-content-border: $select-trigger-border;
+$select-viewport-padding-x: $base-padding-x * 0.2;
+$select-viewport-padding-y: $base-padding-x * 0.2;
+$select-item-border-radius: $input-border-radius;

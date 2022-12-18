@@ -41,10 +41,10 @@ export default function Home() {
 
       <main className={styles.main}>
         <ClCheckbox />
-        <ClAvatar>
+        <ClSelectInput />
+        <ClAvatar variant={'success'}>
           <span>AB</span>
         </ClAvatar>
-        <ClSelectInput />
       </main>
     </div>
   );

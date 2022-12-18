@@ -43,6 +43,11 @@
   }
 }
 
+// Avatar status mixins
+@mixin status-variant($color) {
+  background-color: $color;
+}
+
 @mixin flex-center() {
   display: flex;
   align-items: center;

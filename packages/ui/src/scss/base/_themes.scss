@@ -4,8 +4,10 @@ $themes: (
   default: (
     //logo: url('../images/brand/logo_vertical.svg'),
     bg: $bg--light,
+    bg-avatar: $bg--avatar--light,
     text: $text--light,
     text-secondary: $text--2--light,
+    text-avatar: $text--avatar--light,
     link: $brand--blue--light,
     hover: $hover--light,
     border: $border--light,
@@ -21,8 +23,10 @@ $themes: (
   dark: (
     //logo: url('../images/brand/logo_vertical--invert.svg'),
     bg: $bg-dark,
+    bg-avatar: $bg--avatar--dark,
     text: $text--dark,
     text-secondary: $text--2--dark,
+    text-avatar: $text--avatar--dark,
     link: $brand--blue--dark,
     hover: $hover--dark,
     border: $border--dark,

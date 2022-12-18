@@ -1,32 +1,41 @@
-import React from 'react';
+import { classNames } from '@codelab/lib';
 import * as Avatar from '@radix-ui/react-avatar';
+import React from 'react';
+
+export enum IAvatarVariantEnums {
+  ONLINE = 'success',
+  NOT_AVAILABLE = 'danger',
+}
 
 export interface IAvatarProps extends React.HTMLAttributes<HTMLDivElement> {
   src?: Avatar.AvatarImageProps['src'];
   alt?: Avatar.AvatarImageProps['alt'];
-  fallbackDelayMs?: Avatar.AvatarFallbackProps['delayMs'];
+  delayMs?: Avatar.AvatarFallbackProps['delayMs'];
   children: Avatar.AvatarFallbackProps['children'];
+  variant?: IStatusProps['variant'];
 }
 
-export const ClAvatar = ({ src, alt, fallbackDelayMs, children }: IAvatarProps) => (
+export const ClAvatar = ({ src, alt, delayMs, children, variant }: IAvatarProps) => (
   <div style={{ display: 'flex', gap: 20 }}>
     <Avatar.Root className='avatar'>
       <Avatar.Image className='avatar__image' src={src} alt={alt} />
-      <Avatar.Fallback
-        className='avatar__fallback'
-        delayMs={fallbackDelayMs ? fallbackDelayMs : 600}
-      >
+      <Avatar.Fallback className='avatar__fallback' delayMs={delayMs ? delayMs : 600}>
         {children}
       </Avatar.Fallback>
-      <ClStatus>
+      <ClStatus variant={variant}>
         <ClStatusDot />
       </ClStatus>
     </Avatar.Root>
   </div>
 );
 
-const ClStatus = ({ children }: { children: React.ReactNode }) => (
-  <div className='status'>{children}</div>
+export interface IStatusProps extends React.HTMLAttributes<HTMLDivElement> {
+  children: React.ReactNode;
+  variant?: 'danger' | 'warning' | 'success';
+}
+
+const ClStatus = ({ children, variant }: IStatusProps) => (
+  <div className={classNames('status', `status__${variant}`)}>{children}</div>
 );
 
 const ClStatusDot = () => <div className='status__dot' />;
