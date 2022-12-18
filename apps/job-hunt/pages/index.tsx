@@ -2,6 +2,7 @@ import {
   ClCheckbox,
   ClCheckInputFormik,
   ClRadioInputFormik,
+  ClSelectInput,
   ClTextInput,
   ClTextInputFormik,
 } from '@codelab/ui';
@@ -43,6 +44,7 @@ export default function Home() {
         <ClAvatar>
           <span>AB</span>
         </ClAvatar>
+        <ClSelectInput />
       </main>
     </div>
   );
