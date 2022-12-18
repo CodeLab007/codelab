@@ -42,7 +42,7 @@ export default function Home() {
       <main className={styles.main}>
         <ClCheckbox />
         <ClSelectInput />
-        <ClAvatar variant={'success'}>
+        <ClAvatar variant={'success'} size='xxl'>
           <span>AB</span>
         </ClAvatar>
       </main>

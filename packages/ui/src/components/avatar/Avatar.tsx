@@ -12,12 +12,13 @@ export interface IAvatarProps extends React.HTMLAttributes<HTMLDivElement> {
   alt?: Avatar.AvatarImageProps['alt'];
   delayMs?: Avatar.AvatarFallbackProps['delayMs'];
   children: Avatar.AvatarFallbackProps['children'];
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
   variant?: IStatusProps['variant'];
 }
 
-export const ClAvatar = ({ src, alt, delayMs, children, variant }: IAvatarProps) => (
-  <div style={{ display: 'flex', gap: 20 }}>
-    <Avatar.Root className='avatar'>
+export const ClAvatar = ({ src, alt, delayMs, children, size, variant }: IAvatarProps) => (
+  <div>
+    <Avatar.Root className={classNames('avatar', `avatar__${size}`)}>
       <Avatar.Image className='avatar__image' src={src} alt={alt} />
       <Avatar.Fallback className='avatar__fallback' delayMs={delayMs ? delayMs : 600}>
         {children}

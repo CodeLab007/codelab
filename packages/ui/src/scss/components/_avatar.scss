@@ -9,8 +9,6 @@
     color: t('text-avatar');
   }
   user-select: none;
-  width: 45px;
-  height: 45px;
   border-radius: 100%;
 
   .__image {
@@ -27,19 +25,18 @@
     align-items: center;
     justify-content: center;
     background-color: white;
-    font-size: 15px;
     line-height: 1;
     font-weight: 500;
   }
 }
+
+@include avatar-size(6rem);
 
 .status {
   position: absolute;
   z-index: z(status);
   top: 0;
   right: 0;
-  width: 14px;
-  height: 14px;
   border-radius: 100%;
 }
 
@@ -54,3 +51,9 @@
   height: 100%;
   border-radius: inherit;
 }
+
+// @each $size, $value in $avatar-sizes {
+//   .avatar__#{$size} {
+//     @include avatar-size($value);
+//   }
+// }

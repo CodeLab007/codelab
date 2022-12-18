@@ -71,6 +71,16 @@ $theme-colors: (
   'white': $white,
 );
 
+//AVATAR SIZES
+$avatar-sizes: (
+  'xs': 1.5rem,
+  'sm': 2rem,
+  'md': 4rem,
+  'lg': 5rem,
+  'xl': 7rem,
+  'xxl': 8rem,
+);
+
 // Global Config
 
 $container-max-widths: (

@@ -43,7 +43,20 @@
   }
 }
 
-// Avatar status mixins
+// Avatar mixins
+@mixin avatar-size($size) {
+  .avatar {
+    width: $size;
+    height: $size;
+    font-size: $size / 3;
+  }
+
+  .status {
+    width: $size / 4;
+    height: $size / 4;
+  }
+}
+
 @mixin status-variant($color) {
   background-color: $color;
 }
