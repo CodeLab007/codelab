@@ -283,8 +283,8 @@ $toast-title-font-weight: $font-weight-semibold;
 // Form inputs
 
 // Text input
-$input-padding-x: $base-padding-x * 0.45;
-$input-padding-y: $base-padding-y * 0.45;
+$input-padding-x: $base-padding-x * 0.5;
+$input-padding-y: $base-padding-y * 0.5;
 $input-border-radius: $border-radius-sm;
 $input-box-shadow: $box-shadow-sm;
 $input-border: solid 1px $gray-500;
@@ -320,3 +320,25 @@ $radio-input-indicator-width: $radio-input-width * 0.45;
 $radio-input-indicator-height: $radio-input-height * 0.45;
 $radio-input-indicator-bg: $check-input-indicator-color;
 $radio-input-border: $check-input-border;
+
+// Select input
+$select-trigger-border-radius: $input-border-radius;
+$select-trigger-padding-x: $input-padding-x;
+$select-trigger-padding-y: $input-padding-y;
+$select-trigger-font-size: $font-size-sm;
+$select-trigger-height: 35px;
+$select-trigger-bg: $body-bg;
+$select-trigger-color:$body-color;
+$select-trigger-box-shadow:$input-box-shadow;
+$select-trigger-border: $input-border;
+$select-trigger-hover-bg:$check-input-hover-bg;
+$select-trigger-focus-box-shadow:$input-focus-box-shadow;
+$select-trigger-placeholder-color:$input-placeholder-color;
+$select-icon-color:$body-color;
+$select-content-bg:$select-trigger-bg;
+$select-content-border-radius:$select-trigger-border-radius;
+$select-content-box-shadow:$select-trigger-box-shadow;
+$select-content-border:$select-trigger-border;
+$select-viewport-padding-x:$base-padding-x * 0.2;
+$select-viewport-padding-y:$base-padding-x * 0.2;
+$select-item-border-radius:$input-border-radius;

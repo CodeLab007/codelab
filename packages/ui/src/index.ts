@@ -14,6 +14,7 @@ export * from './components/form/checkInput/CheckInput';
 export * from './components/form/checkInput/CheckInputFormik';
 export * from './components/form/radioInput/RadioInputGroup';
 export * from './components/form/radioInput/RadioInputGroupFormik';
+export * from './components/form/selectInput/SelectInput';
 
 
 //TYPES EXPORT
