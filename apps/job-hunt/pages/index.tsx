@@ -1,4 +1,4 @@
-import { ClTextInput, ClTextInputFormik } from '@codelab/ui';
+import { ClSwitch, ClTextInput, ClTextInputFormik } from '@codelab/ui';
 import { useLocalStorage } from '@codelab/hooks';
 import Head from 'next/head';
 
@@ -39,6 +39,8 @@ export default function Home() {
             </form>
           )}
         </Formik>
+
+        <ClSwitch label='Theme switch' onCheckedChange={handleThemeChange}></ClSwitch>
       </main>
     </div>
   );

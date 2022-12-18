@@ -32,7 +32,7 @@ export const ClSwitch = ({
   return (
     <form>
       <div className='flex__center transition'>
-        <ClLabel className='label' style={{ paddingRight: '2px' }} htmlFor={htmlFor}>
+        <ClLabel className='label' htmlFor={htmlFor}>
           {label}
         </ClLabel>
         <Switch.Root
