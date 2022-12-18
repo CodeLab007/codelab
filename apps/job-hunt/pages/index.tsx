@@ -1,9 +1,15 @@
-import { ClCheckbox, ClTextInput, ClTextInputFormik } from '@codelab/ui';
+import {
+  ClCheckbox,
+  ClCheckInputFormik,
+  ClRadioInputFormik,
+  ClTextInput,
+  ClTextInputFormik,
+} from '@codelab/ui';
 import { useLocalStorage } from '@codelab/hooks';
 import Head from 'next/head';
 
 import styles from '../scss/Home.module.css';
-
+import { Formik } from 'formik';
 
 export default function Home() {
   //set ts type to default or dark
@@ -16,7 +22,14 @@ export default function Home() {
       setTheme('default');
     }
   };
-
+  const checks = [
+    { label: 'Check1', value: 'check1' },
+    { label: 'Check2', value: 'check2' },
+  ];
+  const radios = [
+    { label: 'radio1', value: 'radio1' },
+    { label: 'radio2', value: 'radio2' },
+  ];
   return (
     <div className={`${styles.container} theme--${theme}`}>
       <Head>
@@ -26,7 +39,23 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <ClCheckbox/>
+        <Formik
+          initialValues={{ checks: ['check1'],radios:'radio1' }}
+          onSubmit={(values, actions) => {
+            setTimeout(() => {
+              alert(JSON.stringify(values, null, 2));
+              actions.setSubmitting(false);
+            }, 1000);
+          }}
+        >
+          {(props) => (
+            <form onSubmit={props.handleSubmit}>
+              <ClCheckInputFormik checks={checks} name='checks' />
+              <ClRadioInputFormik radios={radios} name='radios' />
+              <button type='submit'>Submit</button>
+            </form>
+          )}
+        </Formik>
       </main>
     </div>
   );

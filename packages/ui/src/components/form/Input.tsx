@@ -42,7 +42,7 @@ export const ClInput = ({
           {label}
         </ClLabel>
       )}
-      {hasError && <Error />}
+      {hasError && <Error>{error}</Error>}
       {children}
     </div>
   );
