@@ -7,6 +7,10 @@
   align-items: center;
   justify-content: center;
   vertical-align: middle;
+  //   @include themed() {
+  //     color: t('text');
+  //     background: t('bg');
+  //   }
   //   overflow: hidden;
   user-select: none;
   width: 45px;

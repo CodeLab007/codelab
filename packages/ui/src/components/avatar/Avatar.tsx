@@ -8,7 +8,7 @@ export interface IAvatarProps extends React.HTMLAttributes<HTMLDivElement> {
   children: Avatar.AvatarFallbackProps['children'];
 }
 
-const ClAvatar = ({ src, alt, fallbackDelayMs, children }: IAvatarProps) => (
+export const ClAvatar = ({ src, alt, fallbackDelayMs, children }: IAvatarProps) => (
   <div style={{ display: 'flex', gap: 20 }}>
     <Avatar.Root className='avatar'>
       <Avatar.Image className='avatar__image' src={src} alt={alt} />
@@ -30,5 +30,3 @@ const ClStatus = ({ children }: { children: React.ReactNode }) => (
 );
 
 const ClStatusDot = () => <div className='status__dot' />;
-
-export default ClAvatar;

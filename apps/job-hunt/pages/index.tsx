@@ -9,7 +9,7 @@ import { useLocalStorage } from '@codelab/hooks';
 import Head from 'next/head';
 
 import styles from '../scss/Home.module.css';
-import ClAvatar from '@codelab/ui/src/components/avatar/Avatar';
+import { ClAvatar } from '@codelab/ui/src/components/avatar/Avatar';
 
 export default function Home() {
   //set ts type to default or dark
