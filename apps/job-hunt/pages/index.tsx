@@ -3,6 +3,7 @@ import { useLocalStorage } from '@codelab/hooks';
 import Head from 'next/head';
 
 import styles from '../scss/Home.module.css';
+import ClAvatar from '@codelab/ui/src/components/avatar/Avatar';
 
 export default function Home() {
   //set ts type to default or dark
@@ -26,6 +27,9 @@ export default function Home() {
 
       <main className={styles.main}>
         <ClCheckbox />
+        <ClAvatar>
+          <span>AB</span>
+        </ClAvatar>
       </main>
     </div>
   );

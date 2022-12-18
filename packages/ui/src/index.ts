@@ -11,6 +11,7 @@ export * from './components/heading/Heading';
 export * from './components/form/textInput/TextInput';
 export * from './components/form/textInput/TextInputFormik';
 export * from './components/form/checkInput/CheckInput';
+export * from './components/avatar/Avatar';
 
 //TYPES EXPORT
 export * from './types/general';
