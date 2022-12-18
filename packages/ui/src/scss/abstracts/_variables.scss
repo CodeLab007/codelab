@@ -1,6 +1,20 @@
 @use 'sass:map';
 
-// Theme Colors
+//Theme
+
+//Variables
+$bg: 'bg';
+$card-bg: 'card-bg';
+$text: 'text';
+$text-secondary: 'text-secondary';
+$link: 'link';
+$hover: 'hover';
+$logo: 'logo';
+$brand-blue: 'brand-blue';
+$brand-red: 'brand-red';
+$border: 'border';
+
+//Main colors
 $primary: #fa6400;
 $secondary: #fa6400;
 $success: #19d16f;
@@ -8,7 +22,6 @@ $info: #7e33e0;
 $danger: #fb2448;
 $light: #f9f8f9;
 $white: #fff;
-
 $gray-100: #f8f9fa !default;
 $gray-200: #e9ecef !default;
 $gray-300: #dee2e6 !default;
@@ -21,6 +34,24 @@ $gray-900: #212529 !default;
 $black: #000;
 $dark: #313131;
 $warning: #ffa454;
+
+//Light mode colors
+$bg--light: #fff;
+$text--light: #000;
+$text--2--light: #6c757d;
+$brand--blue--light: #007bff;
+$hover--light: #e9ecef;
+$border--light: #dee2e6;
+
+//Dark mode colors
+$bg-dark: #313131;
+$bg--dark--top: #313131;
+$bg--dark--bottom: #000;
+$text--dark: #fff;
+$text--2--dark: #adb5bd;
+$brand--blue--dark: #007bff;
+$hover--dark: #212529;
+$border--dark: #343a40;
 
 $theme-colors: (
   'primary': $primary,

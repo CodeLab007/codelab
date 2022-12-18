@@ -1,32 +1,4 @@
-//Theme Variables
-$bg: 'bg';
-$card-bg: 'card-bg';
-$text: 'text';
-$text-secondary: 'text-secondary';
-$link: 'link';
-$hover: 'hover';
-$logo: 'logo';
-$brand-blue: 'brand-blue';
-$brand-red: 'brand-red';
-$border: 'border';
-
-//Light mode
-$bg--light: #fff;
-$text--light: #000;
-$text--2--light: #6c757d;
-$brand--blue--light: #007bff;
-$hover--light: #e9ecef;
-$border--light: #dee2e6;
-
-//Dark mode
-$bg-dark: #313131;
-$bg--dark--top: #313131;
-$bg--dark--bottom: #000;
-$text--dark: #fff;
-$text--2--dark: #adb5bd;
-$brand--blue--dark: #007bff;
-$hover--dark: #212529;
-$border--dark: #343a40;
+@import '../abstracts/variables';
 
 $themes: (
   default: (
