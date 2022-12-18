@@ -10,14 +10,14 @@
     border: $check-input-border;
 
     &:hover {
-      background-color: $gray-200;
+      background-color: $check-input-hover-bg;
     }
     &:focus {
       box-shadow: $check-input-focus-box-shadow;
     }
   }
   &__indicator {
-    color: $primary;
+    color: $check-input-indicator-color;
   }
 }
 

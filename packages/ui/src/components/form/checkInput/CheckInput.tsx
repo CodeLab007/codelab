@@ -21,10 +21,12 @@ export const ClCheckbox = ({
   label,
   labelProps,
   children,
+  name,
+  value,
   ...rest
 }: IProps) => (
   <div className='form-check'>
-    <Checkbox.Root className='form-check__input' defaultChecked id={id} {...rest}>
+    <Checkbox.Root className='form-check__input' value={value} id={value as string} {...rest}>
       <Checkbox.Indicator className='form-check__indicator'>
         {checked === true && <FaCheck />}
         {checked === 'indeterminate' && <HiOutlineMinusSm />}
@@ -32,7 +34,7 @@ export const ClCheckbox = ({
     </Checkbox.Root>
     <div className='d-flex flex-column'>
       {label && (
-        <ClLabel {...labelProps} htmlFor={id}>
+        <ClLabel {...labelProps} htmlFor={value as string}>
           {label}
         </ClLabel>
       )}

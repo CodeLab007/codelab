@@ -1,4 +1,10 @@
-import { ClCheckbox, ClTextInput, ClTextInputFormik } from '@codelab/ui';
+import {
+  ClCheckbox,
+  ClCheckInputFormik,
+  ClRadioInputFormik,
+  ClTextInput,
+  ClTextInputFormik,
+} from '@codelab/ui';
 import { useLocalStorage } from '@codelab/hooks';
 import Head from 'next/head';
 
@@ -16,7 +22,14 @@ export default function Home() {
       setTheme('default');
     }
   };
-
+  const checks = [
+    { label: 'Check1', value: 'check1' },
+    { label: 'Check2', value: 'check2' },
+  ];
+  const radios = [
+    { label: 'radio1', value: 'radio1' },
+    { label: 'radio2', value: 'radio2' },
+  ];
   return (
     <div className={`${styles.container} theme--${theme}`}>
       <Head>
