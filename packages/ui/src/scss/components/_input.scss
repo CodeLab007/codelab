@@ -12,11 +12,9 @@
     &.is-invalid{
         border-color: $input-invalid-border-color;
     }
+    &:focus{
+        box-shadow: $input-focus-box-shadow;
+    }
 }
 
 
-.invalid-feedback{
-    color: $input-invalid-feedback-color;
-    font-size: $input-invalid-feedback-font-size;
-    margin-top:$input-invalid-feedback-margin-top;
-}

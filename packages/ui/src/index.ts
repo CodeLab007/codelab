@@ -10,6 +10,7 @@ export * from './components/label/Label';
 export * from './components/heading/Heading';
 export * from './components/form/textInput/TextInput';
 export * from './components/form/textInput/TextInputFormik';
+export * from './components/form/checkInput/CheckInput';
 
 //TYPES EXPORT
 export * from './types/general';

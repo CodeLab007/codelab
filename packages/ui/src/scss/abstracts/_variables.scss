@@ -291,3 +291,14 @@ $input-invalid-border-color: $danger;
 $input-invalid-feedback-color: $danger;
 $input-invalid-feedback-font-size: 0.875em;
 $input-invalid-feedback-margin-top: 0.25rem;
+$input-focus-box-shadow: 0 0 0 2px black;
+
+$check-input-padding-x: 0;
+$check-input-padding-y: 0;
+$check-input-width: 25px;
+$check-input-height: 25px;
+$check-input-border-radius: $input-border-radius;
+$check-input-box-shadow: $input-box-shadow;
+$check-input-bg: $body-bg;
+$check-input-border: $input-border;
+$check-input-focus-box-shadow: $input-focus-box-shadow;

@@ -17,3 +17,5 @@
 @include generateResponsiveClasses(px, padding-inline, $spacers-with-auto);
 @include generateResponsiveClasses(py, padding-block, $spacers-with-auto);
 @include generateResponsiveClasses(p, padding , $spacers-with-auto);
+
+

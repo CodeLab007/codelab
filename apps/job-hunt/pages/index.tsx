@@ -1,9 +1,8 @@
-import { ClSwitch, ClTextInput, ClTextInputFormik } from '@codelab/ui';
+import { ClCheckbox, ClTextInput, ClTextInputFormik } from '@codelab/ui';
 import { useLocalStorage } from '@codelab/hooks';
 import Head from 'next/head';
 
 import styles from '../scss/Home.module.css';
-import { Formik } from 'formik';
 
 export default function Home() {
   //set ts type to default or dark
@@ -26,21 +25,7 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <Formik
-          initialValues={{ name: 'jared' }}
-          onSubmit={(values, actions) => {
-            console.log(values);
-          }}
-        >
-          {(props) => (
-            <form onSubmit={props.handleSubmit}>
-              <ClTextInputFormik name='name' type='text' placeholder='Hello world' />
-              <button type='submit'>Submit</button>
-            </form>
-          )}
-        </Formik>
-
-        <ClSwitch label='Theme switch' onCheckedChange={handleThemeChange}></ClSwitch>
+        <ClCheckbox />
       </main>
     </div>
   );
