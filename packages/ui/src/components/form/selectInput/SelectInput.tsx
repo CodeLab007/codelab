@@ -3,16 +3,42 @@ import * as Select from '@radix-ui/react-select';
 
 import { FaCheck, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 
-
 import { classNames } from '@codelab/lib';
+import Error from '../../error/Error';
 
-export const ClSelectInput = () => (
-  <Select.Root >
-    <Select.Trigger className='select__trigger' aria-label='Food'>
-      <Select.Value placeholder='Select a fruit…' />
-      <Select.Icon className='Select__icon'>
-        <FaChevronDown />
-      </Select.Icon>
+[{}];
+
+interface ISelectOption {
+  value: string;
+  label: React.ReactNode;
+}
+
+export interface ISelectProps extends Select.SelectProps {
+  placeholder?: React.ReactNode;
+  options: { groupLabel?: React.ReactNode; options: ISelectOption[] }[];
+  selectTriggerProps?: Select.SelectTriggerProps;
+  selectTriggerIcon?: React.ReactNode;
+  error?: string;
+  hasError?: boolean;
+}
+
+export const ClSelectInput = ({
+  placeholder,
+  options,
+  selectTriggerProps,
+  selectTriggerIcon = <FaChevronDown />,
+  error,
+  hasError,
+  children,
+  ...rest
+}: ISelectProps) => (
+  <Select.Root {...rest}>
+    <Select.Trigger
+      className={classNames('select__trigger', hasError ? 'is-invalid' : '')}
+      {...selectTriggerProps}
+    >
+      {placeholder && <Select.Value placeholder={placeholder} />}
+      <Select.Icon className='Select__icon'>{selectTriggerIcon}</Select.Icon>
     </Select.Trigger>
     <Select.Portal>
       <Select.Content className='select__content'>
@@ -20,43 +46,28 @@ export const ClSelectInput = () => (
           <FaChevronUp />
         </Select.ScrollUpButton>
         <Select.Viewport className='select__viewport'>
-          <Select.Group>
-            <Select.Label className='select__label'>Fruits</Select.Label>
-            <SelectItem value='apple'>Apple</SelectItem>
-            <SelectItem value='banana'>Banana</SelectItem>
-            <SelectItem value='blueberry'>Blueberry</SelectItem>
-            <SelectItem value='grapes'>Grapes</SelectItem>
-            <SelectItem value='pineapple'>Pineapple</SelectItem>
-          </Select.Group>
+          {options.map((group, i) => {
+            return (
+              <React.Fragment key={i}>
+                <Select.Group>
+                  <Select.Label className='select__label'>{group.groupLabel}</Select.Label>
+                  {group.options.map((option) => (
+                    <SelectItem value={option.value}>{option.label}</SelectItem>
+                  ))}
+                </Select.Group>
 
-          <Select.Separator className='select__separator' />
-
-          <Select.Group>
-            <Select.Label className='select__label'>Vegetables</Select.Label>
-            <SelectItem value='aubergine'>Aubergine</SelectItem>
-            <SelectItem value='broccoli'>Broccoli</SelectItem>
-            <SelectItem value='carrot' disabled>
-              Carrot
-            </SelectItem>
-            <SelectItem value='courgette'>Courgette</SelectItem>
-            <SelectItem value='leek'>leek</SelectItem>
-          </Select.Group>
-
-          <Select.Separator className='select__separator' />
-
-          <Select.Group>
-            <Select.Label className='select__label'>Meat</Select.Label>
-            <SelectItem value='beef'>Beef</SelectItem>
-            <SelectItem value='chicken'>Chicken</SelectItem>
-            <SelectItem value='lamb'>Lamb</SelectItem>
-            <SelectItem value='pork'>Pork</SelectItem>
-          </Select.Group>
+                {i < options.length - 1 && <Select.Separator className='select__separator' />}
+              </React.Fragment>
+            );
+          })}
         </Select.Viewport>
         <Select.ScrollDownButton className='select__scroll-button'>
           <FaChevronDown />
         </Select.ScrollDownButton>
       </Select.Content>
     </Select.Portal>
+    {hasError && <Error>{error}</Error>}
+    {children}
   </Select.Root>
 );
 

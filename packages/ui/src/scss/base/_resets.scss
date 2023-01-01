@@ -22,6 +22,10 @@ button{
     all: unset;
 }
 
-input{
+input,textarea{
   outline: none;
+}
+
+textarea{
+  resize: none;
 }

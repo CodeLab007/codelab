@@ -9,11 +9,11 @@ export type Variant =
   | 'light'
   | string;
 
-import { CSSProperties } from 'react';
+import React, { CSSProperties } from 'react';
 
 export interface ComponentAttrs {
   className?: string;
-  children?: string;
+  children?: React.ReactNode;
   style?: CSSProperties;
   id?: string;
 }

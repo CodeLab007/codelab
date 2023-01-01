@@ -53,10 +53,12 @@
     "@radix-ui/react-label": "^2.0.0",
     "@radix-ui/react-radio-group": "^1.1.0",
     "@radix-ui/react-select": "^1.1.2",
+    "@radix-ui/react-slider": "^1.1.0",
     "@radix-ui/react-switch": "^1.0.1",
     "@radix-ui/react-toast": "^1.1.2",
     "@radix-ui/react-tooltip": "^1.0.2",
     "init": "^0.1.2",
+    "react-dropzone": "^14.2.3",
     "react-icons": "^4.7.1",
     "react-scripts": "^5.0.1",
     "storybook": "^6.5.14"
