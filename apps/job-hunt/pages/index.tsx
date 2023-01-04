@@ -89,7 +89,7 @@ export default function Home() {
               </ClRow>
             </Form>
           </Formik>
-          <ClDropzone/>
+          <ClDropzone  uploadConfig={{url:"https://httpbin.org/post",method:'post'}}/>
         </ClContainer>
 
         {/* <ClAvatar variant={'success'} size='xxl'>

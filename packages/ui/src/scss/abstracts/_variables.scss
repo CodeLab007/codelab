@@ -93,6 +93,7 @@ $container-max-widths: (
 ) !default;
 
 $grid-breakpoints: (
+  xxs:0,
   xs: 400px,
   sm: 576px,
   md: 768px,
@@ -110,7 +111,7 @@ $spacers: (
   4: $spacer * 1.5,
   5: $spacer * 3,
 ) !default;
-
+$spacers-with-auto: map.set($spacers, "auto", auto) !default;
 $headings: (
   'h1': 3.3125rem,
   'h2': 2.625rem,
@@ -120,7 +121,7 @@ $headings: (
   'h6': 1rem,
 ) !default;
 
-$spacers-with-auto: map.set($spacers, auto, auto) !default;
+
 
 $enable-grid-classes: true !default;
 $enable-container-classes: true !default;
@@ -143,8 +144,10 @@ $grid-columns: 12 !default;
 $grid-gutter-width: 1.5rem !default;
 $grid-row-columns: 6 !default;
 
-// Container padding
+// Transitions
+$general-transition-quick-all:all 0.3s cubic-bezier(0.87, 0, 0.13, 1);
 
+// Container padding
 $container-padding-x: $grid-gutter-width !default;
 
 // Body
@@ -405,3 +408,13 @@ $slider-thumb-box-shadow:$input-box-shadow;
 $slider-thumb-border-radius:$border-radius-xl;
 $slider-thumb-border:$input-border;
 $slider-thumb-transition:$accordion-icon-transition;
+
+
+// Progress
+$progress-border-radius:$border-radius-pill;
+$progress-width:100%;
+$progress-height:1rem;
+$progress-sm-height:0.5rem;
+$progress-bg:$gray-300;
+$progress-indicator-transition:$general-transition-quick-all;
+$progress-font-size:$font-size-sm;

@@ -4,6 +4,7 @@
   "private": true,
   "workspaces": [
     "@codelab/job-hunt",
+    "@codelab/job-hunt-api",
     "@codelab/ui",
     "@codelab/hooks",
     "@codelab/lib",

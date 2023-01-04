@@ -1,5 +1,3 @@
-
-
 // Margins
 @include generateResponsiveClasses(ms, margin-left, $spacers-with-auto);
 @include generateResponsiveClasses(me, margin-right, $spacers-with-auto);
@@ -16,7 +14,17 @@
 @include generateResponsiveClasses(pb, padding-bottom, $spacers-with-auto);
 @include generateResponsiveClasses(px, padding-inline, $spacers-with-auto);
 @include generateResponsiveClasses(py, padding-block, $spacers-with-auto);
-@include generateResponsiveClasses(p, padding , $spacers-with-auto);
+@include generateResponsiveClasses(p, padding, $spacers-with-auto);
 
+$positions: (
+  'absolute': absolute ,'relative': relative,'fixed':fixed
+);
 
+@include generateResponsiveClasses(position, position, $positions);
 
+// Layout properties
+@include generateResponsiveClasses(d, display, flex, '', flex);
+@include generateResponsiveClasses(d, display, block, '', block);
+@include generateResponsiveClasses(justify-content, justify-content, center, '', center);
+@include generateResponsiveClasses(justify-content, justify-content, start, '', start);
+@include generateResponsiveClasses(align-items, align-items, center, '', center);

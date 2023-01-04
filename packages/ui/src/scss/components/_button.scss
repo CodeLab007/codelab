@@ -93,6 +93,6 @@
 
 @each $color, $value in $theme-colors {
   .btn__#{$color} {
-    @include button-variant($value, $value);
+    @include element-variant($value, $value);
   }
 }
