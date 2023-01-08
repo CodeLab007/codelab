@@ -29,7 +29,7 @@ export class Request {
               formData.append(key, body[key][key2]);
             }
           } else if (Array.isArray(body[key])) {
-            body[key].forEach((file: File) => formData.append(key, file));
+            body[key].forEach((file: File) => formData.append(key + '[]', file));
           } else {
             formData.append(key, body[key]);
           }

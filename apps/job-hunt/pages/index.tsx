@@ -5,6 +5,7 @@ import {
   ClCol,
   ClContainer,
   ClDropzone,
+  ClDropzoneFormik,
   ClRadioInputFormik,
   ClRow,
   ClSelectInput,
@@ -12,8 +13,6 @@ import {
   ClSliderInputFormik,
   ClTextInput,
   ClTextInputFormik,
-
-
 } from '@codelab/ui';
 import { useLocalStorage } from '@codelab/hooks';
 import Head from 'next/head';
@@ -66,7 +65,15 @@ export default function Home() {
 
       <main>
         <ClContainer>
-          <Formik initialValues={{}} onSubmit={(values) => console.log(values)}>
+          <Formik
+            initialValues={{
+              images: [
+                { preview: 'https://source.unsplash.com/300x300',id:1 },
+                { preview: 'https://source.unsplash.com/200x300',id:2 },
+              ],
+            }}
+            onSubmit={(values) => console.log(values)}
+          >
             <Form>
               <ClRow>
                 <ClCol sm={4}>
@@ -81,7 +88,13 @@ export default function Home() {
                   />
                 </ClCol>
                 <ClCol sm={4}>
-                <ClSliderInputFormik name='price'/>
+                  <ClSliderInputFormik name='price' />
+                </ClCol>
+                <ClCol sm={12}>
+                  <ClDropzoneFormik
+                    name='images'
+                    uploadConfig={{ url: 'http://localhost:4000/api/upload/products', method: 'post' }}
+                  />
                 </ClCol>
                 <ClCol>
                   <ClButton>Submit</ClButton>
@@ -89,7 +102,6 @@ export default function Home() {
               </ClRow>
             </Form>
           </Formik>
-          <ClDropzone  uploadConfig={{url:"https://httpbin.org/post",method:'post'}}/>
         </ClContainer>
 
         {/* <ClAvatar variant={'success'} size='xxl'>

@@ -8,6 +8,15 @@ const nextConfig = {
     outputFileTracingRoot: path.join(__dirname, '../../'),
     transpilePackages: ['@codelab/ui'],
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**.unsplash.com',
+      },
+
+    ],
+  },
 };
 
 module.exports = nextConfig;

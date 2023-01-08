@@ -6,26 +6,29 @@ import Image from 'next/image';
 import { Request } from '@codelab/lib';
 import { ClProgress } from '../../progress/Progress';
 import Error from '../../error/Error';
-
 import { AxiosRequestHeaders } from 'axios';
+
+import Preview from './Preview';
 // TODO:
 // ACCEPT GENERIC FOR FILE UPLOAD RESPONSE
-// Accept previously uploaded files which will be shown as thumbs, add a cross to remove image. The delete should handle both current and previous files. If current file simply delete from files (usestate) if and send delete function to parent. the parent can be formik dropzone where we will simply set the file values
-// Scenarios
-// files existing already (i.e updating) User doesn't upload any files nothing to do here as formik input will already set existing files
-// Existing files, then new files uploaded. Send uploaded files to parent (already being done using on Files upload). Formik input will append the files
-// After that file is deleted, call delete function which is external (formik). Formik will set value of input
-interface IProps extends DropzoneProps {
+// Show loading placeholders while images are uploading
+// Remove TS errors
+
+export interface IDropzoneProps extends DropzoneProps {
   dndText?: React.ReactNode;
   preview?: boolean;
   uploadConfig?: {
     url: string;
     method: 'post' | 'put' | 'patch';
-    headers: AxiosRequestHeaders;
+    headers?: AxiosRequestHeaders;
+    resFilesPath:string[]
   };
   onFilesUpload?: (files: File[] | string[]) => void;
   error?: string;
   hasError?: boolean;
+  restoredFiles?: { preview: string }[];
+  onDelete?: (file: { preview: string }, i: number, type: 'RESTORED' | 'NEW') => void;
+  showNewFilesPreview?: boolean;
 }
 
 interface IPreviewFile extends File {
@@ -40,15 +43,15 @@ export const ClDropzone = ({
   onFilesUpload,
   hasError,
   error,
+  restoredFiles = [],
+  onDelete,
+  showNewFilesPreview = true,
   ...rest
-}: IProps) => {
+}: IDropzoneProps) => {
   const [percentage, setPercentage] = useState(0);
   const [files, setFiles] = useState<IPreviewFile[]>([]);
   const { acceptedFiles, getRootProps, getInputProps, isFocused, isDragAccept, isDragReject } =
     useDropzone({
-      accept: {
-        'image/png': ['.png'],
-      },
       ...rest,
       onDrop: async (acceptedFiles) => {
         if (uploadConfig) {
@@ -66,12 +69,13 @@ export const ClDropzone = ({
             headers: uploadConfig.headers,
           };
 
+          // Put in try catch and define error with useState and show it when there is some error also set error class for dropzone
           const filesRes = await axios.sendRequest({
             method: uploadConfig.method,
             url: '',
             multipart: true,
             body: {
-              file: acceptedFiles,
+              products: acceptedFiles,
             },
             options: config,
           });
@@ -80,14 +84,30 @@ export const ClDropzone = ({
           setTimeout(() => {
             setPercentage(0);
           }, 1000);
-          if (onFilesUpload) onFilesUpload(filesRes.data);
+          if (onFilesUpload) {
+            // Actual
+            // Dont hard code the path but get in upload config
+            onFilesUpload(
+              filesRes.files.products.map((file, i) => ({
+                preview: file.path,
+                id: restoredFiles.length + i + 1,
+              })),
+            );
+            // Temporary
+            // onFilesUpload(
+            //   acceptedFiles.map((file) => {
+            //     return { preview: URL.createObjectURL(file) };
+            //   }),
+            // );
+          }
         } else {
           if (onFilesUpload) onFilesUpload(acceptedFiles);
         }
         setFiles(
-          acceptedFiles.map((file) => {
+          acceptedFiles.map((file, i) => {
             return Object.assign(file, {
               preview: URL.createObjectURL(file),
+              id: i + 3,
             });
           }),
         );
@@ -105,25 +125,50 @@ export const ClDropzone = ({
     isDragReject ? 'rejected' : '',
   );
 
-  const thumbs = files.map((file) => (
-    <div
-      className='dropzone__thumb position-relative d-flex justify-content-center align-items-center'
-      key={file.name}
-    >
-      {percentage ? (
-        <ClProgress showPercentage progress={percentage} className='position-absolute' />
-      ) : null}
-      <Image
-        width={80}
-        height={80}
-        alt='preview'
-        src={file.preview}
-        onLoad={() => {
-          URL.revokeObjectURL(file.preview);
-        }}
-      />
-    </div>
-  ));
+  // const thumbs = files.map((file,i) => (
+  //   <div
+
+  //     className='dropzone__thumb position-relative d-flex justify-content-center align-items-center'
+  //     key={i}
+  //   >
+  //     {percentage ? (
+  //       <ClProgress showPercentage progress={percentage} className='position-absolute' />
+  //     ) : null}
+  //     <button className='dropzone__thumb__delete position-absolute'><FaTimesCircle/></button>
+  //     <Image
+  //       width={80}
+  //       height={80}
+  //       alt='preview'
+  //       src={file.preview}
+  //       onLoad={() => {
+  //         URL.revokeObjectURL(file.preview);
+  //       }}
+  //     />
+  //   </div>
+  // ));
+  // const restoredFilesThumbs = restoredFiles
+  //   ? restoredFiles?.map((file) => (
+  //       <div
+  //         className='dropzone__thumb position-relative d-flex justify-content-center align-items-center'
+  //         key={file}
+  //       >
+  //         <Image width={80} height={80} alt='preview' src={file} />
+  //       </div>
+  //     ))
+  //   : null;
+
+  const _onDelete = (file: { preview: string }, i: number, type: 'RESTORED' | 'NEW') => {
+    if (!onDelete) return;
+    if (type === 'NEW') {
+      setFiles((prevFiles) => {
+        const filesCopy = [...prevFiles];
+        filesCopy.splice(i, 1);
+
+        return filesCopy;
+      });
+    }
+    onDelete(file, i, type);
+  };
 
   return (
     <section>
@@ -131,8 +176,15 @@ export const ClDropzone = ({
         <input {...getInputProps()} />
         {dndText && <div>{dndText}</div>}
       </div>
-      <aside className='dropzone__thumbs-container'>{thumbs}</aside>
-      {hasError && <Error>{error}</Error>}
+      <aside className='dropzone__thumbs-container'>
+        <Preview previews={restoredFiles} onDelete={_onDelete} type='RESTORED' />
+        {showNewFilesPreview ? (
+          <Preview percentage={percentage} previews={files} onDelete={_onDelete} type='NEW' />
+        ) : null}
+
+        {/* {thumbs} */}
+      </aside>
+      {hasError ? <Error>{error}</Error> : null}
     </section>
   );
 };

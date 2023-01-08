@@ -20,6 +20,7 @@ export * from './components/form/selectInput/SelectInputFormik';
 export * from './components/form/sliderInput/SliderInput';
 export * from './components/form/sliderInput/SliderInputFormik';
 export * from './components/form/dropzone/Dropzone';
+export * from './components/form/dropzone/DropzoneFormik';
 export * from './components/progress/Progress';
 
 export * from './components/container/Container'
