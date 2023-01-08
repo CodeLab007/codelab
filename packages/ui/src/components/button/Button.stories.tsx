@@ -1,10 +1,20 @@
-// Button.stories.tsx
-import * as React from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { ClButton } from './Button';
+import type { Story } from "@ladle/react";
+import { ClButton } from "./Button";
 
-export default {
-  component: ClButton,
-} as ComponentMeta<typeof ClButton>;
+export const Button: Story<{
+  variant: string;
+  disabled: boolean;
+}> = ({ variant, disabled }) => <ClButton variant={variant} disabled={disabled}>This is a test</ClButton>
 
-export const Primary: ComponentStory<typeof ClButton> = (args) => <ClButton {...args} />;
+Button.storyName = "Default Button";
+
+Button.args = {
+  disabled: false,
+};
+Button.argTypes = {
+  variant: {
+    options: ["primary", "secondary"],
+    control: { type: "radio" },
+    defaultValue: "secondary",
+  },
+};

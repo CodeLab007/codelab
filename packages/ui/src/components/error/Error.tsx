@@ -4,10 +4,10 @@ interface IProps extends React.HTMLAttributes<HTMLParagraphElement>{
 
 }
 
-const Error = ({children,...rest}:IProps) => {
+const ClError = ({children,...rest}:IProps) => {
   return (
     <p className='invalid-feedback' {...rest}>{children}</p>
   )
 }
 
-export default Error
+export default ClError

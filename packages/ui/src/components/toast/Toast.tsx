@@ -1,9 +1,6 @@
 import * as Toast from '@radix-ui/react-toast';
-
-import { FaTimes, FaCheckCircle } from 'react-icons/fa';
-
+import { FaTimes } from 'react-icons/fa';
 import { classNames } from '@codelab/lib';
-import React from 'react';
 
 export interface IToastProps extends Toast.ToastProps {
   providerProps?: Toast.ToastProviderProps;

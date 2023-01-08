@@ -16,7 +16,7 @@ export const ClButton = ({
   ...rest
 }: IButtonProps) => {
   return (
-    <button className={classNames('btn', `btn__${variant}`, className)} {...rest}>
+    <button className={classNames('btn', `btn__${variant}`, className)} disabled={disabled} {...rest}>
       {text ? text : children}
     </button>
   );
