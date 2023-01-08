@@ -1,11 +1,11 @@
 import { classNames } from '@codelab/lib';
 import React from 'react';
 
-interface IProps extends React.HTMLAttributes<HTMLParagraphElement> {
+export interface ITextProps extends React.HTMLAttributes<HTMLParagraphElement> {
   level?: 1 | 2 | 3 | 4 | 5 | 6;
 }
 
-const Text = ({ className, children, level = 4, style }: IProps) => {
+const ClText = ({ className, children, level = 4, style }: ITextProps) => {
   return (
     <p className={classNames(className ?? '', `text--level${level}`)} style={style}>
       {children}
@@ -13,4 +13,4 @@ const Text = ({ className, children, level = 4, style }: IProps) => {
   );
 };
 
-export default Text;
+export default ClText;

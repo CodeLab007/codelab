@@ -16,7 +16,7 @@
     "dev": {
       "cache": false
     },
-    "storybook": {
+    "ladle": {
       "cache": true
     }
   }

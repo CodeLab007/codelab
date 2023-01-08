@@ -1,14 +1,21 @@
-// Button.stories.tsx
-import * as React from 'react';
-import { Meta, Story } from '@storybook/react';
-import { ClSwitch } from './Switch';
+import type { Story } from "@ladle/react";
+import { ClSwitch } from "./Switch";
 
-export default {
-  component: ClSwitch,
-} as Meta;
 
-export const Default: Story = (args) => <ClSwitch {...args} />;
-// Default.args = {
-//   label: 'Button',
-//   primary: true,
-// };
+export const Switch: Story<{
+  variant: string;
+  disabled: boolean;
+}> = ({ variant, disabled }) => <ClSwitch></ClSwitch>
+
+Switch.storyName = "Default Switch";
+
+Switch.args = {
+  disabled: false,
+};
+Switch.argTypes = {
+  variant: {
+    options: ["primary", "secondary"],
+    control: { type: "radio" },
+    defaultValue: "secondary",
+  },
+};

@@ -52,8 +52,8 @@
   border-radius: inherit;
 }
 
-// @each $size, $value in $avatar-sizes {
-//   .avatar__#{$size} {
-//     @include avatar-size($value);
-//   }
-// }
+@each $size, $value in $avatar-sizes {
+  .avatar__#{$size} {
+    @include avatar-size($value);
+  }
+}

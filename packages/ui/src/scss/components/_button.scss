@@ -71,6 +71,21 @@
     transform: translateY(-1px);
   }
 
+  &:focus {
+    box-shadow: $btn-focus-box-shadow;
+    border-color: transparent;
+  }
+
+  &:active {
+    box-shadow: $btn-active-box-shadow;
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+  }
+
   //   .btn-check + &:hover {
   //     // override for the checkbox/radio buttons
   //     color: var(--#{$prefix}btn-color);
