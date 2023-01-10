@@ -18,6 +18,8 @@ import { useLocalStorage } from '@codelab/hooks';
 import Head from 'next/head';
 
 import { Form, Formik } from 'formik';
+import { jobAddSchema } from '@codelab/validations';
+
 // import { ClAvatar } from '@codelab/ui/src/components/avatar/Avatar';
 
 export default function Home() {
@@ -55,6 +57,7 @@ export default function Home() {
       ],
     },
   ];
+  const validationSchema = jobAddSchema;
   return (
     <div className={`theme--${theme}`}>
       <Head>
@@ -66,18 +69,14 @@ export default function Home() {
       <main>
         <ClContainer>
           <Formik
-            initialValues={{
-              images: [
-                { preview: 'https://source.unsplash.com/300x300',id:1 },
-                { preview: 'https://source.unsplash.com/200x300',id:2 },
-              ],
-            }}
+            validationSchema={validationSchema}
+            initialValues={{}}
             onSubmit={(values) => console.log(values)}
           >
             <Form>
               <ClRow>
                 <ClCol sm={4}>
-                  <ClTextInputFormik placeholder={'Name'} name='name' />
+                  <ClTextInputFormik placeholder={'Job Title'} name='title' />
                 </ClCol>
 
                 <ClCol sm={4}>
@@ -92,8 +91,11 @@ export default function Home() {
                 </ClCol>
                 <ClCol sm={12}>
                   <ClDropzoneFormik
-                    name='images'
-                    uploadConfig={{ url: 'http://localhost:4000/api/upload/products', method: 'post' }}
+                    name='photos'
+                    uploadConfig={{
+                      url: 'http://localhost:4000/api/upload/products',
+                      method: 'post',
+                    }}
                   />
                 </ClCol>
                 <ClCol>

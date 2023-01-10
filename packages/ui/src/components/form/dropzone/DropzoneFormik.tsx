@@ -9,7 +9,10 @@ export const ClDropzoneFormik = ({ name, ...rest }: IProps) => {
   const [restoredFiles, setRestoredFiles] = useState([]);
 
   useEffect(() => {
-    setRestoredFiles(values[name]);
+    if(values[name]){
+      setRestoredFiles(values[name]);
+    }
+
   }, []);
 
   return (

@@ -8,6 +8,8 @@
     "@codelab/ui",
     "@codelab/hooks",
     "@codelab/lib",
+    "@codelab/api-errors",
+    "@codelab/validations",
     "@codelab/watcher",
     "@codelab/rollup-config",
     "apps/*",

@@ -16,4 +16,5 @@ export interface ComponentAttrs {
   children?: React.ReactNode;
   style?: CSSProperties;
   id?: string;
+  
 }

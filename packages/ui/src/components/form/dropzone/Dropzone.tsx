@@ -11,7 +11,9 @@ import { AxiosRequestHeaders } from 'axios';
 import Preview from './Preview';
 // TODO:
 // ACCEPT GENERIC FOR FILE UPLOAD RESPONSE
-// Show loading placeholders while images are uploading
+// Accept path for file upload response to access the files path in response
+// Accept path for upload error
+// Set loading state for upload accept function for that
 // Remove TS errors
 
 export interface IDropzoneProps extends DropzoneProps {
@@ -21,7 +23,7 @@ export interface IDropzoneProps extends DropzoneProps {
     url: string;
     method: 'post' | 'put' | 'patch';
     headers?: AxiosRequestHeaders;
-    resFilesPath:string[]
+    resFilesPath: string[];
   };
   onFilesUpload?: (files: File[] | string[]) => void;
   error?: string;
@@ -48,12 +50,14 @@ export const ClDropzone = ({
   showNewFilesPreview = true,
   ...rest
 }: IDropzoneProps) => {
+  const [uploadError, setUploadError] = useState();
   const [percentage, setPercentage] = useState(0);
   const [files, setFiles] = useState<IPreviewFile[]>([]);
   const { acceptedFiles, getRootProps, getInputProps, isFocused, isDragAccept, isDragReject } =
     useDropzone({
       ...rest,
       onDrop: async (acceptedFiles) => {
+        setUploadError(undefined);
         if (uploadConfig) {
           let percent = 0;
           const axios = new Request(uploadConfig.url);
@@ -70,47 +74,64 @@ export const ClDropzone = ({
           };
 
           // Put in try catch and define error with useState and show it when there is some error also set error class for dropzone
-          const filesRes = await axios.sendRequest({
-            method: uploadConfig.method,
-            url: '',
-            multipart: true,
-            body: {
-              products: acceptedFiles,
-            },
-            options: config,
-          });
+          try {
+            const filesRes = await axios.sendRequest({
+              method: uploadConfig.method,
+              url: '',
+              multipart: true,
+              body: {
+                products: acceptedFiles,
+              },
+              options: config,
+            });
 
-          setPercentage(percent);
-          setTimeout(() => {
-            setPercentage(0);
-          }, 1000);
-          if (onFilesUpload) {
-            // Actual
-            // Dont hard code the path but get in upload config
-            onFilesUpload(
-              filesRes.files.products.map((file, i) => ({
-                preview: file.path,
-                id: restoredFiles.length + i + 1,
-              })),
-            );
-            // Temporary
-            // onFilesUpload(
-            //   acceptedFiles.map((file) => {
-            //     return { preview: URL.createObjectURL(file) };
-            //   }),
-            // );
+            setPercentage(percent);
+            setTimeout(() => {
+              setPercentage(0);
+            }, 1000);
+            if (onFilesUpload) {
+              // Actual
+              // Dont hard code the path but get in upload config
+              if (filesRes.files) {
+                onFilesUpload(
+                  filesRes.files.map((file, i) => ({
+                    preview: file.path,
+                    id: restoredFiles.length + i + 1,
+                  })),
+                );
+              }
+
+              setFiles(
+                acceptedFiles.map((file, i) => {
+                  return Object.assign(file, {
+                    preview: URL.createObjectURL(file),
+                    id: i + 3,
+                  });
+                }),
+              );
+              // Temporary
+              // onFilesUpload(
+              //   acceptedFiles.map((file) => {
+              //     return { preview: URL.createObjectURL(file) };
+              //   }),
+              // );
+            }
+          } catch (error: any) {
+            console.log(error);
+            // console.log(error.res.data,'ERROR')
+            setUploadError(error.errors[0].message);
           }
         } else {
           if (onFilesUpload) onFilesUpload(acceptedFiles);
+          setFiles(
+            acceptedFiles.map((file, i) => {
+              return Object.assign(file, {
+                preview: URL.createObjectURL(file),
+                id: i + 3,
+              });
+            }),
+          );
         }
-        setFiles(
-          acceptedFiles.map((file, i) => {
-            return Object.assign(file, {
-              preview: URL.createObjectURL(file),
-              id: i + 3,
-            });
-          }),
-        );
       },
     });
 
@@ -122,7 +143,7 @@ export const ClDropzone = ({
     'dropzone',
     isFocused ? 'focused' : '',
     isDragAccept ? 'accepted' : '',
-    isDragReject ? 'rejected' : '',
+    hasError || uploadError || isDragReject ? 'rejected' : '',
   );
 
   // const thumbs = files.map((file,i) => (
@@ -185,6 +206,7 @@ export const ClDropzone = ({
         {/* {thumbs} */}
       </aside>
       {hasError ? <Error>{error}</Error> : null}
+      {uploadError ? <Error>{uploadError}</Error> : null}
     </section>
   );
 };

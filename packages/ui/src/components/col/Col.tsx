@@ -6,7 +6,7 @@ type ColType =
   | 'auto'
   | number
   | { span?: boolean | 'auto' | number; offset?: number; order?: 'first' | 'last' | number };
-interface IProps extends ComponentAttrs {
+export interface IColProps extends ComponentAttrs {
   lg?: ColType;
   md?: ColType;
   sm?: ColType;
@@ -34,7 +34,7 @@ const getColClasses = (prefix: string, cols: ColType) => {
   return colClasses;
 };
 
-export const ClCol = ({ lg, md, sm, xl, xs, xxl, className = '', children, ...rest }: IProps) => {
+export const ClCol = ({ lg, md, sm, xl, xs, xxl, className = '', children, ...rest }: IColProps) => {
   let colClasses = [];
   if (lg) {
     colClasses.push(getColClasses('lg', lg));

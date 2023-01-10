@@ -317,7 +317,8 @@ $input-padding-x: $base-padding-x * 0.5 !default;
 $input-padding-y: $base-padding-y * 0.5 !default;
 $input-border-radius: $border-radius-sm !default;
 $input-box-shadow: $box-shadow-sm !default;
-$input-border: solid 1px $gray-500 !default;
+$input-border-color:$gray-500;
+$input-border: solid 1px $input-border-color !default;
 $input-placeholder-color: $gray-600 !default;
 $input-invalid-border-color: $danger !default;
 $input-invalid-feedback-color: $danger !default;
@@ -389,6 +390,19 @@ $select-scroll-btn-bg: $white !default;
 $select-scroll-btn-color: $dark !default;
 $select-seperator-margin: 5px !default;
 
+// Dropzone
+$dropzone-padding-x:$base-padding-x !default;
+$dropzone-padding-y:$base-padding-y !default;
+$dropzone-border-width:2px !default;
+$dropzone-border-color:$input-border-color !default;
+$dropzone-border-style:dashed !default;
+$dropzone-border-radius:$input-border-radius !default;
+$dropzone-bg:$body-bg !default;
+$dropzone-color:$input-placeholder-color !default;
+$dropzone-transition:$general-transition-quick-all !default;
+$dropzone-focus-border-color:$select-item-highlighted-color !default;
+$dropzone-accepted-border-color:$success;
+$dropzone-rejected-border-color:$danger;
 
 // Slider Input
 $slider-width:100%;
@@ -408,6 +422,8 @@ $slider-thumb-box-shadow:$input-box-shadow;
 $slider-thumb-border-radius:$border-radius-xl;
 $slider-thumb-border:$input-border;
 $slider-thumb-transition:$accordion-icon-transition;
+
+
 
 
 // Progress
