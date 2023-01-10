@@ -10,17 +10,20 @@ export enum FormStatus {
 }
 
 import { FormControl, IFormControl } from '../formControl/FormControl';
-import { ClButton } from '../../button/Button';
+import { ClButton, IButtonProps } from '../../button/Button';
 import { SchemaOf } from 'yup';
-import ClHeading from '../../heading/Heading';
-interface IProps<T, U> {
+import ClHeading, { IHeadingProps } from '../../heading/Heading';
+import { ComponentAttrs } from '../../../types/general';
+interface IProps<T, U> extends ComponentAttrs {
   initialValues: FormikValues & T;
   onSubmit: (values: T) => void;
   controls: (IFormControl & {colProps?:IColProps})[];
   submitBtnText?: string;
+  submitBtnProps?:IButtonProps,
   validationSchema: SchemaOf<U>;
   title?: React.ReactNode;
-  titleClasses?: string;
+  titleProps?:IHeadingProps
+  formFooter?:React.ReactNode
 }
 
 export const ClGeneralForm = <T extends unknown, U extends Object>({
@@ -28,9 +31,12 @@ export const ClGeneralForm = <T extends unknown, U extends Object>({
   controls,
   onSubmit,
   submitBtnText = 'Submit',
+  submitBtnProps,
   validationSchema,
   title,
-  titleClasses,
+  titleProps,
+  formFooter,
+  ...rest
 }: IProps<T, U>) => {
   let formGroups = controls.map(({ colProps, ...rest }, i) => {
     return (
@@ -43,18 +49,19 @@ export const ClGeneralForm = <T extends unknown, U extends Object>({
   return (
     <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
       {() => (
-        <Form className='row'>
+        <Form className='row' {...rest}>
           {title && (
-            <ClHeading level={3} className={titleClasses}>
+            <ClHeading  {...titleProps}>
               {title}
             </ClHeading>
           )}
 
           {formGroups}
 
-          <ClCol xs={12}>
-            <ClButton type='submit'>{submitBtnText}</ClButton>
+          <ClCol xs={12} className="d-flex">
+            <ClButton type='submit' {...submitBtnProps}>{submitBtnText}</ClButton>
           </ClCol>
+          {formFooter && formFooter}
         </Form>
       )}
     </Formik>

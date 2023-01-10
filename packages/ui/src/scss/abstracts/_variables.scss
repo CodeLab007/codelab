@@ -69,6 +69,15 @@ $theme-colors: (
   'dark': $dark,
   'warning': $warning,
   'white': $white,
+  'gray-1': $gray-100,
+  'gray-2': $gray-200,
+  'gray-3': $gray-300,
+  'gray-4': $gray-400,
+  'gray-5': $gray-500,
+  'gray-6': $gray-600,
+  'gray-7': $gray-700,
+  'gray-8': $gray-800,
+  'gray-9': $gray-900,
 ) !default;
 
 //AVATAR SIZES
@@ -93,7 +102,7 @@ $container-max-widths: (
 ) !default;
 
 $grid-breakpoints: (
-  xxs:0,
+  xxs: 0,
   xs: 400px,
   sm: 576px,
   md: 768px,
@@ -111,7 +120,7 @@ $spacers: (
   4: $spacer * 1.5,
   5: $spacer * 3,
 ) !default;
-$spacers-with-auto: map.set($spacers, "auto", auto) !default;
+$spacers-with-auto: map.set($spacers, 'auto', auto) !default;
 $headings: (
   'h1': 3.3125rem,
   'h2': 2.625rem,
@@ -120,8 +129,6 @@ $headings: (
   'h5': 1.125rem,
   'h6': 1rem,
 ) !default;
-
-
 
 $enable-grid-classes: true !default;
 $enable-container-classes: true !default;
@@ -145,7 +152,7 @@ $grid-gutter-width: 1.5rem !default;
 $grid-row-columns: 6 !default;
 
 // Transitions
-$general-transition-quick-all:all 0.3s cubic-bezier(0.87, 0, 0.13, 1);
+$general-transition-quick-all: all 0.3s cubic-bezier(0.87, 0, 0.13, 1);
 
 // Container padding
 $container-padding-x: $grid-gutter-width !default;
@@ -313,11 +320,11 @@ $toast-title-font-weight: $font-weight-semibold !default;
 // Form inputs
 
 // Text input
-$input-padding-x: $base-padding-x * 0.5 !default;
-$input-padding-y: $base-padding-y * 0.5 !default;
+$input-padding-x: $base-padding-x * 0.4 !default;
+$input-padding-y: $base-padding-y * 0.4 !default;
 $input-border-radius: $border-radius-sm !default;
 $input-box-shadow: $box-shadow-sm !default;
-$input-border-color:$gray-500;
+$input-border-color: $gray-500;
 $input-border: solid 1px $input-border-color !default;
 $input-placeholder-color: $gray-600 !default;
 $input-invalid-border-color: $danger !default;
@@ -391,46 +398,43 @@ $select-scroll-btn-color: $dark !default;
 $select-seperator-margin: 5px !default;
 
 // Dropzone
-$dropzone-padding-x:$base-padding-x !default;
-$dropzone-padding-y:$base-padding-y !default;
-$dropzone-border-width:2px !default;
-$dropzone-border-color:$input-border-color !default;
-$dropzone-border-style:dashed !default;
-$dropzone-border-radius:$input-border-radius !default;
-$dropzone-bg:$body-bg !default;
-$dropzone-color:$input-placeholder-color !default;
-$dropzone-transition:$general-transition-quick-all !default;
-$dropzone-focus-border-color:$select-item-highlighted-color !default;
-$dropzone-accepted-border-color:$success;
-$dropzone-rejected-border-color:$danger;
+$dropzone-padding-x: $base-padding-x !default;
+$dropzone-padding-y: $base-padding-y !default;
+$dropzone-border-width: 2px !default;
+$dropzone-border-color: $input-border-color !default;
+$dropzone-border-style: dashed !default;
+$dropzone-border-radius: $input-border-radius !default;
+$dropzone-bg: $body-bg !default;
+$dropzone-color: $input-placeholder-color !default;
+$dropzone-transition: $general-transition-quick-all !default;
+$dropzone-focus-border-color: $select-item-highlighted-color !default;
+$dropzone-accepted-border-color: $success;
+$dropzone-rejected-border-color: $danger;
 
 // Slider Input
-$slider-width:100%;
-$slider-horizontal-height:20px;
-$slider-vertical-width:20px;
-$slider-vertical-height:100px;
-$slider-track-bg:$input-placeholder-color;
-$slider-track-border-radius:$border-radius-pill;
-$slider-horizontal-track-height:5px;
-$slider-vertical-track-width:$slider-horizontal-track-height;
-$slider-range-bg:$check-input-indicator-color;
-$slider-range-border-radius:$slider-track-border-radius;
-$slider-thumb-width:20px;
-$slider-thumb-height:20px;
-$slider-thumb-bg:$gray-100;
-$slider-thumb-box-shadow:$input-box-shadow;
-$slider-thumb-border-radius:$border-radius-xl;
-$slider-thumb-border:$input-border;
-$slider-thumb-transition:$accordion-icon-transition;
-
-
-
+$slider-width: 100%;
+$slider-horizontal-height: 20px;
+$slider-vertical-width: 20px;
+$slider-vertical-height: 100px;
+$slider-track-bg: $input-placeholder-color;
+$slider-track-border-radius: $border-radius-pill;
+$slider-horizontal-track-height: 5px;
+$slider-vertical-track-width: $slider-horizontal-track-height;
+$slider-range-bg: $check-input-indicator-color;
+$slider-range-border-radius: $slider-track-border-radius;
+$slider-thumb-width: 20px;
+$slider-thumb-height: 20px;
+$slider-thumb-bg: $gray-100;
+$slider-thumb-box-shadow: $input-box-shadow;
+$slider-thumb-border-radius: $border-radius-xl;
+$slider-thumb-border: $input-border;
+$slider-thumb-transition: $accordion-icon-transition;
 
 // Progress
-$progress-border-radius:$border-radius-pill;
-$progress-width:100%;
-$progress-height:1rem;
-$progress-sm-height:0.5rem;
-$progress-bg:$gray-300;
-$progress-indicator-transition:$general-transition-quick-all;
-$progress-font-size:$font-size-sm;
+$progress-border-radius: $border-radius-pill;
+$progress-width: 100%;
+$progress-height: 1rem;
+$progress-sm-height: 0.5rem;
+$progress-bg: $gray-300;
+$progress-indicator-transition: $general-transition-quick-all;
+$progress-font-size: $font-size-sm;

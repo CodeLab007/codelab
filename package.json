@@ -19,7 +19,7 @@
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
-    "storybook": "turbo run storybook",
+    "ladle": "turbo run ladle",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "release:ui": "turbo run build --filter=@codelab/ui^... && changeset publish"
   },

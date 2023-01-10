@@ -38,4 +38,20 @@
       }
     }
   }
+
+  @each $name, $size in $grid-breakpoints {
+    @if map-has-key($container-max-widths, $name) {
+      $container-max-width: map-get($container-max-widths, $name);
+      @if($container-max-width > 0){
+        .one-side-container {
+          @include mq($name, min) {
+            max-width: calc(((100% - $container-max-width) / 2) + $container-max-width) !important;
+            margin-right: 0 !important;
+          }
+        }
+      }
+
+    }
+  }
+  
 }

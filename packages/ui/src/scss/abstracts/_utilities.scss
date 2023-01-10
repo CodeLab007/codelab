@@ -28,3 +28,21 @@ $positions: (
 @include generateResponsiveClasses(justify-content, justify-content, center, '', center);
 @include generateResponsiveClasses(justify-content, justify-content, start, '', start);
 @include generateResponsiveClasses(align-items, align-items, center, '', center);
+
+
+@each $key,$color in $theme-colors{
+  .text-#{$key}{
+    color: $color !important;
+  }
+  .bg-#{$key}{
+    background-color: $color !important;
+  }
+}
+
+@for $i from 1 through 100 {
+  .w-#{$i}{
+    width: #{$i} + '%' !important;
+  }
+
+}
+
