@@ -221,7 +221,8 @@ $btn-font-family: null !default;
 $btn-font-size: $font-size-base !default;
 $btn-line-height: $line-height-base !default;
 $btn-white-space: null !default; // Set to `nowrap` to prevent text wrapping
-
+$btn-border-radius:$border-radius-sm;
+$btn-text-align:center;
 $btn-padding-y-sm: 0.25rem !default;
 $btn-padding-x-sm: 0.5rem !default;
 $btn-font-size-sm: $font-size-sm !default;
@@ -336,8 +337,8 @@ $input-focus-box-shadow: 0 0 0 2px black !default;
 // Check input
 $check-input-padding-x: 0 !default;
 $check-input-padding-y: 0 !default;
-$check-input-width: 25px !default;
-$check-input-height: 25px !default;
+$check-input-width: 20px !default;
+$check-input-height: 20px !default;
 $check-input-border-radius: $input-border-radius !default;
 $check-input-box-shadow: $input-box-shadow !default;
 $check-input-bg: $body-bg !default;
@@ -345,6 +346,7 @@ $check-input-border: $input-border !default;
 $check-input-focus-box-shadow: $input-focus-box-shadow !default;
 $check-input-hover-bg: $gray-200 !default;
 $check-input-indicator-color: $primary !default;
+$check-input-label-gap:0.5rem !default;
 
 // Radio input
 $radio-input-bg: $check-input-bg !default;
@@ -354,10 +356,11 @@ $radio-input-height: $check-input-height !default;
 $radio-input-border-radius: 100% !default;
 $radio-input-box-shadow: $check-input-box-shadow !default;
 $radio-input-focus-box-shadow: $check-input-focus-box-shadow !default;
-$radio-input-indicator-width: $radio-input-width * 0.45 !default;
-$radio-input-indicator-height: $radio-input-height * 0.45 !default;
+$radio-input-indicator-width: $radio-input-width * 0.4 !default;
+$radio-input-indicator-height: $radio-input-height * 0.4 !default;
 $radio-input-indicator-bg: $check-input-indicator-color !default;
 $radio-input-border: $check-input-border !default;
+$radio-input-label-gap:$check-input-label-gap !default;
 
 // Select input
 $select-trigger-border-radius: $input-border-radius !default;
@@ -438,3 +441,7 @@ $progress-sm-height: 0.5rem;
 $progress-bg: $gray-300;
 $progress-indicator-transition: $general-transition-quick-all;
 $progress-font-size: $font-size-sm;
+
+
+// Link
+$link-text-decoration:none;

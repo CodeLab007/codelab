@@ -1,4 +1,4 @@
-
+@import '@codelab/ui/src/scss/abstracts/variables.scss';
 
 $container-max-widths: (
   sm: 540px,
@@ -19,6 +19,7 @@ $grid-breakpoints: (
 
 
 $spacer: 1rem;
+
 
 $spacers: map-merge(
   (
@@ -56,8 +57,3 @@ $spacers: map-merge(
 );
 
 
-$btn-padding-y: 1rem;
-$btn-padding-x: 2rem;
-$btn-font-family: $font-family-josefin;
-$btn-font-size: 1.0625rem;
-$btn-line-height: 1;

@@ -16,7 +16,7 @@
     border-radius: $radio-input-border-radius;
     box-shadow: $radio-input-box-shadow;
     border:$radio-input-border;
-
+    margin-right: $radio-input-label-gap;
     &:hover {
       background-color: $radio-input-hover-bg;
     }

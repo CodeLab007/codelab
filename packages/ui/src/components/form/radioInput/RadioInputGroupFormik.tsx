@@ -5,17 +5,17 @@ import Error from '../../error/Error';
 
 import { ClRadioGroup } from './RadioInputGroup';
 
- type Check = {
+type Check = {
   value: string;
   label: React.ReactNode;
 };
 
-export interface ICheckInputProps extends ComponentAttrs {
+export interface IRadioGroupFormikProps extends ComponentAttrs {
   name: string;
   radios: Check[];
 }
 
-export const ClRadioInputFormik = ({ name, radios, children }: ICheckInputProps) => {
+export const ClRadioInputFormik = ({ name, radios, children, ...rest }: IRadioGroupFormikProps) => {
   return (
     <Field name={name}>
       {({ form }: FieldProps) => {
@@ -28,9 +28,11 @@ export const ClRadioInputFormik = ({ name, radios, children }: ICheckInputProps)
               radios={radios}
               onValueChange={(value: string) => form.setFieldValue(name, value)}
               name={name}
-            />
-            {hasError && <Error>{form.errors[name]}</Error>}
-            {children}
+              {...rest}
+            >
+              {hasError && <Error>{form.errors[name]}</Error>}
+              {children}
+            </ClRadioGroup>
           </>
         );
       }}

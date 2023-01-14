@@ -2,7 +2,7 @@ import React from 'react';
 import { Formik, Form, FormikValues } from 'formik';
 import { ClContainer } from '../../container/Container';
 import { ClRow } from '../../row/Row';
-import { ClCol,IColProps } from '../../col/Col';
+import { ClCol, IColProps } from '../../col/Col';
 
 export enum FormStatus {
   Loading = 'Loading',
@@ -17,13 +17,14 @@ import { ComponentAttrs } from '../../../types/general';
 interface IProps<T, U> extends ComponentAttrs {
   initialValues: FormikValues & T;
   onSubmit: (values: T) => void;
-  controls: (IFormControl & {colProps?:IColProps})[];
+  controls: (IFormControl & { colProps?: IColProps })[];
   submitBtnText?: string;
-  submitBtnProps?:IButtonProps,
+  submitBtnProps?: IButtonProps;
   validationSchema: SchemaOf<U>;
   title?: React.ReactNode;
-  titleProps?:IHeadingProps
-  formFooter?:React.ReactNode
+  titleProps?: IHeadingProps;
+  formFooter?: React.ReactNode;
+  preButtonChildren?: React.ReactNode;
 }
 
 export const ClGeneralForm = <T extends unknown, U extends Object>({
@@ -36,6 +37,7 @@ export const ClGeneralForm = <T extends unknown, U extends Object>({
   title,
   titleProps,
   formFooter,
+  preButtonChildren,
   ...rest
 }: IProps<T, U>) => {
   let formGroups = controls.map(({ colProps, ...rest }, i) => {
@@ -50,16 +52,14 @@ export const ClGeneralForm = <T extends unknown, U extends Object>({
     <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
       {() => (
         <Form className='row' {...rest}>
-          {title && (
-            <ClHeading  {...titleProps}>
-              {title}
-            </ClHeading>
-          )}
+          {title && <ClHeading {...titleProps}>{title}</ClHeading>}
 
           {formGroups}
-
-          <ClCol xs={12} className="d-flex">
-            <ClButton type='submit' {...submitBtnProps}>{submitBtnText}</ClButton>
+          {preButtonChildren && preButtonChildren}
+          <ClCol xs={12} className='d-flex'>
+            <ClButton type='submit' {...submitBtnProps}>
+              {submitBtnText}
+            </ClButton>
           </ClCol>
           {formFooter && formFooter}
         </Form>
@@ -67,5 +67,3 @@ export const ClGeneralForm = <T extends unknown, U extends Object>({
     </Formik>
   );
 };
-
-

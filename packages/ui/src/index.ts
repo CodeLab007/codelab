@@ -2,6 +2,7 @@
 
 //COMPONENTS EXPORT
 export * from './components/button/Button';
+export * from './components/link/Link';
 export * from './components/button/GoogleLoginButton';
 export * from './components/button/FacebookLoginButton';
 export * from './components/accordion/Accordion';
@@ -24,6 +25,7 @@ export * from './components/form/sliderInput/SliderInputFormik';
 export * from './components/form/dropzone/Dropzone';
 export * from './components/form/dropzone/DropzoneFormik';
 export * from './components/form/generalForm/GeneralForm';
+export * from './components/form/multistepWizard/MultistepWizard';
 export * from './components/progress/Progress';
 
 export * from './components/container/Container'

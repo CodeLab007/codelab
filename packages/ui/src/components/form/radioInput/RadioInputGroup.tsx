@@ -8,10 +8,20 @@ import { LabelProps } from '@radix-ui/react-label';
 export interface IRadioGroupProps extends RadioGroup.RadioGroupProps {
   radios: Check[];
   labelProps?: LabelProps;
+  mainLabelProps?: LabelProps;
+  label?: React.ReactNode;
 }
 
-export const ClRadioGroup = ({ radios, children, labelProps, ...rest }: IRadioGroupProps) => (
-  <RadioGroup.Root className='form-radio-group' {...rest}>
+export const ClRadioGroup = ({
+  radios,
+  children,
+  labelProps,
+  mainLabelProps,
+  label,
+  ...rest
+}: IRadioGroupProps) => (
+  <RadioGroup.Root className='form-radio-group mb-3' {...rest}>
+    {label && <ClLabel {...mainLabelProps}>{label}</ClLabel>}
     {radios.map((radio) => {
       return (
         <div className='form-radio-group__radio' key={radio.value}>

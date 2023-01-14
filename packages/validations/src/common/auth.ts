@@ -1,7 +1,17 @@
-import { object, string, array,number } from 'yup';
+import { object, string, ref } from 'yup';
 
 export const getPasswordSchema = () => string().trim().required();
+export const getEmailSchema = () => string().trim().required().email();
+
 export const loginSchema = object({
-  email: string().trim().required().email(),
+  email: getEmailSchema(),
   password: getPasswordSchema(),
 });
+
+export const getPassswordRepeatSchema = (name = 'password') =>
+  string()
+    .trim()
+    .required()
+    .oneOf([ref(name), null], 'Passwords must match');
+
+
