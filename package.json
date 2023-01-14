@@ -8,6 +8,7 @@
     "@codelab/ui",
     "@codelab/hooks",
     "@codelab/lib",
+    "@codelab/api",
     "@codelab/api-errors",
     "@codelab/validations",
     "@codelab/interfaces",
