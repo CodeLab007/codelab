@@ -15,3 +15,12 @@ export const getPassswordRepeatSchema = (name = 'password') =>
     .oneOf([ref(name), null], 'Passwords must match');
 
 
+export const forgotPasswordSchema = object({
+  email: getEmailSchema(),
+});
+
+
+export const resetPasswordSchema = object({
+  password: getPasswordSchema(),
+  passwordRepeat: getPassswordRepeatSchema(),
+});
