@@ -1,16 +1,19 @@
-import { ClCol, ClGeneralForm, ClLink } from '@codelab/ui';
+import { ClGeneralForm, ClLink } from '@codelab/ui';
 import { Control } from '@codelab/ui/src/components/form/formControl/FormControl';
 import { resetPasswordSchema } from '@codelab/validations';
+import { useRouter } from 'next/router';
 import { AuthLayout } from '../../../components/layouts/AuthLayout';
 import SocialLogins from '../../../components/ui/socialLogins/SocialLogins';
 import { NextPageWithLayout } from '../../_app';
 
 const resetPassword: NextPageWithLayout = (props) => {
+  const router = useRouter();
+
   const initialValues = {
     password: '',
     passwordRepeat: '',
   };
-
+ 
   const onSubmit = (values: typeof initialValues) => {
     console.log(values);
   };
@@ -29,6 +32,10 @@ const resetPassword: NextPageWithLayout = (props) => {
     },
   ];
   const validationSchema = resetPasswordSchema;
+
+  const resetKey = router.query.key;
+  console.log(resetKey);
+
   return (
     <>
       <div>
