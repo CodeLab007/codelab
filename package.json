@@ -10,7 +10,7 @@
     "@codelab/lib",
     "@codelab/api-errors",
     "@codelab/validations",
-    "@codelab/watcher",
+    "@codelab/interfaces",
     "@codelab/rollup-config",
     "apps/*",
     "packages/*"

@@ -1,14 +1,8 @@
 import { ClMultistepWizard, ClWizardStep } from '@codelab/ui';
-import React from 'react';
-
 import { Control } from '@codelab/ui/src/components/form/formControl/FormControl';
-
-import { loginSchema } from '@codelab/validations';
-
-import Link from 'next/link';
-import { NextPageWithLayout } from '../_app';
 import { AuthLayout } from '../../components/layouts/AuthLayout';
 import SocialLogins from '../../components/ui/socialLogins/SocialLogins';
+import { NextPageWithLayout } from '../_app';
 
 import { step1Schema, step2Schema, step3Schema } from '@codelab/validations';
 
@@ -92,7 +86,6 @@ const Register: NextPageWithLayout = (props) => {
         >
           <ClWizardStep controls={step1Controls} validationSchema={step1Schema} />
           <ClWizardStep controls={step2Controls} validationSchema={step2Schema} />
-
           <ClWizardStep controls={step3Controls} validationSchema={step3Schema} />
         </ClMultistepWizard>
       </div>

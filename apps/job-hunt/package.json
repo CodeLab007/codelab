@@ -12,9 +12,10 @@
   "dependencies": {
     "@codelab/hooks": "*",
     "@codelab/ui": "*",
-    "@codelab/validations":"*",
+    "@codelab/validations": "*",
+    "@codelab/interfaces": "*",
     "formik": "^2.2.9",
-    "next": "13.0.0",
+    "next": "^13.1.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

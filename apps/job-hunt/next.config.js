@@ -4,9 +4,10 @@ const path = require('path');
 const nextConfig = {
   reactStrictMode: true,
   output: 'standalone',
+  transpilePackages: ['@codelab/ui'],
   experimental: {
     outputFileTracingRoot: path.join(__dirname, '../../'),
-    transpilePackages: ['@codelab/ui'],
+    
   },
   images: {
     remotePatterns: [

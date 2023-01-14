@@ -1,24 +1,9 @@
-import {
-  ClButton,
-  ClCol,
-  ClContainer,
-  ClFacebookLoginButton,
-  ClGeneralForm,
-  ClGoogleLoginButton,
-  ClLink,
-  ClRow,
-} from '@codelab/ui';
-import React, { useCallback } from 'react';
-
+import { ClCol, ClGeneralForm, ClLink } from '@codelab/ui';
 import { Control } from '@codelab/ui/src/components/form/formControl/FormControl';
-
 import { loginSchema } from '@codelab/validations';
-
-import Link from 'next/link';
-import { NextPageWithLayout } from '../_app';
 import { AuthLayout } from '../../components/layouts/AuthLayout';
 import SocialLogins from '../../components/ui/socialLogins/SocialLogins';
-
+import { NextPageWithLayout } from '../_app';
 
 const Login: NextPageWithLayout = (props) => {
   const initialValues = {
@@ -39,7 +24,7 @@ const Login: NextPageWithLayout = (props) => {
       control: Control.TextInput,
       name: 'password',
       placeholder: 'Password',
-      type:'password'
+      type: 'password',
     },
   ];
   const validationSchema = loginSchema;
@@ -65,9 +50,9 @@ const Login: NextPageWithLayout = (props) => {
           }
           formFooter={
             <ClCol xs={12} className='d-flex'>
-              <ClLink href='/auth/register'  className='w-100 btn btn__outline-primary'>
+              <ClLink href='/auth/register' className='w-100 btn btn__outline-primary'>
                 Create an account
-              </ClLink >
+              </ClLink>
             </ClCol>
           }
         />
