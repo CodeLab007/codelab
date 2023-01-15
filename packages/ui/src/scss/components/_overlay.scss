@@ -9,9 +9,8 @@
   opacity: 1;
   z-index: z(overlay);
   background-color: rgba(0, 0, 0, 0.5);
-  transition: opacity 0.3s ease-in-out;
   &.backdropBlur {
-    backdrop-filter: blur(12px);
+    @include backdrop-blur(12px);
   }
   &__center {
     align-items: center;
