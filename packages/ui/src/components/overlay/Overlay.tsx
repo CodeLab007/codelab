@@ -1,7 +1,7 @@
 import { classNames } from '@codelab/lib';
 import React from 'react';
 
-interface IOverlayProps {
+interface IOverlayProps extends React.HTMLAttributes<HTMLDivElement> {
   visible: boolean;
   children: React.ReactNode;
   backdropBlur?: boolean;
@@ -15,15 +15,26 @@ export default function ClOverlay({
   backdropBlur,
   position,
   animation,
+  ...rest
 }: IOverlayProps) {
+  //   function preventBubbling(event: any) {
+  //     event.stopPropagation();
+  //   }
   return (
-    <div
-      className={classNames(
-        'overlay',
-        `overlay__${position ? position : 'center'} ${backdropBlur && 'backdropBlur'}`,
+    <>
+      {visible && (
+        <div
+          className={classNames(
+            'overlay',
+            `overlay__${position ? position : 'center'} ${backdropBlur && 'backdropBlur'}`,
+          )}
+          {...rest}
+        >
+          <div className={classNames(`${animation}`)} onClick={(e) => e.stopPropagation()}>
+            {children}
+          </div>
+        </div>
       )}
-    >
-      <div className={classNames(`${visible ? animation : 'exit'}`)}>{children}</div>
-    </div>
+    </>
   );
 }

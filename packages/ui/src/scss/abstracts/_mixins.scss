@@ -327,3 +327,13 @@
     }
   }
 }
+
+@mixin backdrop-blur($value) {
+  @if $value == 0 {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  } @else {
+    -webkit-backdrop-filter: blur($value);
+    backdrop-filter: blur($value);
+  }
+}

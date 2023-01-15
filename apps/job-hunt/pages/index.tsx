@@ -21,6 +21,7 @@ import { Form, Formik } from 'formik';
 import { jobAddSchema } from '@codelab/validations';
 import ClOverlay from '@codelab/ui/src/components/overlay/Overlay';
 import ClModal from '@codelab/ui/src/components/modal/Modal';
+import { useState } from 'react';
 
 // import { ClAvatar } from '@codelab/ui/src/components/avatar/Avatar';
 
@@ -60,6 +61,9 @@ export default function Home() {
     },
   ];
   const validationSchema = jobAddSchema;
+
+  const [visible, setVisible] = useState(false);
+
   return (
     <div className={`theme--${theme}`}>
       <Head>
@@ -68,7 +72,7 @@ export default function Home() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <ClOverlay visible={true} position={'center'} backdropBlur animation='zoom'>
+      <ClOverlay visible={visible} position={'center'} backdropBlur animation='zoom' onClick={() => setVisible((v) => !v)}>
         <ClModal>
           <main>
             <ClContainer>
@@ -116,6 +120,7 @@ export default function Home() {
           </main>
         </ClModal>
       </ClOverlay>
+      <ClButton onClick={() => setVisible((v) => !v)}>Toogle Overlay</ClButton>
     </div>
   );
 }
