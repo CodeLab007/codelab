@@ -19,6 +19,8 @@ import Head from 'next/head';
 
 import { Form, Formik } from 'formik';
 import { jobAddSchema } from '@codelab/validations';
+import ClOverlay from '@codelab/ui/src/components/overlay/Overlay';
+import ClModal from '@codelab/ui/src/components/modal/Modal';
 
 // import { ClAvatar } from '@codelab/ui/src/components/avatar/Avatar';
 
@@ -66,50 +68,54 @@ export default function Home() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <main>
-        <ClContainer>
-          <Formik
-            validationSchema={validationSchema}
-            initialValues={{}}
-            onSubmit={(values) => console.log(values)}
-          >
-            <Form>
-              <ClRow>
-                <ClCol sm={4}>
-                  <ClTextInputFormik placeholder={'Job Title'} name='title' />
-                </ClCol>
+      <ClOverlay visible={true} position={'center'} backdropBlur animation='zoom'>
+        <ClModal>
+          <main>
+            <ClContainer>
+              <Formik
+                validationSchema={validationSchema}
+                initialValues={{}}
+                onSubmit={(values) => console.log(values)}
+              >
+                <Form>
+                  <ClRow>
+                    <ClCol sm={4}>
+                      <ClTextInputFormik placeholder={'Job Title'} name='title' />
+                    </ClCol>
 
-                <ClCol sm={4}>
-                  <ClTextInputFormik
-                    Control='textarea'
-                    placeholder={'Select Food'}
-                    name='description'
-                  />
-                </ClCol>
-                <ClCol sm={4}>
-                  <ClSliderInputFormik name='price' />
-                </ClCol>
-                <ClCol sm={12}>
-                  <ClDropzoneFormik
-                    name='photos'
-                    uploadConfig={{
-                      url: 'http://localhost:4000/api/upload/products',
-                      method: 'post',
-                    }}
-                  />
-                </ClCol>
-                <ClCol>
-                  <ClButton>Submit</ClButton>
-                </ClCol>
-              </ClRow>
-            </Form>
-          </Formik>
-        </ClContainer>
+                    <ClCol sm={4}>
+                      <ClTextInputFormik
+                        Control='textarea'
+                        placeholder={'Select Food'}
+                        name='description'
+                      />
+                    </ClCol>
+                    <ClCol sm={4}>
+                      <ClSliderInputFormik name='price' />
+                    </ClCol>
+                    <ClCol sm={12}>
+                      <ClDropzoneFormik
+                        name='photos'
+                        // uploadConfig={{
+                        //   url: 'http://localhost:4000/api/upload/products',
+                        //   method: 'post',
+                        // }}
+                      />
+                    </ClCol>
+                    <ClCol>
+                      <ClButton>Submit</ClButton>
+                    </ClCol>
+                  </ClRow>
+                </Form>
+              </Formik>
+            </ClContainer>
 
-        {/* <ClAvatar variant={'success'} size='xxl'>
+            {/* <ClAvatar variant={'success'} size='xxl'>
           <span>AB</span>
         </ClAvatar> */}
-      </main>
+          </main>
+        </ClModal>
+      </ClOverlay>
     </div>
   );
 }
