@@ -17,7 +17,7 @@ export const Section = ({
   marginTop = '0',
   paddingBottom = '2rem',
   paddingTop = '2rem',
-  className,
+  className = '',
   heading,
   style = {},
 }: IProps) => {

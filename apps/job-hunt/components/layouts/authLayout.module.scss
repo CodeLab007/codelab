@@ -10,7 +10,7 @@
     flex: 1;
 
     &:nth-of-type(even) {
-      background-color: #f8f9fa;
+      background-color: $gray-100;
     }
   }
 }

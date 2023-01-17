@@ -1,10 +1,13 @@
+import { classNames } from '@codelab/lib';
 import { ComponentAttrs } from '@codelab/ui';
 import React from 'react';
 
-export const AuthLayout = ({ children }: ComponentAttrs) => {
+import classes from './authLayout.module.scss'
 
+export const AuthLayout = ({ children }: ComponentAttrs) => {
+  
   return (
-    <main className='d-flex auth-layout'>
+    <main className={classNames('d-flex auth-layout',classes['auth-layout'])}>
       {/* <div
         className='d-flex justify-content-center align-items-center'
         style={{ width: '50%', height: '100%' }}

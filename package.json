@@ -3,12 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "workspaces": [
+    "@codelab/sdk",
     "@codelab/job-hunt",
     "@codelab/job-hunt-api",
     "@codelab/ui",
     "@codelab/hooks",
     "@codelab/lib",
-    "@codelab/sdk",
     "@codelab/api-errors",
     "@codelab/validations",
     "@codelab/types",

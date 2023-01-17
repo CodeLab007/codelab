@@ -5,10 +5,19 @@ import SocialLogins from '../../components/ui/socialLogins/SocialLogins';
 import { NextPageWithLayout } from '../_app';
 
 import { step1Schema, step2Schema, step3Schema } from '@codelab/validations';
+import { useState } from 'react';
+import CustomRadioLabel from '../../components/ui/customRadioLabel/CustomRadioLabel';
+
+import { FaUser, FaBriefcase } from 'react-icons/fa';
 
 const Register: NextPageWithLayout = (props) => {
   // I need to access type so that i can define steps conditionally, to get values use this
   // https://stackoverflow.com/questions/56268194/update-another-component-when-formik-form-changes/56269090#56269090
+  const [type, setType] = useState('');
+
+  const getFormValues = (values: typeof initialValues) => {
+    setType(values.type);
+  };
   const initialValues = {
     type: 'company',
   };
@@ -20,16 +29,30 @@ const Register: NextPageWithLayout = (props) => {
   const step1Controls = [
     {
       control: Control.RadioInput,
+      className: 'justify-content-between',
       name: 'type',
-      label: 'You are: ',
+      // label: 'You are: ',
+      customLabel: true,
+      hideRadios: true,
+      inline: true,
       radios: [
         {
           value: 'company',
-          label: 'Company',
+          label: (
+            <CustomRadioLabel className='d-flex flex-column justify-content-center align-items-center' htmlFor='company'>
+              <FaBriefcase size={24}  className='mb-2' />
+              I am a company
+            </CustomRadioLabel>
+          ),
         },
         {
           value: 'individual',
-          label: 'Individual',
+          label: (
+            <CustomRadioLabel className='d-flex flex-column justify-content-center align-items-center' htmlFor='individual'>
+              <FaUser size={24} className='mb-2' />
+              Individual
+            </CustomRadioLabel>
+          ),
         },
       ],
     },
@@ -54,7 +77,7 @@ const Register: NextPageWithLayout = (props) => {
     },
   ];
 
-  const step3Controls = [
+  const step3IndividualControls = [
     {
       control: Control.TextInput,
       name: 'firstName',
@@ -65,6 +88,8 @@ const Register: NextPageWithLayout = (props) => {
       name: 'lastName',
       placeholder: 'Last name',
     },
+  ];
+  const step3CompanyControls = [
     {
       control: Control.TextInput,
       name: 'companyName',
@@ -83,10 +108,16 @@ const Register: NextPageWithLayout = (props) => {
           title='Join Our Platform'
           titleProps={{ level: 3, className: 'mb-3 text-gray-7' }}
           submitBtnProps={{ className: 'w-100' }}
+          getFormValues={getFormValues}
         >
           <ClWizardStep controls={step1Controls} validationSchema={step1Schema} />
           <ClWizardStep controls={step2Controls} validationSchema={step2Schema} />
-          <ClWizardStep controls={step3Controls} validationSchema={step3Schema} />
+          {type === 'individual' ? (
+            <ClWizardStep controls={step3IndividualControls} validationSchema={step3Schema} />
+          ) : (
+            <ClWizardStep controls={step3CompanyControls} validationSchema={step3Schema} />
+          )}
+          {}
         </ClMultistepWizard>
       </div>
 

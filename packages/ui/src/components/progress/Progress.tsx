@@ -1,7 +1,7 @@
 import React from 'react';
 import * as Progress from '@radix-ui/react-progress';
 import { Variant } from '../../types/general';
-import { Primary } from '../button/Button.stories';
+
 import { classNames } from '@codelab/lib';
 
 interface IProps extends Progress.ProgressProps {
@@ -11,7 +11,7 @@ interface IProps extends Progress.ProgressProps {
   showPercentage?:boolean
 }
 
-export const ClProgress = ({className, showPercentage  = false,sm = false,progress = 0, variant = 'primary', ...rest }: IProps) => {
+export const ClProgress = ({className = '', showPercentage  = false,sm = false,progress = 0, variant = 'primary', ...rest }: IProps) => {
   const classes = classNames('progress',sm ? 'sm' : '',className)
   const indiactorClasses = classNames('progress__indicator',`progress__indicator__${variant}`)
   return (

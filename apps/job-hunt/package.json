@@ -13,7 +13,7 @@
     "@codelab/hooks": "*",
     "@codelab/ui": "*",
     "@codelab/validations": "*",
-    "@codelab/interfaces": "*",
+
     "formik": "^2.2.9",
     "next": "^13.1.2",
     "react": "^18.2.0",
