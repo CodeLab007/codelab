@@ -1,29 +1,14 @@
-import {
-  ClButton,
-  ClCheckbox,
-  ClCheckInputFormik,
-  ClCol,
-  ClContainer,
-  ClDropzone,
-  ClDropzoneFormik,
-  ClRadioInputFormik,
-  ClRow,
-  ClSelectInput,
-  ClSelectInputFormik,
-  ClSliderInputFormik,
-  ClTextInput,
-  ClTextInputFormik,
-} from '@codelab/ui';
 import { useLocalStorage } from '@codelab/hooks';
-import Head from 'next/head';
-
-import { Form, Formik } from 'formik';
-import { jobAddSchema } from '@codelab/validations';
-import ClOverlay from '@codelab/ui/src/components/overlay/Overlay';
+import {
+  ClButton, ClCol,
+  ClContainer, ClDropzoneFormik, ClRow, ClSliderInputFormik, ClTextInputFormik
+} from '@codelab/ui';
 import ClModal from '@codelab/ui/src/components/modal/Modal';
+import ClOverlay from '@codelab/ui/src/components/overlay/Overlay';
+import { jobAddSchema } from '@codelab/validations';
+import { Form, Formik } from 'formik';
+import Head from 'next/head';
 import { useState } from 'react';
-
-// import { ClAvatar } from '@codelab/ui/src/components/avatar/Avatar';
 
 export default function Home() {
   //set ts type to default or dark

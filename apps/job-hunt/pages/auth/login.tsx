@@ -1,9 +1,8 @@
-import { ClCol, ClGeneralForm, ClLink } from '@codelab/ui';
-import { Control } from '@codelab/ui/src/components/form/formControl/FormControl';
+import { AuthLayout } from '@/components/layouts';
+import SocialLogins from '@/components/ui/social-logins/SocialLogins';
+import { ClCol, ClGeneralForm, ClLink, Control } from '@codelab/ui';
 import { loginSchema } from '@codelab/validations';
-import { AuthLayout } from '../../components/layouts/AuthLayout';
-import SocialLogins from '../../components/ui/socialLogins/SocialLogins';
-import { NextPageWithLayout } from '../_app';
+import { NextPageWithLayout } from 'pages/_app';
 
 const Login: NextPageWithLayout = (props) => {
   const initialValues = {

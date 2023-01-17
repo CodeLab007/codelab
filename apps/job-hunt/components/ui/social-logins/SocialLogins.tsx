@@ -1,5 +1,5 @@
 import { ClFacebookLoginButton, ClGoogleLoginButton } from '@codelab/ui';
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 
 const SocialLogins = () => {
   const onGoogleLogin = useCallback((data: any) => {
