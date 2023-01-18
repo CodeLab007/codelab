@@ -29,7 +29,7 @@ export * from './components/form/dropzone/DropzoneFormik';
 export * from './components/form/generalForm/GeneralForm';
 export * from './components/form/multistepWizard/MultistepWizard';
 export * from './components/progress/Progress';
-
+export * from './components/nav/Nav'
 export * from './components/container/Container'
 export * from './components/container/OneSideContainer'
 export * from './components/row/Row'

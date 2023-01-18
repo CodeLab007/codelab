@@ -1,7 +1,7 @@
 import { ClGeneralForm, ClLink } from '@codelab/ui';
 import { Control } from '@codelab/ui/src/components/form/formControl/FormControl';
 import { forgotPasswordSchema } from '@codelab/validations';
-import { AuthLayout } from '../../components/layouts/AuthLayout';
+import { AuthLayout } from '../../components/layouts/authLayout/AuthLayout';
 import SocialLogins from '../../components/ui/socialLogins/SocialLogins';
 import { NextPageWithLayout } from '../_app';
 

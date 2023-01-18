@@ -3,8 +3,8 @@ import { ComponentAttrs } from '@codelab/ui';
 import React from 'react';
 
 import classes from './authLayout.module.scss'
-
-export const AuthLayout = ({ children }: ComponentAttrs) => {
+interface IProps extends ComponentAttrs{}
+export const AuthLayout = ({ children }: IProps) => {
   
   return (
     <main className={classNames('d-flex auth-layout',classes['auth-layout'])}>

@@ -1,11 +1,11 @@
 import { ClMultistepWizard, ClWizardStep } from '@codelab/ui';
 import { Control } from '@codelab/ui/src/components/form/formControl/FormControl';
-import { AuthLayout } from '../../components/layouts/AuthLayout';
+import { AuthLayout } from '../../components/layouts/authLayout/AuthLayout';
 import SocialLogins from '../../components/ui/socialLogins/SocialLogins';
 import { NextPageWithLayout } from '../_app';
 
 import { step1Schema, step2Schema, step3Schema } from '@codelab/validations';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import CustomRadioLabel from '../../components/ui/customRadioLabel/CustomRadioLabel';
 
 import { FaUser, FaBriefcase } from 'react-icons/fa';
@@ -15,14 +15,19 @@ const Register: NextPageWithLayout = (props) => {
   // https://stackoverflow.com/questions/56268194/update-another-component-when-formik-form-changes/56269090#56269090
   const [type, setType] = useState('');
 
-  const getFormValues = (values: typeof initialValues) => {
-    setType(values.type);
-  };
+  // const getFormValues = useCallback((values: typeof initialValues) => {
+  //   setType(values.type);
+  // }, []);
   const initialValues = {
     type: 'company',
   };
 
   const onSubmit = (values: typeof initialValues, step: number, isLastStep: Boolean) => {
+    if(step === 0){
+      if(values.type){
+        setType(values.type)
+      }
+    }
     console.log(values);
   };
 
@@ -39,16 +44,21 @@ const Register: NextPageWithLayout = (props) => {
         {
           value: 'company',
           label: (
-            <CustomRadioLabel className='d-flex flex-column justify-content-center align-items-center' htmlFor='company'>
-              <FaBriefcase size={24}  className='mb-2' />
-              I am a company
+            <CustomRadioLabel
+              className='d-flex flex-column justify-content-center align-items-center'
+              htmlFor='company'
+            >
+              <FaBriefcase size={24} className='mb-2' />I am a company
             </CustomRadioLabel>
           ),
         },
         {
           value: 'individual',
           label: (
-            <CustomRadioLabel className='d-flex flex-column justify-content-center align-items-center' htmlFor='individual'>
+            <CustomRadioLabel
+              className='d-flex flex-column justify-content-center align-items-center'
+              htmlFor='individual'
+            >
               <FaUser size={24} className='mb-2' />
               Individual
             </CustomRadioLabel>
@@ -108,7 +118,6 @@ const Register: NextPageWithLayout = (props) => {
           title='Join Our Platform'
           titleProps={{ level: 3, className: 'mb-3 text-gray-7' }}
           submitBtnProps={{ className: 'w-100' }}
-          getFormValues={getFormValues}
         >
           <ClWizardStep controls={step1Controls} validationSchema={step1Schema} />
           <ClWizardStep controls={step2Controls} validationSchema={step2Schema} />
