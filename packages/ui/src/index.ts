@@ -24,6 +24,12 @@ export * from './components/row/Row';
 export * from './components/switch/Switch';
 export * from './components/toast/Toast';
 export * from './components/tooltip/Tooltip';
+export * from './components/nav/Nav'
+export * from './components/container/Container'
+export * from './components/container/OneSideContainer'
+export * from './components/row/Row'
+export * from './components/col/Col'
+
 //TYPES EXPORT
 export * from './types/general';
 

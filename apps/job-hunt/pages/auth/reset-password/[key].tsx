@@ -3,7 +3,7 @@ import SocialLogins from '@/components/ui/social-logins/SocialLogins';
 import { ClGeneralForm, ClLink, Control } from '@codelab/ui';
 import { resetPasswordSchema } from '@codelab/validations';
 import { useRouter } from 'next/router';
-import { NextPageWithLayout } from 'pages/_app';
+import { NextPageWithLayout } from '../../_app';
 
 const resetPassword: NextPageWithLayout = (props) => {
   const router = useRouter();

@@ -1,3 +1,10 @@
 a{
     text-decoration: $link-text-decoration;
+    color: $link-color;
+    &:not(.btn){
+        &.active,&:hover{
+            color: $link-active-color;
+        }
+    }
+
 }

@@ -443,5 +443,14 @@ $progress-indicator-transition: $general-transition-quick-all;
 $progress-font-size: $font-size-sm;
 
 
+// list
+$list-style-type:none;
+
+
+// nav
+$nav-list-style-type: $list-style-type;
+
 // Link
 $link-text-decoration:none;
+$link-active-color:$primary;
+$link-color:$gray-700;

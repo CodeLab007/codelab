@@ -38,4 +38,10 @@
       background-color: $radio-input-indicator-bg;
     }
   }
+  &.custom{
+    input:checked ~ label{
+      background-color: $gray-300;
+    }
+  }
+
 }
