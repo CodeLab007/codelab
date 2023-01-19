@@ -1,6 +1,9 @@
+import { classNames } from '@codelab/lib';
 import { ClButton, ClContainer, ClLink, ClNav } from '@codelab/ui';
 import React from 'react';
 import Logo from '../../ui/logo/Logo';
+
+import classes from './header.module.scss'
 
 const Header = () => {
     const navLinks = [
@@ -18,8 +21,8 @@ const Header = () => {
         </ClLink>
     ]
   return (
-    <header className='d-flex py-3'>
-      <ClContainer>
+    <header className='d-flex'>
+      <ClContainer className={classNames('py-3',classes.header,'bg-white')}>
        <nav className='d-flex justify-content-between align-items-center'>
        <Logo/>
        <ClNav navLinks={navLinks}/>

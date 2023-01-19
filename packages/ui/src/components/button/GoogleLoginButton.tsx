@@ -9,7 +9,7 @@ interface IProps extends ComponentAttrs {
 }
 
 export const ClGoogleLoginButton = ({ className = '', onLogin, ...rest }: IProps) => {
-  const { state,loadingState } = useExternalScript('https://accounts.google.com/gsi/client');
+  const { state } = useExternalScript('https://accounts.google.com/gsi/client');
   // const memoizedLoginCb = useCallback(
   //   onLogin,
   //   [],

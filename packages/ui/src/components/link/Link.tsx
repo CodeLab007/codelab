@@ -14,7 +14,6 @@ export const ClLink = ({
   href = '',
   className,
   activeClassName = 'active',
-
   onClick,
   asButton = false,
   ...rest
