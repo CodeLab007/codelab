@@ -14,6 +14,7 @@ export * from './components/form/index';
 export * from './components/form/textInput/TextInput';
 export * from './components/form/textInput/TextInputFormik';
 export * from './components/heading/Heading';
+export * from './components/hover-card/HoverCard';
 export * from './components/label/Label';
 export * from './components/link/Link';
 export * from './components/modal/Modal';

@@ -31,15 +31,14 @@ const postRegistration: NextPageWithLayout = (props) => {
   ];
   const validationSchema = resetPasswordSchema;
 
-  const resetKey = router.query.key;
-  console.log(resetKey);
+ 
 
   return (
     <>
       <div>
         <ClGeneralForm<typeof initialValues, any>
           style={{ maxWidth: '28rem' }}
-          title='Recover your password'
+          title={`Hi ${router.query.fullname}, please set your password`}
           titleProps={{ level: 3, className: 'mb-3 text-gray-7' }}
           initialValues={initialValues}
           controls={controls}

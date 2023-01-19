@@ -24,8 +24,6 @@
   }
 }
 
-
-
 @mixin element-variant(
   $background,
   $border,
@@ -337,3 +335,4 @@
     backdrop-filter: blur($value);
   }
 }
+

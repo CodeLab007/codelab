@@ -1,7 +1,12 @@
 import { useLocalStorage } from '@codelab/hooks';
 import {
-  ClButton, ClCol,
-  ClContainer, ClDropzoneFormik, ClRow, ClSliderInputFormik, ClTextInputFormik
+  ClButton,
+  ClCol,
+  ClContainer,
+  ClDropzoneFormik,
+  ClRow,
+  ClSliderInputFormik,
+  ClTextInputFormik,
 } from '@codelab/ui';
 import ClModal from '@codelab/ui/src/components/modal/Modal';
 import ClOverlay from '@codelab/ui/src/components/overlay/Overlay';
@@ -57,7 +62,13 @@ export default function Home() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <ClOverlay visible={visible} position={'center'} backdropBlur animation='zoom' onClick={() => setVisible((v) => !v)}>
+      <ClOverlay
+        visible={visible}
+        position={'center'}
+        backdropBlur
+        animation='zoom'
+        onClick={() => setVisible((v) => !v)}
+      >
         <ClModal>
           <main>
             <ClContainer>

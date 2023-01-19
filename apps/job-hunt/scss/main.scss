@@ -2,6 +2,7 @@
 // @import '@codelab/ui/src/scss/abstracts/variables.scss';
 @import '@codelab/ui/src/scss/abstracts/functions.scss';
 @import '@codelab/ui/src/scss/abstracts/mixins.scss';
+@import './abstracts/mixins.scss';
 $container-max-widths: (
   xs: 0,
   sm: 540px,
@@ -102,6 +103,8 @@ $spacers: (
 //   ),
 //   $spacers
 // );
+
+@include generate(gap, gap);
 
 @import '@codelab/ui/src/scss/abstracts/variables.scss';
 
