@@ -1,13 +1,11 @@
 import { classNames } from '@codelab/lib';
 import { ComponentAttrs } from '@codelab/ui';
-import React from 'react';
 
-import classes from './authLayout.module.scss'
-interface IProps extends ComponentAttrs{}
+import classes from './authLayout.module.scss';
+interface IProps extends ComponentAttrs {}
 export const AuthLayout = ({ children }: IProps) => {
-  
   return (
-    <main className={classNames('d-flex auth-layout',classes['auth-layout'])}>
+    <main className={classNames('d-flex auth-layout', classes['auth-layout'])}>
       {/* <div
         className='d-flex justify-content-center align-items-center'
         style={{ width: '50%', height: '100%' }}
@@ -21,6 +19,7 @@ export const AuthLayout = ({ children }: IProps) => {
 
   
       </div> */}
+       
     </main>
   );
 };

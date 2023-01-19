@@ -1,14 +1,12 @@
-import { ClMultistepWizard, ClWizardStep } from '@codelab/ui';
-import { Control } from '@codelab/ui/src/components/form/formControl/FormControl';
-import { AuthLayout } from '../../components/layouts/authLayout/AuthLayout';
-import SocialLogins from '../../components/ui/socialLogins/SocialLogins';
+import { AuthLayout } from '@/components/layouts';
+import SocialLogins from '@/components/ui/social-logins/SocialLogins';
+import { ClMultistepWizard, ClWizardStep, Control } from '@codelab/ui';
 import { NextPageWithLayout } from '../_app';
-
 import { step1Schema, step2Schema, step3Schema } from '@codelab/validations';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import CustomRadioLabel from '../../components/ui/customRadioLabel/CustomRadioLabel';
 
-import { FaUser, FaBriefcase } from 'react-icons/fa';
+import { FaBriefcase, FaUser } from 'react-icons/fa';
 
 const Register: NextPageWithLayout = (props) => {
   // I need to access type so that i can define steps conditionally, to get values use this
