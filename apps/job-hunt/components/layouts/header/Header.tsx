@@ -16,13 +16,13 @@ const Header = () => {
         <ClLink href='/faqs' key={2}>
            FAQs
         </ClLink>,
-        <ClLink className='btn btn__primary'  href='/auth/login'  key={3}>
+        <ClLink applyLinkStyles={false} className='btn btn__primary ms-5'  href='/auth/login'  key={3}>
            Login
         </ClLink>
     ]
   return (
     <header className='d-flex'>
-      <ClContainer className={classNames('py-3',classes.header,'bg-white')}>
+      <ClContainer className={classNames('py-2 px-4',classes.header,'bg-white')}>
        <nav className='d-flex justify-content-between align-items-center'>
        <Logo/>
        <ClNav navLinks={navLinks}/>

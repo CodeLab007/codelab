@@ -3,20 +3,22 @@ a {
   color: $link-color;
   padding: 0.5rem 0.875rem;
 
-  &:not(.btn) {
+  &.link {
+    // &:not(.btn) {
+    @include pseudo(after, 25%, 3px, 90%, 0.875rem, block) {
+      background: $primary;
+      transform: scaleX(0);
+      transform-origin: left bottom;
+      transition: $general-transition-quick-all;
+    }
     &.active,
     &:hover {
-      @include pseudo(after, 25%, 3px, 100%, 0.875rem, block) {
-        background: $primary;
-        transform: scaleX(0);
-        transform-origin: left bottom;
-        transition: $general-transition-quick-all;
-      }
       color: $link-active-color;
       font-weight: 500;
       &::after {
         transform: scaleX(1);
       }
     }
+    // }
   }
 }

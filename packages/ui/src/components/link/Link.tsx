@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 export interface IProps extends ComponentAttrs, React.AnchorHTMLAttributes<HTMLAnchorElement> {
   activeClassName?: string;
   asButton?: boolean;
+  applyLinkStyles?:boolean;
 }
 
 export const ClLink = ({
@@ -14,6 +15,7 @@ export const ClLink = ({
   href = '',
   className,
   activeClassName = 'active',
+  applyLinkStyles = true,
   onClick,
   asButton = false,
   ...rest
@@ -23,6 +25,7 @@ export const ClLink = ({
   const classes = [
     className ? className : '',
     router.pathname === href.toString() || router.asPath === href.toString() ? activeClassName : '',
+    applyLinkStyles ? 'link' : '',
   ].join(' ');
 
   let normalAnchorTag = (

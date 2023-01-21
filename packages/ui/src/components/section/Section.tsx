@@ -1,17 +1,17 @@
-import React, { FC, CSSProperties } from 'react';
+import React from 'react';
 
 import { ComponentAttrs } from '../../types/general';
-import { Heading } from '../heading/Heading.stories';
+import {ClHeading} from '../heading/Heading'
 
 interface IProps extends ComponentAttrs {
   paddingTop?: string;
   paddingBottom?: string;
   marginBottom?: string;
   marginTop?: string;
-  heading?: string;
+  heading?: React.ReactNode;
 }
 
-export const Section = ({
+export const ClSection = ({
   children,
   marginBottom = '3rem',
   marginTop = '0',
@@ -31,9 +31,9 @@ export const Section = ({
   return (
     <section className={className} style={styles}>
       {heading && (
-        <Heading className='text-secondary text-capitalize text-center mb-4' level={2}>
+        <ClHeading className='text-primary text-capitalize text-center mb-3' level={2}>
           {heading}
-        </Heading>
+        </ClHeading>
       )}
 
       {children}

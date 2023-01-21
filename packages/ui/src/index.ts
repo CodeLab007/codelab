@@ -14,6 +14,7 @@ export * from './components/form/index';
 export * from './components/form/textInput/TextInput';
 export * from './components/form/textInput/TextInputFormik';
 export * from './components/heading/Heading';
+export * from './components/text/Text';
 export * from './components/hover-card/HoverCard';
 export * from './components/label/Label';
 export * from './components/link/Link';
@@ -24,13 +25,15 @@ export * from './components/row/Row';
 export * from './components/switch/Switch';
 export * from './components/toast/Toast';
 export * from './components/tooltip/Tooltip';
-export * from './components/nav/Nav'
-export * from './components/container/Container'
-export * from './components/container/OneSideContainer'
-export * from './components/row/Row'
-export * from './components/col/Col'
+export * from './components/nav/Nav';
+export * from './components/container/Container';
+export * from './components/container/OneSideContainer';
+export * from './components/row/Row';
+export * from './components/col/Col';
+export * from './components/box/Box';
+export * from './components/section/Section';
+export * from './components/card/Card'
+export * from './components/badge/Badge'
 
 //TYPES EXPORT
 export * from './types/general';
-
-

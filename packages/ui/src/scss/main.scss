@@ -2,12 +2,13 @@
 @import './abstracts';
 @import './base';
 @import './components';
-
+@import './components/card';
 @import './components/link.scss';
 @import './components/nav.scss';
 @import './components/loader';
 @import './components/error';
 @import './components/heading';
+@import './components/text';
 @import './components/button';
 @import './components/toast';
 @import './components/input';
@@ -20,3 +21,4 @@
 @import './components/progress';
 @import './components/dropzone';
 @import './components/hoverCard';
+@import './components/badge';

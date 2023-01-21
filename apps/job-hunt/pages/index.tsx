@@ -1,33 +1,17 @@
-import {
-  ClButton,
-  ClCheckbox,
-  ClCheckInputFormik,
-  ClCol,
-  ClContainer,
-  ClDropzone,
-  ClDropzoneFormik,
-  ClRadioInputFormik,
-  ClRow,
-  ClSelectInput,
-  ClSelectInputFormik,
-  ClSliderInputFormik,
-  ClTextInput,
-  ClTextInputFormik,
-} from '@codelab/ui';
 import { useLocalStorage } from '@codelab/hooks';
 import Head from 'next/head';
 
-import { Form, Formik } from 'formik';
 import { jobAddSchema } from '@codelab/validations';
-import ClOverlay from '@codelab/ui/src/components/overlay/Overlay';
-import ClModal from '@codelab/ui/src/components/modal/Modal';
+
 import { useState } from 'react';
 import { NextPageWithLayout } from './_app';
 import { MainLayout } from '../components/layouts/mainLayout/MainLayout';
+import { HeroHeader } from '@/components/home/heroHeader/HeroHeader';
+import { RecentJobs } from '@/components/home/recentJobs/RecentJobs';
+import { Features } from '@/components/home/features/Features';
+import AboutUs from '@/components/home/aboutUs/AboutUs';
 
-// import { ClAvatar } from '@codelab/ui/src/components/avatar/Avatar';
-
-const Home:NextPageWithLayout = ()=> {
+const Home: NextPageWithLayout = () => {
   //set ts type to default or dark
   const [theme, setTheme] = useLocalStorage('theme', 'dark');
 
@@ -74,11 +58,16 @@ const Home:NextPageWithLayout = ()=> {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
+      <HeroHeader />
+      <Features/>
+      <RecentJobs />
+      <AboutUs />
+      <RecentJobs />
       {/* <ClOverlay visible={visible} position={'center'} backdropBlur animation='zoom' onClick={() => setVisible((v) => !v)}> */}
       {/* <ClModal> */}
       {/* <main> */}
 
-        {/* <ClAvatar variant={'success'} size='xxl'>
+      {/* <ClAvatar variant={'success'} size='xxl'>
           <span>AB</span>
         </ClAvatar> */}
       {/* </main> */}
@@ -87,8 +76,7 @@ const Home:NextPageWithLayout = ()=> {
       {/* <ClButton onClick={() => setVisible((v) => !v)}>Toogle Overlay</ClButton> */}
     </div>
   );
-}
-
+};
 
 Home.getLayout = function getLayout(page) {
   return <MainLayout>{page}</MainLayout>;
