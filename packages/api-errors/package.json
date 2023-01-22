@@ -1,7 +1,8 @@
 {
   "name": "@codelab/api-errors",
   "version": "0.0.1",
-  "main": "./index.ts",
+  "main": "index.ts",
+  "types": "index.ts",
   "license": "MIT",
   "devDependencies": {
     "tsconfig": "*"

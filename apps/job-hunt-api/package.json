@@ -4,18 +4,50 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "dev": "ts-node-dev --poll src/index.ts",
-    "start": "ts-node dist/index.js",
-    "build": "tsc -p .",
+    "dev": "nodemon --exec node --loader ts-node/esm src/index.ts",
+    "serve": "concurrently \"npx tsc -w\"  \"nodemon dist/index.js\"",
+    "start": "nodemon ./src/index.ts",
+    "create-migration": "node -r dotenv/config migrate.js create",
+    "build": "rimraf ./dist && tsc",
     "test": "jest --watchAll --no-cache"
   },
-  "type": "module",
+  
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "dependencies": {
+
+    "@codelab/api-errors": "*",
+    "@types/cookie-parser": "^1.4.3",
+    "@types/cors": "^2.8.13",
+    "@types/morgan": "^1.9.4",
+    "@types/multer": "^1.4.7",
+    "@types/node": "^18.11.18",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.0",
+    "nodemailer-express-handlebars": "^6.0.0",
+    "nodemailer-sendgrid-transport": "^0.2.0",
+    "nodemon": "^2.0.20",
+    "pg": "^8.8.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.28.0",
+    "sharp": "^0.31.3",
+    "umzug": "^3.2.1"
+  },
   "devDependencies": {
+    "tsconfig": "*",
     "@types/express": "^4.17.15",
     "@types/node": "^18.11.18",
+    "nodemon": "^2.0.20",
+    "rimraf": "^4.1.1",
+    "ts-node": "^10.9.1",
     "typescript": "^4.9.4"
   }
 }
