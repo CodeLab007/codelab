@@ -158,7 +158,7 @@ $color-contrast-light: $white !default;
 $base-padding-x: 2rem !default;
 $base-padding-y: 1.25rem !default;
 
-$grid-columns: 12 !default;
+$grid-columns: 24 !default;
 $grid-gutter-width: 1.5rem !default;
 $grid-row-columns: 6 !default;
 
@@ -334,6 +334,8 @@ $toast-title-font-weight: $font-weight-semibold !default;
 // Text input
 $input-padding-x: $base-padding-x * 0.4 !default;
 $input-padding-y: $base-padding-y * 0.4 !default;
+$input-lg-padding-x: $base-padding-x * 0.6 !default;
+$input-lg-padding-y: $base-padding-y * 0.6 !default;
 $input-border-radius: $border-radius-sm !default;
 $input-box-shadow: $box-shadow-sm !default;
 $input-border-color: $gray-500;
@@ -465,7 +467,7 @@ $link-active-color: $primary;
 $link-color: $gray-700;
 
 // Card
-$card-padding-x: $base-padding-x;
+$card-padding-x: $base-padding-x * 0.65;
 $card-padding-y: $base-padding-y;
 $card-border-radius: $border-radius;
 $card-box-shadow: $box-shadow-sm;

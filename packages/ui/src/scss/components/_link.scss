@@ -1,9 +1,10 @@
 a {
   text-decoration: $link-text-decoration;
   color: $link-color;
-  padding: 0.5rem 0.875rem;
+
 
   &.link {
+    padding: 0.5rem 0.875rem;
     // &:not(.btn) {
     @include pseudo(after, 25%, 3px, 90%, 0.875rem, block) {
       background: $primary;

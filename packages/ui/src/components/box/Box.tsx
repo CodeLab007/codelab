@@ -15,10 +15,12 @@ export const ClBox = <T extends React.ElementType = 'div'>({
   direction = 'column',
   className = '',
   as,
+  style,
   ...rest
 }: IProps<T>) => {
-  const style = {
+  const _style = {
     gap: `${rowGap} ${colGap}`,
+    ...style
   };
   const Component = as || 'div';
   return (
@@ -27,10 +29,9 @@ export const ClBox = <T extends React.ElementType = 'div'>({
       className={classNames(
         'd-flex',
         `flex-${direction}`,
-        direction === 'column' ? 'align-items-start' : '',
         className,
       )}
-      style={style}
+      style={_style}
     >
       {children}
     </Component>

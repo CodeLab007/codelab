@@ -10,6 +10,9 @@ import { HeroHeader } from '@/components/home/heroHeader/HeroHeader';
 import { RecentJobs } from '@/components/home/recentJobs/RecentJobs';
 import { Features } from '@/components/home/features/Features';
 import AboutUs from '@/components/home/aboutUs/AboutUs';
+import { RecentBlogs } from '@/components/home/recentBlogs/RecentBlogs';
+import { Feedback } from '@/components/home/feedback/Feedback';
+import {Newsletter} from '@/components/home/newsletter/Newsletter';
 
 const Home: NextPageWithLayout = () => {
   //set ts type to default or dark
@@ -62,7 +65,9 @@ const Home: NextPageWithLayout = () => {
       <Features/>
       <RecentJobs />
       <AboutUs />
-      <RecentJobs />
+      <RecentBlogs/>
+      <Feedback/>
+      <Newsletter/>
       {/* <ClOverlay visible={visible} position={'center'} backdropBlur animation='zoom' onClick={() => setVisible((v) => !v)}> */}
       {/* <ClModal> */}
       {/* <main> */}

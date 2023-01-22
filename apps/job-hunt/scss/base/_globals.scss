@@ -1,7 +1,15 @@
 
+input{
+    &::placeholder{
+        color:$gray-700;
+        font-size: $font-size-sm;
+    }
+}
+
 h1,h2,h3,h4,h5,h6{
     color: $gray-700;
 }
-p{
+p,li{
     color: $gray-600;
 }
+

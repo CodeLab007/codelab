@@ -8,26 +8,28 @@ interface IProps extends ComponentAttrs {
   bodyClasses?: string;
   footerClasses?: string;
   bodyAsChildren?:boolean;
+  noPadding?:boolean;
 }
 
 export const ClCard = ({
   children,
   headerContent,
   headerClasses = '',
-  bodyClasses,
+  bodyClasses = '',
   footerContent,
-  footerClasses,
+  footerClasses = '',
   className = '',
   bodyAsChildren = false,
+  noPadding = false,
   ...rest
 }: IProps) => {
   return (
-    <div className={classNames('card',className)} {...rest}>
+    <div className={classNames('card',className,noPadding ? 'no-padding' : '')} {...rest}>
       {headerContent && (
         <div className={classNames(headerClasses, 'card__header')}>{headerContent}</div>
       )}
 
-      {bodyAsChildren ? children : <div className={bodyClasses}>{children}</div>}
+      {bodyAsChildren ? children : <div className={classNames(bodyClasses,'card__body')}>{children}</div>}
 
       {footerContent && <div className={footerClasses}>{footerContent}</div>}
     </div>

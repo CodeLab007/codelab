@@ -1,6 +1,7 @@
 import { ComponentAttrs } from '@codelab/ui'
 
 import React from 'react'
+import { Footer } from '../footer/Footer'
 import Header from '../header/Header'
 
 
@@ -12,6 +13,7 @@ export const MainLayout = ({ children }: IProps) => {
     <main>
         {children}
     </main>
+    <Footer/>
     </>
 
   )

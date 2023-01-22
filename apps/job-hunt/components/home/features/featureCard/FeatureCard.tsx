@@ -11,7 +11,7 @@ interface IProps {
 const FeatureCard = ({ iconBgClass,title }: IProps) => {
   return (
     <ClBox as={ClCard} bodyAsChildren={true}>
-      <div className={classNames(iconBgClass, 'text-gray-1 p-3 mb-3 rounded-lg')}>
+      <div className={classNames(iconBgClass, 'text-gray-1 p-3 mb-3 rounded-lg align-self-start')}>
         <FaBriefcase size='2rem' />
       </div>
       <ClHeading level={5}>{title}</ClHeading>

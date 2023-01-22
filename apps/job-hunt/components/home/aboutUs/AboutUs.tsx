@@ -8,7 +8,7 @@ const AboutUs = () => {
     <ClSection heading='About Us' className='bg-white'>
       <ClContainer>
         <ClRow className='align-items-center'>
-          <ClCol sm={6}>
+          <ClCol sm={12}>
             <ClBox >
             <ClHeading level={4}>
               Jobs For All
@@ -16,10 +16,10 @@ const AboutUs = () => {
             <ClText level={6}>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, maxime necessitatibus repellat eius consequatur ipsam maiores expedita placeat reiciendis culpa provident modi excepturi qui iste. Cumque aspernatur eos quod impedit?
             </ClText>
-            <ClButton>Learn More</ClButton>
+            <ClButton className='align-self-start'>Learn More</ClButton>
             </ClBox>
           </ClCol>
-          <ClCol sm={6}>
+          <ClCol sm={12}>
               <Image width={500} height={500} src='/assets/images/home/about-us.png' alt='Isometric building'/>
           </ClCol>
         </ClRow>

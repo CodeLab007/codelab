@@ -34,6 +34,6 @@ export * from './components/box/Box';
 export * from './components/section/Section';
 export * from './components/card/Card'
 export * from './components/badge/Badge'
-
+export * from './components/list/List'
 //TYPES EXPORT
 export * from './types/general';

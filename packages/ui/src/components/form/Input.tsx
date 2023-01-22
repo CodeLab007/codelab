@@ -1,17 +1,23 @@
 import { classNames } from '@codelab/lib';
 import { LabelProps } from '@radix-ui/react-label';
-import React from 'react';
+import React, { CSSProperties } from 'react';
+import { ComponentAttrs } from '../../types/general';
 import Error from '../error/Error';
 import { ClLabel } from '../label/Label';
 
-interface ICommonProps {
+interface ICommonProps extends ComponentAttrs {
   labelProps?: LabelProps;
   label?: LabelProps['children'];
   labelBefore?: boolean;
   inputMainClass?: 'form-control' | 'form-check-input';
   error?: string;
   hasError?: boolean;
-}
+  icon?: React.ReactNode;
+  size: 'sm' | 'lg';
+  formGroupClasses?:string
+  formGroupstyle?:CSSProperties
+
+} 
 
 export type IInputProps =
   | (React.InputHTMLAttributes<HTMLInputElement> &
@@ -43,13 +49,17 @@ export const ClInput = ({
   children,
   error,
   hasError,
+  size,
+  icon,
   Control = 'input',
+  formGroupClasses = '',
+  formGroupstyle,
 
   ...rest
 }: IInputProps) => {
- 
+
   return (
-    <div className='mb-3 d-flex flex-column'>
+    <div style={ formGroupstyle} className={classNames('form-group mb-3 d-flex flex-column position-relative',formGroupClasses)}>
       {label && labelBefore && (
         <ClLabel {...labelProps} htmlFor={id}>
           {label}
@@ -57,8 +67,16 @@ export const ClInput = ({
       )}
       <Control
         {...rest}
-        className={classNames(inputMainClass, hasError ? 'is-invalid' : '', className ?? '')}
+        className={classNames(
+          inputMainClass,
+          hasError ? 'is-invalid' : '',
+          className ?? '',
+          size ? size : '',
+        )}
       />
+      <div className='position-absolute form-group__icon'>
+        {icon}
+      </div>
       {label && !labelBefore && (
         <ClLabel {...labelProps} htmlFor={id}>
           {label}
@@ -66,6 +84,7 @@ export const ClInput = ({
       )}
       {hasError && <Error>{error}</Error>}
       {children}
+
     </div>
   );
 };

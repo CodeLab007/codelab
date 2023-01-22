@@ -24,7 +24,7 @@ const Header = () => {
     <header className='d-flex'>
       <ClContainer className={classNames('py-2 px-4',classes.header,'bg-white')}>
        <nav className='d-flex justify-content-between align-items-center'>
-       <Logo/>
+       <Logo className='ps-0'/>
        <ClNav navLinks={navLinks}/>
 
        

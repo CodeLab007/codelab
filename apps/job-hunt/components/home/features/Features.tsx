@@ -8,13 +8,13 @@ export const Features = () => {
     <ClSection heading='Features'>
       <ClContainer>
         <ClRow>
-          <ClCol xs={4}>
+          <ClCol xs={8}>
             <FeatureCard title='Frequent Job Updates' iconBgClass='bg-primary'/>
           </ClCol>
-          <ClCol xs={4}>
+          <ClCol xs={8}>
             <FeatureCard title='Filter Jobs' iconBgClass='bg-danger'/>
           </ClCol>
-          <ClCol  className='mb-4' xs={4}>
+          <ClCol  className='mb-4' xs={8}>
             <FeatureCard  title='Notified About Jobs' iconBgClass='bg-warning'/>
           </ClCol>
         </ClRow>

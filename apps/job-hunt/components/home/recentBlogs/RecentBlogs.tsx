@@ -1,20 +1,21 @@
-import JobCard from '@/components/jobs/jobCard/JobCard';
+
+import { BlogCard } from '@/components/blogs/blogCard/BlogCard';
 import { ClCol, ClContainer, ClRow, ClSection } from '@codelab/ui';
 import React from 'react';
 
-export const RecentJobs = () => {
+export const RecentBlogs = () => {
   return (
-    <ClSection heading='Recent Jobs'>
+    <ClSection heading='From Our Blogs'>
       <ClContainer>
         <ClRow>
           <ClCol xs={8}>
-            <JobCard />
+            <BlogCard />
           </ClCol>
           <ClCol xs={8}>
-            <JobCard />
+          <BlogCard />
           </ClCol>
           <ClCol xs={8}>
-            <JobCard />
+          <BlogCard />
           </ClCol>
         </ClRow>
       </ClContainer>

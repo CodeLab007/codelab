@@ -31,6 +31,7 @@ $positions: (
 @include generateResponsiveClasses(justify-content, justify-content, start, '', start);
 @include generateResponsiveClasses(align-items, align-items, center, '', center);
 @include generateResponsiveClasses(align-items, align-items, start, '', start);
+@include generateResponsiveClasses(align-self, align-self, start, '', start);
 
 
 @include generateResponsiveClasses(text, text-align, center, '', center);
