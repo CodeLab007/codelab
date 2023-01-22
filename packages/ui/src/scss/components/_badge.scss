@@ -1,0 +1,11 @@
+.badge {
+  padding: $badge-padding-y $badge-padding-x;
+  font-size: $badge-font-size;
+  border-radius: $badge-border-radius;
+
+  @each $color, $value in $theme-colors {
+    &__#{$color} {
+      @include element-variant($value, $value);
+    }
+  }
+}

@@ -4,9 +4,25 @@ const path = require('path');
 const nextConfig = {
   reactStrictMode: true,
   output: 'standalone',
+  transpilePackages: ['@codelab/ui'],
+  sassOptions: {
+    additionalData: `
+    @import "./scss/abstracts/_variables.scss";
+    @import "./scss/abstracts/_mixins.scss";
+  `,
+  },
   experimental: {
     outputFileTracingRoot: path.join(__dirname, '../../'),
-    transpilePackages: ['@codelab/ui'],
+    
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**.unsplash.com',
+      },
+
+    ],
   },
 };
 

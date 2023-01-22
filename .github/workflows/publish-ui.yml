@@ -1,4 +1,4 @@
-name: codelab/ui - Publish to npm
+name: codelab/ui - Publish to NPM
 
 on:
   push:

@@ -18,6 +18,18 @@ video {
   display: block;
 }
 
-button{
-    border: none;
+// button{
+//     all: unset;
+// }
+
+input,textarea{
+  outline: none;
+}
+
+textarea{
+  resize: none;
+}
+
+p {
+  line-height: 1.5;
 }

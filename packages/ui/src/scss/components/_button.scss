@@ -1,52 +1,3 @@
-
-
-/* CSS */
-// .button-5 {
-//   align-items: center;
-//   background-clip: padding-box;
-//   background-color: #fa6400;
-//   border: 1px solid transparent;
-//   border-radius: .25rem;
-//   box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
-//   box-sizing: border-box;
-//   color: #fff;
-//   cursor: pointer;
-//   display: inline-flex;
-//   font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
-//   font-size: 16px;
-//   font-weight: 600;
-//   justify-content: center;
-//   line-height: 1.25;
-//   margin: 0;
-//   min-height: 3rem;
-//   padding: calc(.875rem - 1px) calc(1.5rem - 1px);
-//   position: relative;
-//   text-decoration: none;
-//   transition: all 250ms;
-//   user-select: none;
-//   -webkit-user-select: none;
-//   touch-action: manipulation;
-//   vertical-align: baseline;
-//   width: auto;
-// }
-
-// .button-5:hover,
-// .button-5:focus {
-//   background-color: #fb8332;
-//   box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
-// }
-
-// .button-5:hover {
-//   transform: translateY(-1px);
-// }
-
-// .button-5:active {
-//   background-color: #c85000;
-//   box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
-//   transform: translateY(0);
-// }
-
-
 .btn {
   display: inline-block;
   padding: $btn-padding-y $btn-padding-x;
@@ -55,13 +6,13 @@
   font-weight: $btn-font-weight;
   line-height: $btn-line-height;
   color: $body-color;
-  text-align: center;
+  text-align: $btn-text-align;
   white-space: $btn-white-space;
   vertical-align: middle;
   cursor: pointer;
   user-select: none;
   border: $btn-border-width solid transparent;
-  border-radius: 0.25rem;
+  border-radius: $btn-border-radius;
   transition: all 250ms;
   box-shadow: $btn-box-shadow;
 
@@ -69,6 +20,21 @@
     box-shadow: $btn-hover-box-shadow;
     border-color: transparent;
     transform: translateY(-1px);
+  }
+
+  &:focus {
+    box-shadow: $btn-focus-box-shadow;
+    border-color: transparent;
+  }
+
+  &:active {
+    box-shadow: $btn-active-box-shadow;
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
   }
 
   //   .btn-check + &:hover {
@@ -89,10 +55,50 @@
   //     box-shadow: $btn-focus-box-shadow;
   //   }
   // }
+  &__lg {
+    padding: $btn-padding-y-lg $btn-padding-x-lg;
+  }
 }
 
 @each $color, $value in $theme-colors {
-  .btn-#{$color} {
-    @include button-variant($value, $value);
+  .btn__#{$color} {
+    @include element-variant($value, $value);
+  }
+  .btn__outline-#{$color} {
+    @include button-outline-variant($value);
+  }
+}
+
+.btn--social {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  box-shadow: $box-shadow;
+  font-size: 14px;
+  min-width: 12rem;
+  padding: 0.875rem 1rem;
+  .content {
+    margin-left: 1rem;
+  }
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.btn--google {
+  border: none;
+  background-color: $white;
+  color: #757575;
+}
+
+.btn--fb {
+  background: #4267b2;
+
+  &:active {
+    background-color: #3b5998;
+  }
+  p {
+    color: rgba(white, 0.87);
   }
 }
