@@ -3,9 +3,16 @@
   "version": "0.0.0",
   "private": true,
   "workspaces": [
+    "@codelab/sdk",
     "@codelab/job-hunt",
+    "@codelab/job-hunt-api",
     "@codelab/ui",
+    "@codelab/hooks",
     "@codelab/lib",
+    "@codelab/api-errors",
+    "@codelab/validations",
+    "@codelab/types",
+    "@codelab/rollup-config",
     "apps/*",
     "packages/*"
   ],
@@ -13,7 +20,7 @@
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
-    "storybook": "turbo run storybook",
+    "ladle": "turbo run ladle",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "release:ui": "turbo run build --filter=@codelab/ui^... && changeset publish"
   },
@@ -26,6 +33,5 @@
   "engines": {
     "node": ">=14.0.0"
   },
-  "dependencies": {},
   "packageManager": "yarn@1.22.19"
 }
