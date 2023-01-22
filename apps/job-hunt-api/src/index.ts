@@ -4,7 +4,7 @@ import cookieParser from "cookie-parser"
 import dotenv from 'dotenv';
 import { errorHandler } from "./middlewares/error-middleware";
 
-// import {sequelize} from './umguz' 
+import {sequelize} from './umguz'
 import logger from "morgan"
 const app = express();
 app.use(cookieParser());
@@ -31,12 +31,15 @@ dotenv.config();
 // const userRouter = require("./routes/UserRoutes");
 // app.use("/user", userRouter);
 app.use(errorHandler);
-// app.get("/test", (req, res) => {
+
+app.get("/test", (req, res) => {
   // res.send({ origin: req.get("origin") });
+  res.send({success:"true"});
   
-// });
+});
 // console.log(sequelize);
 
 const port = process.env.PORT;
+console.log('running server',process.env.PORT)
 app.listen(port);
 export default app;

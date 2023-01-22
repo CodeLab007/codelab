@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 
 export const formatMediaMiddleware = (
-  req: Request,
+  req: any,
   res: Response,
   next: NextFunction
 ) => {
