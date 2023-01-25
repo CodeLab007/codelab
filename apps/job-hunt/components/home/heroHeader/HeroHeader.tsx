@@ -1,6 +1,6 @@
 import { Image } from '@/components/ui/image/Image';
 import { classNames } from '@codelab/lib';
-import { ClBox, ClContainer, ClLink, ClSection,ClHeading } from '@codelab/ui';
+import { ClBox, ClContainer, ClLink, ClSection, ClHeading } from '@codelab/ui';
 
 import ClText from '@codelab/ui/src/components/text/Text';
 import React from 'react';
@@ -33,6 +33,7 @@ export const HeroHeader = () => {
             alt='Person pointing'
           />
         </ClBox>
+        <h1 className='text-3xl font-bold underline shadow-lg'>Hello world!</h1>
       </ClContainer>
     </ClSection>
   );
