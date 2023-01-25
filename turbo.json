@@ -16,6 +16,12 @@
     "dev": {
       "cache": false
     },
+    "start": {
+      "cache": false
+    },
+    "serve": {
+      "cache": false
+    },
     "ladle": {
       "cache": true
     }
