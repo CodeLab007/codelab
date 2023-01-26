@@ -1,7 +1,6 @@
 // import '../scss/globals.css';
 import type { AppProps } from 'next/app';
 import '../scss/main.scss'
-import '../globals.css';
 
 import { NextPage } from 'next';
 import React from 'react'

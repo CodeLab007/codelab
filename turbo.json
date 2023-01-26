@@ -14,7 +14,7 @@
       "outputs": []
     },
     "dev": {
-      "cache": false
+      "cache": true
     },
     "start": {
       "cache": false
