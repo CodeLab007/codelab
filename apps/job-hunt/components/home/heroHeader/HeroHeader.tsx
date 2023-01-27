@@ -33,6 +33,7 @@ export const HeroHeader = () => {
             alt='Person pointing'
           />
         </ClBox>
+        <h1 className='text-3xl font-bold underline shadow-lg'>Hello world!</h1>
       </ClContainer>
       <div className='xs:container bg-primary'>
         <h1 className='text-3xl font-bold underline shadow-lg text-success card'>
