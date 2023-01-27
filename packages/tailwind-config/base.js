@@ -1,41 +1,40 @@
-// Example preset
+/** @type {import('tailwindcss').Config} */
+const defaultTheme = require('tailwindcss/defaultTheme');
+
 module.exports = {
-    theme: {
-      colors: {
-        blue: {
-          light: '#85d7ff',
-          DEFAULT: '#1fb6ff',
-          dark: '#009eeb',
-        },
-        pink: {
-          light: '#ff7ce5',
-          DEFAULT: '#ff49db',
-          dark: '#ff16d1',
-        },
-        gray: {
-          darkest: '#1f2d3d',
-          dark: '#3c4858',
-          DEFAULT: '#c0ccda',
-          light: '#e0e6ed',
-          lightest: '#f9fafc',
-        }
-      },
-      fontFamily: {
-        sans: ['Graphik', 'sans-serif'],
-      },
-      extend: {
-        flexGrow: {
-          2: '2',
-          3: '3',
-        },
-        zIndex: {
-          60: '60',
-          70: '70',
-          80: '80',
-          90: '90',
-          100: '100',
-        },
-      }
+  // Customizations specific to this project would go here
+  theme: {
+    //Main colors
+    colors: {
+      //Light theme
+      primary: '#3b50df',
+      secondary: '#7286d3',
+      success: '#19d16f',
+      info: '#7e33e0',
+      danger: '#fb2448',
+      light: '#f9f8f9',
+      warning: '#FDB400',
+
+      //Dark theme
+      'primary-dark': '#3b50df',
+      'secondary-dark': '#7286d3',
+      'success-dark': '#19d16f',
+      'info-dark': '#7e33e0',
+      'danger-dark': '#fb2448',
+      'light-dark': '#f9f8f9',
+      'warning-dark': '#FDB400',
     },
-    plugins: [],
-  }
+    fontFamily: {
+      sans: ['Open Sans', 'sans-serif'],
+    },
+    container: {
+      center: true,
+      padding: '1rem',
+    },
+    screens: {
+      xs: '320px',
+      ...defaultTheme.screens,
+    },
+    extend: {},
+  },
+};
