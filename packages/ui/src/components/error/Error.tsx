@@ -11,5 +11,3 @@ const ClError = ({ children, ...rest }: IProps) => {
 };
 
 export default ClError;
-
-export default ClError

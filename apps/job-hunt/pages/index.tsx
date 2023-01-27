@@ -53,38 +53,6 @@ const Home: NextPageWithLayout = () => {
 
   const [visible, setVisible] = useState(false);
 
-  const handleThemeChange = () => {
-    if (theme === 'default') {
-      setTheme('dark');
-    } else {
-      setTheme('default');
-    }
-  };
-  const checks = [
-    { label: 'Check1', value: 'check1' },
-    { label: 'Check2', value: 'check2' },
-  ];
-  const radios = [
-    { label: 'radio1', value: 'radio1' },
-    { label: 'radio2', value: 'radio2' },
-  ];
-  const selectOptions = [
-    {
-      groupLabel: 'Fruits',
-      options: [
-        { label: 'Apple', value: 'apple' },
-        { label: 'Mango', value: 'mango' },
-      ],
-    },
-    {
-      groupLabel: 'Meat',
-      options: [
-        { label: 'Mutton', value: 'mutton' },
-        { label: 'Chicken', value: 'chicken' },
-      ],
-    },
-  ];
-  const validationSchema = jobAddSchema;
   return (
     <div className={`theme--${theme}`}>
       <Head>
