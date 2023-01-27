@@ -1,30 +1,57 @@
-import {
-  ClButton,
-  ClCheckbox,
-  ClCheckInputFormik,
-  ClCol,
-  ClContainer,
-  ClDropzone,
-  ClDropzoneFormik,
-  ClRadioInputFormik,
-  ClRow,
-  ClSelectInput,
-  ClSelectInputFormik,
-  ClSliderInputFormik,
-  ClTextInput,
-  ClTextInputFormik,
-} from '@codelab/ui';
 import { useLocalStorage } from '@codelab/hooks';
 import Head from 'next/head';
 
-import { Form, Formik } from 'formik';
 import { jobAddSchema } from '@codelab/validations';
 
-// import { ClAvatar } from '@codelab/ui/src/components/avatar/Avatar';
+import { useState } from 'react';
+import { NextPageWithLayout } from './_app';
+import { MainLayout } from '../components/layouts/mainLayout/MainLayout';
+import { HeroHeader } from '@/components/home/heroHeader/HeroHeader';
+import { RecentJobs } from '@/components/home/recentJobs/RecentJobs';
+import { Features } from '@/components/home/features/Features';
+import AboutUs from '@/components/home/aboutUs/AboutUs';
+import { RecentBlogs } from '@/components/home/recentBlogs/RecentBlogs';
+import { Feedback } from '@/components/home/feedback/Feedback';
+import {Newsletter} from '@/components/home/newsletter/Newsletter';
 
-export default function Home() {
+const Home: NextPageWithLayout = () => {
   //set ts type to default or dark
   const [theme, setTheme] = useLocalStorage('theme', 'dark');
+
+  const handleThemeChange = () => {
+    if (theme === 'default') {
+      setTheme('dark');
+    } else {
+      setTheme('default');
+    }
+  };
+  const checks = [
+    { label: 'Check1', value: 'check1' },
+    { label: 'Check2', value: 'check2' },
+  ];
+  const radios = [
+    { label: 'radio1', value: 'radio1' },
+    { label: 'radio2', value: 'radio2' },
+  ];
+  const selectOptions = [
+    {
+      groupLabel: 'Fruits',
+      options: [
+        { label: 'Apple', value: 'apple' },
+        { label: 'Mango', value: 'mango' },
+      ],
+    },
+    {
+      groupLabel: 'Meat',
+      options: [
+        { label: 'Mutton', value: 'mutton' },
+        { label: 'Chicken', value: 'chicken' },
+      ],
+    },
+  ];
+  const validationSchema = jobAddSchema;
+
+  const [visible, setVisible] = useState(false);
 
   const handleThemeChange = () => {
     if (theme === 'default') {
@@ -66,50 +93,30 @@ export default function Home() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <main>
-        <ClContainer>
-          <Formik
-            validationSchema={validationSchema}
-            initialValues={{}}
-            onSubmit={(values) => console.log(values)}
-          >
-            <Form>
-              <ClRow>
-                <ClCol sm={4}>
-                  <ClTextInputFormik placeholder={'Job Title'} name='title' />
-                </ClCol>
+      <HeroHeader />
+      <Features/>
+      <RecentJobs />
+      <AboutUs />
+      <RecentBlogs/>
+      <Feedback/>
+      <Newsletter/>
+      {/* <ClOverlay visible={visible} position={'center'} backdropBlur animation='zoom' onClick={() => setVisible((v) => !v)}> */}
+      {/* <ClModal> */}
+      {/* <main> */}
 
-                <ClCol sm={4}>
-                  <ClTextInputFormik
-                    Control='textarea'
-                    placeholder={'Select Food'}
-                    name='description'
-                  />
-                </ClCol>
-                <ClCol sm={4}>
-                  <ClSliderInputFormik name='price' />
-                </ClCol>
-                <ClCol sm={12}>
-                  <ClDropzoneFormik
-                    name='photos'
-                    uploadConfig={{
-                      url: 'http://localhost:4000/api/upload/products',
-                      method: 'post',
-                    }}
-                  />
-                </ClCol>
-                <ClCol>
-                  <ClButton>Submit</ClButton>
-                </ClCol>
-              </ClRow>
-            </Form>
-          </Formik>
-        </ClContainer>
-
-        {/* <ClAvatar variant={'success'} size='xxl'>
+      {/* <ClAvatar variant={'success'} size='xxl'>
           <span>AB</span>
         </ClAvatar> */}
-      </main>
+      {/* </main> */}
+      {/* </ClModal>
+      </ClOverlay> */}
+      {/* <ClButton onClick={() => setVisible((v) => !v)}>Toogle Overlay</ClButton> */}
     </div>
   );
-}
+};
+
+Home.getLayout = function getLayout(page) {
+  return <MainLayout>{page}</MainLayout>;
+};
+
+export default Home;

@@ -18,9 +18,9 @@ video {
   display: block;
 }
 
-button{
-    all: unset;
-}
+// button{
+//     all: unset;
+// }
 
 input,textarea{
   outline: none;
@@ -28,4 +28,8 @@ input,textarea{
 
 textarea{
   resize: none;
+}
+
+p {
+  line-height: 1.5;
 }

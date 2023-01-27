@@ -1,24 +1,8 @@
-import {
-  ClButton,
-  ClCol,
-  ClContainer,
-  ClFacebookLoginButton,
-  ClGeneralForm,
-  ClGoogleLoginButton,
-  ClLink,
-  ClRow,
-} from '@codelab/ui';
-import React, { useCallback } from 'react';
-
-import { Control } from '@codelab/ui/src/components/form/formControl/FormControl';
-
+import { AuthLayout } from '@/components/layouts';
+import SocialLogins from '@/components/ui/social-logins/SocialLogins';
+import { ClCol, ClGeneralForm, ClLink, Control } from '@codelab/ui';
 import { loginSchema } from '@codelab/validations';
-
-import Link from 'next/link';
-import { NextPageWithLayout } from '../_app';
-import { AuthLayout } from '../../components/layouts/AuthLayout';
-import SocialLogins from '../../components/ui/socialLogins/SocialLogins';
-
+import { NextPageWithLayout } from 'pages/_app';
 
 const Login: NextPageWithLayout = (props) => {
   const initialValues = {
@@ -39,10 +23,11 @@ const Login: NextPageWithLayout = (props) => {
       control: Control.TextInput,
       name: 'password',
       placeholder: 'Password',
-      type:'password'
+      type: 'password',
     },
   ];
   const validationSchema = loginSchema;
+
   return (
     <>
       <div>
@@ -58,16 +43,16 @@ const Login: NextPageWithLayout = (props) => {
           submitBtnProps={{ className: 'w-100 mb-3' }}
           preButtonChildren={
             <p className='text-gray-7 fs-sm mb-3' style={{ textAlign: 'end' }}>
-              <ClLink href='/auth/login' className='text-gray-5'>
+              <ClLink href={`/auth/forgot-password`} className='text-gray-5'>
                 Forgot your Password?
               </ClLink>
             </p>
           }
           formFooter={
             <ClCol xs={12} className='d-flex'>
-              <ClLink href='/auth/register'  className='w-100 btn btn__outline-primary'>
+              <ClLink href='/auth/register' className='w-100 btn btn__outline-primary'>
                 Create an account
-              </ClLink >
+              </ClLink>
             </ClCol>
           }
         />

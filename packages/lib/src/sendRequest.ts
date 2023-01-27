@@ -17,6 +17,7 @@ export class Request {
         if (!body) throw new Error('No request body');
         formData = new FormData();
         for (let key in body) {
+          // Todo, allow null optionally with parameter
           if (body[key] == null) continue;
           if (typeof body[key] === 'string' && !body[key].length) continue;
           if (

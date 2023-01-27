@@ -1,5 +1,4 @@
 import { classNames } from '@codelab/lib';
-import React from 'react';
 import { ComponentAttrs } from '../../types/general';
 
 interface IProps extends ComponentAttrs {

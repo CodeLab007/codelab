@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "workspaces": [
+    "@codelab/sdk",
     "@codelab/job-hunt",
     "@codelab/job-hunt-api",
     "@codelab/ui",
@@ -10,7 +11,7 @@
     "@codelab/lib",
     "@codelab/api-errors",
     "@codelab/validations",
-    "@codelab/watcher",
+    "@codelab/types",
     "@codelab/rollup-config",
     "apps/*",
     "packages/*"

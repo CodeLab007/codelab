@@ -20,6 +20,7 @@ interface IProps<T> extends ComponentAttrs {
   titleProps?: IHeadingProps;
   submitBtnProps?: IButtonProps;
   formFooter?: React.ReactNode;
+  getFormValues?: (values: FormikValues & T) => void;
 }
 export const ClMultistepWizard = <T extends unknown>({
   children,
@@ -29,6 +30,7 @@ export const ClMultistepWizard = <T extends unknown>({
   titleProps,
   submitBtnProps,
   formFooter,
+  getFormValues,
   ...rest
 }: IProps<T>) => {
   const [stepNumber, setStepNumber] = useState(0);
@@ -59,44 +61,49 @@ export const ClMultistepWizard = <T extends unknown>({
     //   bag.setTouched({});
     //   next(values);
     // }
-    await onSubmit(values, step, isLastStep);
+    await onSubmit(values, stepNumber, isLastStep);
     if (!isLastStep) {
       bag.setTouched({});
       next(values);
     }
   };
-  console.log(step.props.validationSchema)
+
   return (
     <Formik
       initialValues={snapshot}
       onSubmit={handleSubmit}
       validationSchema={step.props.validationSchema}
     >
-      {(formik) => (
-        <Form {...rest}>
-          {title && <ClHeading {...titleProps}>{title}</ClHeading>}
-          {step}
-   
-          <ClCol xs={12} className='d-flex mb-3'>
-            <ClButton {...submitBtnProps} disabled={formik.isSubmitting} type='submit'>
-              {isLastStep ? 'Submit' : 'Next'}
-            </ClButton>
-          </ClCol>
-          {stepNumber > 0 && (
-            <ClCol xs={12} className='d-flex'>
-              <ClButton
-                variant='outline-gray-7 w-100'
-                onClick={() => previous(formik.values)}
-                type='button'
-              >
-                Back
+      {(formik) => {
+        if (getFormValues) {
+          getFormValues(formik.values);
+        }
+        return (
+          <Form {...rest}>
+            {title && <ClHeading {...titleProps}>{title}</ClHeading>}
+            {step}
+
+            <ClCol xs={12} className='d-flex mb-3'>
+              <ClButton {...submitBtnProps} disabled={formik.isSubmitting} type='submit'>
+                {isLastStep ? 'Submit' : 'Next'}
               </ClButton>
             </ClCol>
-          )}
+            {stepNumber > 0 && (
+              <ClCol xs={12} className='d-flex'>
+                <ClButton
+                  variant='outline-gray-7 w-100'
+                  onClick={() => previous(formik.values)}
+                  type='button'
+                >
+                  Back
+                </ClButton>
+              </ClCol>
+            )}
 
-          {formFooter && formFooter}
-        </Form>
-      )}
+            {formFooter && formFooter}
+          </Form>
+        );
+      }}
     </Formik>
   );
 };

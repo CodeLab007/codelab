@@ -5,9 +5,30 @@
 
 body {
   font-family: $body-font-family;
+  background: $body-bg;
 }
 
 
 .flex-column{
   flex-direction: column;
+}
+
+.text-capitalize{
+  text-transform: capitalize;
+}
+
+.rounded{
+  border-radius: $border-radius;
+}
+.rounded-sm{
+  border-radius: $border-radius-sm;
+}
+.rounded-lg{
+  border-radius: $border-radius-lg;
+}
+.rounded-circle{
+  border-radius: 50%;
+}
+a{
+  cursor:pointer;
 }

@@ -1,0 +1,20 @@
+.card {
+  padding: $card-padding-y $card-padding-x;
+  &.no-padding {
+    padding-inline: 0;
+    padding-top: 0;
+    .card__body {
+      padding-inline: $card-padding-x;
+    }
+  }
+  &__header {
+    border-radius: $card-border-radius;
+    img{
+      border-top-left-radius: $card-border-radius;
+      border-top-right-radius: $card-border-radius;
+    }
+  }
+  border-radius: $card-border-radius;
+  box-shadow: $card-box-shadow;
+  background-color: $card-bg;
+}
