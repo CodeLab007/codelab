@@ -5,7 +5,6 @@
   "workspaces": [
     "@codelab/sdk",
     "@codelab/job-hunt",
-    "@codelab/job-hunt-api",
     "@codelab/ui",
     "@codelab/hooks",
     "@codelab/lib",
@@ -13,12 +12,15 @@
     "@codelab/validations",
     "@codelab/types",
     "@codelab/rollup-config",
+    "@codelab/tailwind-config",
     "apps/*",
     "packages/*"
   ],
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
+    "start": "turbo run start --filter=job-hunt-api",
+    "serve": "turbo run serve --filter=job-hunt-api",
     "lint": "turbo run lint",
     "ladle": "turbo run ladle",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
@@ -27,11 +29,13 @@
   "devDependencies": {
     "@changesets/cli": "^2.25.2",
     "eslint-config-custom": "*",
-    "prettier": "latest",
-    "turbo": "latest"
+    "prettier": "latest"
   },
   "engines": {
     "node": ">=14.0.0"
   },
-  "packageManager": "yarn@1.22.19"
+  "packageManager": "yarn@1.22.19",
+  "dependencies": {
+    "turbo": "^1.7.0"
+  }
 }
