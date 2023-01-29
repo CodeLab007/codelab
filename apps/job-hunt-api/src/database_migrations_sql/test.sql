@@ -1,0 +1,12 @@
+
+-- Active: 1674847851615@@127.0.0.1@5432@Job_Hunt@public
+SELECT * from "Users";
+
+DELETE FROM "Users"
+WHERE id=1;
+DELETE FROM "Auth"
+WHERE id=1;
+
+ALTER SEQUENCE "Users_id_seq" RESTART WITH 1
+ALTER SEQUENCE "Auth_id_seq" RESTART WITH 1
+

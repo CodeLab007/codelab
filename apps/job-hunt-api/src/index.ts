@@ -1,45 +1,49 @@
-import express from "express"
-import cors from "cors"
-import cookieParser from "cookie-parser"
+import express from 'express';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
-import { errorHandler } from "./middlewares/error-middleware";
+import { errorHandler } from './middlewares/error-middleware';
+import { PLATFORM_NAME } from './utils/globals';
+import logger from 'morgan';
+import path from 'path';
 
-import {sequelize} from './umguz'
-import logger from "morgan"
+import { sequelize } from './config/db';
+// @ts-ignore
+global.PLATFORM_NAME = PLATFORM_NAME;
 const app = express();
+
 app.use(cookieParser());
 app.use(
   cors({
     origin: process.env.DOMAIN,
     credentials: true,
-  })
+  }),
 );
 
-app.use(logger("dev"));
+app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-dotenv.config();
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 // ASSOCIATIONS
-// import "./utils/associations"
-
-
-//All routes here.
-
-// app.use("/media", express.static(path.join(__dirname, "media")));
-
-// const userRouter = require("./routes/UserRoutes");
-// app.use("/user", userRouter);
+import './utils/associations';
+app.use('/media', express.static(path.join(__dirname, 'media')));
+//Error Handler
 app.use(errorHandler);
 
-app.get("/test", (req, res) => {
-  // res.send({ origin: req.get("origin") });
-  res.send({success:"true"});
-  
-});
-// console.log(sequelize);
+// Routes
+import authRoutes from './routes/auth';
+app.use('/v1/api/auth', authRoutes);
 
 const port = process.env.PORT;
-console.log('running server',process.env.PORT)
-app.listen(port);
+
+try {
+  sequelize.authenticate().then(() => {
+    console.log('Connection has been established successfully.');
+    app.listen(port);
+    console.log('listening to port ', port);
+  });
+} catch (error) {
+  console.error('Unable to connect to the database:', error);
+}
 export default app;

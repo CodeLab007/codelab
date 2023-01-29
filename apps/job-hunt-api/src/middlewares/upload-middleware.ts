@@ -1,19 +1,15 @@
-import { Express,NextFunction, Request, Response } from 'express';
-import multer from "multer";
-import path from "path";
+import { Express, NextFunction, Request, Response } from 'express';
+import multer from 'multer';
+import path from 'path';
 export const uploadMiddleware = () => {
   let storage = multer.diskStorage({
-    destination: function (req:Request, file:Express.Multer.File, cb:Function) {
-      cb(
-        null,
-        path.join(__dirname, "../", "media")
-      );
+    destination: function (req: Request, file: Express.Multer.File, cb: Function) {
+      if (file) {
+        cb(null, path.join(__dirname, '../', 'media'));
+      }
     },
-    filename: function (req:Request, file:Express.Multer.File, cb:Function) {
-      cb(
-        null,
-        new Date().toISOString().replace(/:/g, "-") + "-" + file.originalname
-      );
+    filename: function (req: Request, file: Express.Multer.File, cb: Function) {
+      cb(null, new Date().toISOString().replace(/:/g, '-') + '-' + file.originalname);
     },
   });
 
@@ -27,7 +23,7 @@ export const uploadMiddleware = () => {
       //filter file types that are allowed
       if (!file.originalname.match(/\.(mp4|flv|mpeg4|png|jpg|jpeg)$/)) {
         //regex for accepting file that end with .jpg,jpeg,png  or mp4,flv,mpeg4 only
-        return cb(new Error("Only Videos and images are allowed")); //rejecting the file
+        return cb(new Error('Only Videos and images are allowed')); //rejecting the file
       }
 
       cb(null, true); //accepting the file

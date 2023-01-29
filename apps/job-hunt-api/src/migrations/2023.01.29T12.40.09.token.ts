@@ -9,6 +9,17 @@ export const up: Migration = async ({ context }: { context: Sequelize }) => {
       primaryKey: true,
       autoIncrement: true,
     },
+    token: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    AuthId:{
+      type: DataTypes.INTEGER,
+      references:{
+        model:"Auth",
+        key:"id"
+      }
+    },
     createdAt: {
       type: DataTypes.DATE,
     },
