@@ -2,11 +2,12 @@ import nodemailer from 'nodemailer';
 import hbs from 'nodemailer-express-handlebars';
 import nodemailerSendgrid from 'nodemailer-sendgrid';
 import path from 'path';
-
+import dotenv from 'dotenv';
+dotenv.config({path:path.resolve(__dirname,'../','../.env')});
 const mailconfig = () => {
   let transporter = nodemailer.createTransport(
     nodemailerSendgrid({
-      apiKey: process.env.SENDGRID_API_KEY || '',
+      apiKey: process.env.SENDGRID_API_KEY as string,
     }),
   );
 
@@ -41,8 +42,12 @@ export const generateVerificationMail = async (email: string, token: string) => 
         url: `${process.env.DOMAIN}/verification?token=${token}`,
       },
     };
-    let info = await transporter.sendMail(mailConfig);
-
+    let info = await transporter.sendMail(mailConfig,(err,info)=>{
+      console.log('====info==',info)
+      console.log(err);
+      
+    });
+   
     return info;
   } catch (error) {
     throw error;
@@ -62,7 +67,7 @@ export const generateResetPasswordMail = async (email: string, token: string) =>
       },
     };
     let info = await transporter.sendMail(mailConfig);
-
+    console.log(info)
     return info;
   } catch (error) {
     throw error;
