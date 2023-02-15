@@ -33,7 +33,9 @@ app.use(errorHandler);
 
 // Routes
 import authRoutes from './routes/auth';
+import jobRoutes from './routes/job';
 app.use('/v1/api/auth', authRoutes);
+app.use('/v1/api/job', jobRoutes);
 
 const port = process.env.PORT;
 

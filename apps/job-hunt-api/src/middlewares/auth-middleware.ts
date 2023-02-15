@@ -13,7 +13,7 @@ const jwtAccessPublicKey = fs.readFileSync(
   path.join(__dirname, '../config', 'access-token.public.pem'),
   'utf8',
 );
-const authMiddleware = (ignoreExpiration = false) => {
+const authMiddleware = () => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       let user;
@@ -52,6 +52,13 @@ const authMiddleware = (ignoreExpiration = false) => {
         include: { model: decoded.type === UserType.COMPANY ? Company : User },
       });
 
+      if(user?.verified){
+        const err = new AuthError();
+        err.message = 'User Not Verified';
+        err.status = 401;
+        next(err);
+      }
+
       if (decoded.type !== user?.type || !user) {
         const err = new AuthError();
         err.message = 'Unauthorised';
@@ -64,7 +71,7 @@ const authMiddleware = (ignoreExpiration = false) => {
       req.user = user;
       next();
     } catch (error) {
-      next(error);
+      res.status(401).send(error)
     }
   };
 };

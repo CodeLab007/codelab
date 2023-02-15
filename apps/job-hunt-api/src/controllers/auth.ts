@@ -1,17 +1,19 @@
 import { Token } from '../models/Token';
 import { Auth } from '../models/Auth';
-import { Request, Response, NextFunction } from 'express';
-import { UserType } from '../types/model-types';
-import bcrypt from 'bcrypt';
-import { AuthError, BadRequestError, CustomError } from '@codelab/api-errors';
-import { generateResetPasswordMail, generateVerificationMail } from '../utils/generate-mail';
-import jwt from 'jsonwebtoken';
-import { verifyDecodedToken } from '../types/general';
-import path from 'path';
-import fs from 'fs';
 import { MailToken } from '../models/MailToken';
 import { User } from '../models/User';
 import { Company } from '../models/Company';
+import { UserType, AuthType } from '../types/model-types';
+
+import { Request, Response, NextFunction } from 'express';
+import bcrypt from 'bcrypt';
+import { AuthError, BadRequestError, CustomError } from '@codelab/api-errors';
+import { generateResetPasswordMail, generateVerificationMail } from '../utils/generate-mail';
+import { verifyDecodedToken } from '../types/general';
+import path from 'path';
+import fs from 'fs';
+import jwt from 'jsonwebtoken';
+import { OAuth2Client } from 'google-auth-library';
 
 const jwtMailPublicKey = fs.readFileSync(
   path.join(__dirname, '../config', 'jwt-mail-public.pem'),
@@ -48,13 +50,13 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
     }
 
     if (type === UserType.USER) {
-      const { firstName, userName, lastName, fullName } = req.body;
+      const { firstName, userName, lastName } = req.body;
 
       user = await User.create({
         firstName,
         userName,
         lastName,
-        fullName,
+        fullName: `${firstName} ${lastName}`,
         email,
         contact,
       });
@@ -79,14 +81,13 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
         CompanyId: type === UserType.COMPANY && company ? company?.id : null,
         profileImage,
       },
-      
-      { 
-        
+
+      {
         include: [
           {
             model: type === UserType.COMPANY ? Company : User,
             attributes: {
-              exclude: ['email', 'createdAt', 'updatedAt',],
+              exclude: ['email', 'createdAt', 'updatedAt'],
             },
           },
         ],
@@ -96,21 +97,179 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
     if (auth) {
       const token = await auth.generateMailToken();
       await generateVerificationMail(auth.email, token);
-      res.status(201).send({ message: 'Success', data:auth });
+      res.status(201).send({ message: 'Success', data: auth });
     } else {
       const err = new BadRequestError('Bad Request');
       return next(err);
     }
   } catch (error) {
-   
-    next(error);
+    // next(error);
+    res.status(500).send({ message: error });
+  }
+};
+
+//======Google Signin
+export const googleSignin = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    // we get query from FE
+    const type = req.query.type as UserType;
+
+    let { contact, profileImage = null, googleToken } = req.body; //for AUTH and general use
+    const { firstName, userName, lastName } = req.body; //for USER
+    const { name, vatNumber, address, foundationYear } = req.body; //for COMPANY
+    let company;
+    let user;
+    let authType = AuthType.SOCIAL;
+    let auth;
+
+    if (profileImage && req.file?.filename) {
+      profileImage = `${process.env.API_URL}media/${req.file.filename}`;
+    }
+
+    const client = new OAuth2Client(process.env.GOOGLE_OAUTH_CLIENT_ID);
+
+    const ticket = await client.verifyIdToken({
+      idToken: googleToken,
+      audience: process.env.GOOGLE_OAUTH_CLIENT_ID,
+    });
+
+    // get payload from googleToken
+    const payload = ticket.getPayload();
+
+    const email = payload?.email as string;
+
+    auth = await Auth.findOne({
+      where: {
+        email,
+        authType: authType,
+      },
+      include: { model: type === UserType.COMPANY ? Company : User },
+    });
+
+    // user does not exists create new user as per type and also populate auth table
+    if (!auth) {
+      if (type === UserType.USER) {
+        user = await User.create({
+          firstName,
+          userName,
+          lastName,
+          fullName: `${firstName} ${lastName}`,
+          email,
+          contact,
+        });
+      } else if (type === UserType.COMPANY) {
+        company = await Company.create({
+          name,
+          vatNumber,
+          address,
+          foundationYear,
+          email,
+          contact,
+        });
+      }
+
+      auth = await Auth.create(
+        {
+          email,
+          type: type,
+          UserId: type === UserType.USER && user ? user?.id : null,
+          CompanyId: type === UserType.COMPANY && company ? company?.id : null,
+          profileImage,
+        },
+
+        {
+          include: [
+            {
+              model: type === UserType.COMPANY ? Company : User,
+              attributes: {
+                exclude: ['email', 'createdAt', 'updatedAt'],
+              },
+            },
+          ],
+        },
+      );
+
+      const token = await auth.generateMailToken();
+      await generateVerificationMail(auth.email, token);
+      res.status(201).send({ message: 'Success', data: auth });
+      return;
+    } else {
+      // if auth-user already exists
+      if (type === UserType.USER && auth.UserId) {
+        user = await User.findOne({
+          where: {
+            email,
+            id: auth.UserId,
+          },
+        });
+
+        if (user) {
+          user.firstName = firstName ? firstName : user.firstName;
+          user.lastName = lastName ? lastName : user.lastName;
+          user.userName = userName ? userName : user.userName;
+          if (firstName && lastName) {
+            user.lastName = `${firstName} ${lastName}`;
+          }
+          await user.save();
+        }
+      } else if (type === UserType.COMPANY && auth.CompanyId) {
+        company = await Company.findOne({
+          where: {
+            email,
+            id: auth.CompanyId,
+          },
+        });
+        if (company) {
+          company.name = name ? name : company.name;
+          company.vatNumber = vatNumber ? vatNumber : company.vatNumber;
+          company.address = address ? address : company.address;
+          company.foundationYear = foundationYear ? foundationYear : company.foundationYear;
+          company.contact = contact ? contact : company.contact;
+          await company.save();
+        }
+      }
+
+      // save auth model values
+      auth.profileImage=profileImage?profileImage:auth.profileImage;
+      await auth.save();
+
+
+      // generate new access and refresh tokens when user signs in
+      const accessToken = auth.generateJWT();
+
+      const refreshToken = auth.generateJWT(process.env.JWT_REFRESH_EXPIRY, 'refresh');
+
+      // save refresh token to database
+      await Token.create({
+        token: refreshToken,
+        AuthId: auth.id as number, //authId
+      });
+
+      // option for cookies
+      const cookieOptions = {
+        maxAge: getFormattedExpiry(),
+        secure: process.env.NODE_ENV !== 'dev' ? true : false,
+        httpOnly: true,
+        // domain: 'http://localhost:8080',
+      };
+
+      // sending refresh token to FE using cookies
+      res.cookie('refresh_token', refreshToken, cookieOptions);
+      // sending data and access_token via response
+      res.send({ user: auth, accessToken, message: 'Success' });
+    }
+  } catch (error: any) {
+    if (error.message) {
+      console.log(error.message);
+    }
+    res.status(500).send({ message: error });
   }
 };
 
 // ======Verify Email Address
 export const verifyEmailAddress = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const token=req.query.token as string;
+    const token = req.query.token as string;
 
     const options = {
       // @ts-ignore
@@ -140,7 +299,6 @@ export const verifyEmailAddress = async (req: Request, res: Response, next: Next
         email: auth.email,
       },
     });
-   
 
     if (!mailToken) {
       const err = new BadRequestError("Couldn't verify, please retry again");
@@ -152,8 +310,9 @@ export const verifyEmailAddress = async (req: Request, res: Response, next: Next
     res.send({
       message: 'Success',
     });
-  } catch (err) {
-    next(err);
+  } catch (error) {
+    res.status(500).send({ message: error });
+    // next(err);
   }
 };
 
@@ -162,12 +321,12 @@ export const signin = async (req: Request, res: Response, next: NextFunction) =>
   try {
     const { email, password } = req.body;
     // find user with scope of 'withPassword' so that we can compare passwords otherwise without using scope we won't get password
-    
+
     let user = await Auth.scope('withPassword').findOne({
       where: {
         email,
       },
-      attributes: ['id','email', 'password', 'type','verified'],
+      attributes: ['id', 'email', 'password', 'type', 'verified'],
     });
 
     // if user is not found
@@ -176,13 +335,13 @@ export const signin = async (req: Request, res: Response, next: NextFunction) =>
       return next(err);
     }
     // if account is not verified
-    
+
     if (!user?.verified) {
       const err = new AuthError('Please verify your profile');
       return next(err);
     }
     // compare passwords
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await bcrypt.compare(password, user.password as string);
 
     if (!isMatch) {
       let err = new BadRequestError('Unable to login');
@@ -191,7 +350,6 @@ export const signin = async (req: Request, res: Response, next: NextFunction) =>
 
     // generate new access and refresh tokens when user signs in
     const accessToken = user.generateJWT();
-
 
     const refreshToken = user.generateJWT(process.env.JWT_REFRESH_EXPIRY, 'refresh');
 
@@ -220,7 +378,8 @@ export const signin = async (req: Request, res: Response, next: NextFunction) =>
     // sending data and access_token via response
     res.send({ user, accessToken, message: 'Success' });
   } catch (error) {
-    next(error);
+    res.status(500).send({ message: error });
+    // next(error);
   }
 };
 
@@ -301,7 +460,8 @@ export const refreshToken = async (req: Request, res: Response, next: NextFuncti
     res.status(200).send({ accessToken, message: 'success' });
   } catch (error) {
     res.clearCookie('refresh_token');
-    next(error);
+    // next(error);
+    res.status(500).send({ message: error });
   }
 };
 
@@ -321,7 +481,8 @@ export const signout = async (req: Request, res: Response, next: NextFunction) =
     res.clearCookie('refresh_token');
     res.sendStatus(204);
   } catch (error) {
-    next(error);
+    // next(error);
+    res.status(500).send({ message: error });
   }
 };
 
@@ -348,7 +509,8 @@ export const resetPasswordMail = async (req: Request, res: Response, next: NextF
 
     res.send({ message: 'Please check your email to reset password' });
   } catch (error) {
-    next(error);
+    // next(error);
+    res.status(500).send({ message: error });
   }
 };
 
@@ -387,8 +549,9 @@ export const resetPassword = async (req: Request, res: Response, next: NextFunct
     user.password = password;
     await user.save();
     res.send({ message: 'Success' });
-  } catch (err) {
-    next(err);
+  } catch (error) {
+    // next(err);
+    res.status(500).send({ message: error });
   }
 };
 
@@ -430,8 +593,9 @@ export const deleteAccount = async (req: Request, res: Response, next: NextFunct
     res.send({
       message: 'Success',
     });
-  } catch (err) {
-    next(err);
+  } catch (error) {
+    // next(err);
+    res.status(500).send({ message: error });
   }
 };
 

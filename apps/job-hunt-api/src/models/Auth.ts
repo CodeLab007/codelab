@@ -1,6 +1,6 @@
 import { sequelize } from '../config/db';
 import bcrypt from 'bcrypt';
-import { UserType } from '../types/model-types';
+import { UserType, AuthType } from '../types/model-types';
 import jwt from 'jsonwebtoken';
 import {
   Model,
@@ -31,17 +31,18 @@ const jwtRefreshPrivateKey = fs.readFileSync(
 interface AuthModel extends Model<InferAttributes<AuthModel>, InferCreationAttributes<AuthModel>> {
   id?: CreationOptional<number>;
   email: string;
-  password: string;
+  password?: CreationOptional<string>;
   type: UserType;
   verified: CreationOptional<boolean>;
   UserId?: CreationOptional<number | null>;
   CompanyId?: CreationOptional<number | null>;
-  profileImage:CreationOptional<string | null>
+  profileImage: CreationOptional<string | null>;
+  authType?: CreationOptional<AuthType>;
 }
 
-interface IAuthFunctions extends AuthModel{
-    generateMailToken: () => Promise<string>;
-    generateJWT: (expiresIn?: string, tokenType?: string) => string;
+interface IAuthFunctions extends AuthModel {
+  generateMailToken: () => Promise<string>;
+  generateJWT: (expiresIn?: string, tokenType?: string) => string;
 }
 export const Auth = sequelize.define<AuthModel & IAuthFunctions>(
   'Auth',
@@ -56,7 +57,6 @@ export const Auth = sequelize.define<AuthModel & IAuthFunctions>(
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false,
       validate: {
         min: {
           args: [6],
@@ -85,25 +85,29 @@ export const Auth = sequelize.define<AuthModel & IAuthFunctions>(
         key: 'id',
       },
     },
-    profileImage:{
-      type:DataTypes.STRING,
-    }
+    profileImage: {
+      type: DataTypes.STRING,
+    },
+    authType: {
+      type: DataTypes.STRING,
+      defaultValue: 'CUSTOM',
+    },
   },
   {
     defaultScope: {
-      attributes: { exclude: ['password','verified',"UserId","CompanyId"] },
+      attributes: { exclude: ['password', 'verified', 'UserId', 'CompanyId'] },
     },
     scopes: {
       withPassword: {
         attributes: [],
       },
-      withUserIds:{
-        attributes: { exclude: ['password','verified',] },
-      }
+      withUserIds: {
+        attributes: { exclude: ['password', 'verified'] },
+      },
     },
     freezeTableName: true,
   },
-)  ;
+);
 
 async function generateHash(user: any) {
   if (user.password) {
@@ -181,8 +185,8 @@ Auth.prototype.generateJWT = function (expiresIn = '15m', tokenType = 'access') 
 
   if (tokenType === 'refresh') privateKey = jwtRefreshPrivateKey;
 
-  const payload = { id: user.id, type: user.type,email:user.email};
-  
+  const payload = { id: user.id, type: user.type, email: user.email };
+
   const options = {
     // @ts-ignore
     issuer: PLATFORM_NAME,

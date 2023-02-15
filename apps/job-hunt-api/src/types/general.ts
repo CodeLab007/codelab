@@ -6,8 +6,24 @@ export interface IAuthAttrs {
   password: string;
   type: UserType;
   verified: boolean;
-  Users?: any[];
-  Companies: any[];
+  Users?: {
+    id?: number;
+    firstName: string;
+    userName: string;
+    lastName: string;
+    fullName?: string;
+    email: string;
+    contact: string;
+  };
+  Company?: {
+    id?: number;
+    name: string;
+    vatNumber: string;
+    address: string;
+    foundationYear: number;
+    email: string;
+    contact: string;
+  };
 }
 
 export interface IAuthModel extends IAuthAttrs {
@@ -24,7 +40,7 @@ declare global {
       user: IAuthModel;
       formattedFiles?: string[];
       header: object;
-      userType:UserType
+      userType: UserType;
     }
   }
 }
@@ -38,7 +54,6 @@ declare global {
 export interface MyToken {
   email?: string;
   type?: UserType;
-
 }
 
 export function verifyDecodedToken(data: unknown, field = 'email'): asserts data is MyToken {

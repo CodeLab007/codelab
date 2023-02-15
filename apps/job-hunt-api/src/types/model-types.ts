@@ -2,6 +2,10 @@ export enum UserType {
   COMPANY = 'COMPANY',
   USER = 'USER',
 }
+export enum AuthType {
+  SOCIAL = 'SOCIAL',
+  CUSTOM = 'CUSTOM',
+}
 
 export interface UserData {
   id?: number;

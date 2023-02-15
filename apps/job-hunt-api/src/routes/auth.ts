@@ -18,7 +18,7 @@ router.post('/reset-password',resetPassword);
 
 router.get(
   '/refresh-token',
-  authMiddlewareFunction(true),
+  authMiddlewareFunction(),
   refreshToken,
 );
 export default router;
