@@ -3,7 +3,7 @@ import { verifyDecodedToken } from '../types/general';
 import { UserType } from '../types/model-types';
 import { Request, Response, NextFunction } from 'express';
 
-import {User} from '../models/User'
+import { User } from '../models/User';
 const jwt = require('jsonwebtoken');
 import fs from 'fs';
 import path from 'path';
@@ -24,7 +24,7 @@ const authMiddleware = () => {
         const err = new AuthError();
         err.message = 'Unauthorised';
         err.status = 401;
-        res.status(401).send(err);
+        return res.status(401).send(err);
       }
       // adding verify
       const verifyOptions = {
@@ -42,7 +42,7 @@ const authMiddleware = () => {
         // @ts-ignore
         verifyOptions,
       );
-      
+
       verifyDecodedToken(decoded, 'email');
 
       user = await Auth.findOne({
@@ -52,18 +52,20 @@ const authMiddleware = () => {
         include: { model: decoded.type === UserType.COMPANY ? Company : User },
       });
 
-      if(user?.verified){
+      if (user?.verified) {
         const err = new AuthError();
         err.message = 'User Not Verified';
         err.status = 401;
-        next(err);
+        return res.status(err.status).send(err.message);
       }
 
       if (decoded.type !== user?.type || !user) {
         const err = new AuthError();
         err.message = 'Unauthorised';
         err.status = 401;
-        next(err);
+        return res.status(err.status).send(err.message);
+
+        // next(err);
         // res.status(401).send(err);
       }
 
@@ -71,7 +73,7 @@ const authMiddleware = () => {
       req.user = user;
       next();
     } catch (error) {
-      res.status(401).send(error)
+      res.status(401).send(error);
     }
   };
 };

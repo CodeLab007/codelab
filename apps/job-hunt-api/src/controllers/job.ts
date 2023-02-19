@@ -5,6 +5,8 @@ import { BadRequestError } from '@codelab/api-errors';
 import { getValidUpdates } from '../utils/validate-updates';
 import { getPaginated } from '../utils/paginate';
 import { Op } from 'sequelize';
+import { filter } from 'lodash';
+import { compareSync } from 'bcrypt';
 export const Create = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const {
@@ -22,7 +24,7 @@ export const Create = async (req: Request, res: Response, next: NextFunction) =>
       location,
     } = req.body;
 
-    if (req.user.type === UserType.USER) {
+    if (req.user && req.user.type === UserType.USER) {
       const err = new BadRequestError('wrong user request');
       res.status(403).send(err);
     }
@@ -55,12 +57,10 @@ export const Get = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;
 
-    if (req.user.type === UserType.USER) {
+    if (req.user && req.user.type === UserType.USER) {
       const err = new BadRequestError('wrong user request');
       res.status(403).send(err);
     }
-
-    // const company = req.user.Company;
 
     const job = await Job.findOne({
       where: {
@@ -94,7 +94,7 @@ export const Update = async (req: Request, res: Response, next: NextFunction) =>
     ];
     const validBody = getValidUpdates(validUpdates, body);
 
-    if (req.user.type === UserType.USER) {
+    if (req.user && req.user.type === UserType.USER) {
       const err = new BadRequestError('wrong user request');
       res.status(403).send(err);
     }
@@ -117,7 +117,7 @@ export const Delete = async (req: Request, res: Response, next: NextFunction) =>
   try {
     const { id } = req.params;
 
-    if (req.user.type === UserType.USER) {
+    if (req.user && req.user.type === UserType.USER) {
       const err = new BadRequestError('wrong user request');
       res.status(403).send(err);
     }
@@ -142,13 +142,15 @@ export const Delete = async (req: Request, res: Response, next: NextFunction) =>
 interface Filters {
   experience?: string;
   employementType?: string;
-  salaryRange?: { min: number; max: number };
   projectLength?: string;
   location?: string;
+  salaryMin?: number;
+  salaryMax?: number;
+  search: string;
 }
 export const List = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    if (req.user.type === UserType.COMPANY) {
+    if (req.user && req.user.type === UserType.COMPANY) {
       const err = new BadRequestError('wrong user request');
       res.status(403).send(err);
     }
@@ -156,16 +158,39 @@ export const List = async (req: Request, res: Response, next: NextFunction) => {
     // const company = req.user.Company;
     const { limit, offset } = getPaginated(req.query);
     // filters
+    const queryFilters = {
+      experience: req.query.experience,
+      employementType: req.query.employementType,
+      projectLength: req.query.projectLength,
+      location: req.query.location,
+      salaryMin: req.query.salaryMin,
+      salaryMax: req.query.salaryMax,
+      search: req.query.search,
+    };
 
-    const { filters, search } = getFiltersAndSearchQuery(
-      req.query.filters as Filters,
-      req.query.search as string,
-    );
-    // sortBy
-    const sortBy = req.query.sortBy;
+    const { filters, search } = getFiltersAndSearchQuery(queryFilters as unknown as Filters);
 
-    const { count: total, rows: jobs } = await Job.findAndCountAll({
-      where: {
+    let where = {};
+    if (filters.length) {
+      where = {
+        [Op.and]: [
+          {
+            [Op.or]: filters,
+          },
+        ],
+      };
+    }
+    if (search) {
+      where = {
+        [Op.and]: [
+          {
+            title: search,
+          },
+        ],
+      };
+    }
+    if (search && filters.length) {
+      where = {
         [Op.and]: [
           {
             [Op.or]: filters,
@@ -174,10 +199,18 @@ export const List = async (req: Request, res: Response, next: NextFunction) => {
             title: search,
           },
         ],
-      },
+      };
+    }
+
+    // sortBy
+    const sortBy = req.query.sortBy ? req.query.sortBy : 'createdAt';
+    const sortAs = req.query.sortAs ? (req.query.sortAs as string) : 'DESC';
+
+    const { count: total, rows: jobs } = await Job.findAndCountAll({
+      where,
       offset: offset,
       limit: limit,
-      order: [[sortBy as string, 'DESC']],
+      order: [[sortBy as string, sortAs]],
     });
 
     res.status(201).send({ message: 'Success', data: jobs, total });
@@ -186,16 +219,30 @@ export const List = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-const getFiltersAndSearchQuery = (filterObject: Filters, searchValue: string) => {
-  let filters = [];
-  for (const filter in filterObject) {
-    if (filter === 'salaryRange') {
-      filters.push({
-        salary: {
-          [Op.between]: [filterObject[filter]?.min, filterObject[filter]?.max],
+const getFiltersAndSearchQuery = (filterObject: Filters) => {
+  let filters = [] as any;
+  let search = null;
+  const customFilters = ['search', 'salaryMin', 'salaryMax', 'page', 'limit'];
+
+  if (filterObject['salaryMin'] && filterObject['salaryMax']) {
+    filters.push({
+      salary: {
+        [Op.and]: {
+          [Op.gte]: filterObject['salaryMin'],
+          [Op.lte]: filterObject['salaryMax'],
         },
-      });
-    } else {
+      },
+    });
+  }
+
+  if (filterObject['search']) {
+    search = {
+      [Op.like]: `%${filterObject['search']}%`,
+    };
+  }
+
+  for (const filter in filterObject) {
+    if (!customFilters.includes(filter) && filterObject[filter as keyof Filters]) {
       filters.push({
         [filter]: {
           [Op.eq]: filterObject[filter as keyof Filters],
@@ -203,10 +250,5 @@ const getFiltersAndSearchQuery = (filterObject: Filters, searchValue: string) =>
       });
     }
   }
-
-  const search = {
-    [Op.like]: `%${searchValue}%`,
-  };
-
   return { filters, search };
 };
