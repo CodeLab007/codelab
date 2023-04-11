@@ -1,7 +1,7 @@
 import express from 'express';
-import cors from 'cors';
+import cors, { CorsOptions } from 'cors';
 import cookieParser from 'cookie-parser';
-import dotenv from 'dotenv';
+import rateLimit from "express-rate-limit";
 import { errorHandler } from './middlewares/error-middleware';
 import { PLATFORM_NAME } from './utils/globals';
 import logger from 'morgan';
@@ -13,17 +13,29 @@ global.PLATFORM_NAME = PLATFORM_NAME;
 const app = express();
 
 app.use(cookieParser());
-app.use(
-  cors({
-    origin: process.env.DOMAIN,
-    credentials: true,
-  }),
-);
+const whitelist = ["http://localhost:3000","http://localhost:3001", /\.pointsyncc\.com$/];
+app.use(cookieParser());
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin) {
+      //for bypassing postman req with  no origin
+      return callback(null, true);
+    }
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+} as CorsOptions;
+if(process.env.NODE_ENV==='production'){
+  corsOptions.credentials=true;
+}
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-dotenv.config({ path: path.resolve(__dirname, '../.env') });
+
 
 // ASSOCIATIONS
 import './utils/associations';
@@ -38,7 +50,14 @@ app.use('/v1/api/auth', authRoutes);
 app.use('/v1/api/job', jobRoutes);
 
 const port = process.env.PORT;
-
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 50, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+});
+// Apply the rate limiting middleware to all requests
+app.use(limiter);
 try {
   sequelize.authenticate().then(() => {
     console.log('Connection has been established successfully.');

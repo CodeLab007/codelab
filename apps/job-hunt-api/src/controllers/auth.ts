@@ -95,8 +95,8 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
     );
 
     if (auth) {
-      const token = await auth.generateMailToken();
-      await generateVerificationMail(auth.email, token);
+      await auth.generateMailToken();
+      // await generateVerificationMail(auth.email, token);
       res.status(201).send({ message: 'Success', data: auth });
     } else {
       const err = new BadRequestError('Bad Request');
@@ -190,7 +190,7 @@ export const googleSignin = async (req: Request, res: Response, next: NextFuncti
       );
 
       const token = await auth.generateMailToken();
-      await generateVerificationMail(auth.email, token);
+      // await generateVerificationMail(auth.email, token);
       res.status(201).send({ message: 'Success', data: auth });
       return;
     } else {
@@ -230,9 +230,8 @@ export const googleSignin = async (req: Request, res: Response, next: NextFuncti
       }
 
       // save auth model values
-      auth.profileImage=profileImage?profileImage:auth.profileImage;
+      auth.profileImage = profileImage ? profileImage : auth.profileImage;
       await auth.save();
-
 
       // generate new access and refresh tokens when user signs in
       const accessToken = auth.generateJWT();
@@ -362,7 +361,7 @@ export const signin = async (req: Request, res: Response, next: NextFunction) =>
     // option for cookies
     const cookieOptions = {
       maxAge: getFormattedExpiry(),
-      secure: process.env.NODE_ENV !== 'dev' ? true : false,
+      secure: process.env.NODE_ENV === 'production' ? true : false,
       httpOnly: true,
       // domain: 'http://localhost:8080',
     };
@@ -371,7 +370,9 @@ export const signin = async (req: Request, res: Response, next: NextFunction) =>
       where: {
         email,
       },
-      include: { model: user.type === UserType.COMPANY ? Company : User },
+      include: {
+        model: user.type === UserType.COMPANY ? Company : User,
+      },
     });
     // sending refresh token to FE using cookies
     res.cookie('refresh_token', refreshToken, cookieOptions);
@@ -505,7 +506,7 @@ export const resetPasswordMail = async (req: Request, res: Response, next: NextF
       return next(err);
     }
     const mailToken = await user.generateMailToken();
-    generateResetPasswordMail(user.email, mailToken);
+    // generateResetPasswordMail(user.email, mailToken);
 
     res.send({ message: 'Please check your email to reset password' });
   } catch (error) {

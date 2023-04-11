@@ -4,6 +4,7 @@ import { UserType } from '../types/model-types';
 import { Request, Response, NextFunction } from 'express';
 
 import { User } from '../models/User';
+import { Token } from '../models/Token';
 const jwt = require('jsonwebtoken');
 import fs from 'fs';
 import path from 'path';
@@ -19,12 +20,19 @@ const authMiddleware = () => {
       let user;
       // getting accessToken from header
       const accessToken = req.header('Authorization')?.replace('Bearer ', '');
+
+      const { refresh_token } = req.cookies;
+    
+      const getRefreshToken=await Token.findOne({
+        where:{
+          token:refresh_token
+        }
+      })
       // throwing err if token not found in header
-      if (!accessToken) {
+      if (!accessToken || !getRefreshToken) {
         const err = new AuthError();
-        err.message = 'Unauthorised';
-        err.status = 401;
-        return res.status(401).send(err);
+        err.message = "Unauthorised";
+        return res.status(401).send({message:err.message});
       }
       // adding verify
       const verifyOptions = {
@@ -73,7 +81,7 @@ const authMiddleware = () => {
       req.user = user;
       next();
     } catch (error) {
-      res.status(401).send(error);
+      res.status(401).send({message:"Unauthorized"});
     }
   };
 };

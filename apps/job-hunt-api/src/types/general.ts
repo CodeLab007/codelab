@@ -6,8 +6,9 @@ export interface IAuthAttrs {
   password: string;
   type: UserType;
   verified: boolean;
-  Users?: {
+  User?: {
     id?: number;
+    uuid?: string;
     firstName: string;
     userName: string;
     lastName: string;
@@ -17,6 +18,7 @@ export interface IAuthAttrs {
   };
   Company?: {
     id?: number;
+    uuid?: string;
     name: string;
     vatNumber: string;
     address: string;

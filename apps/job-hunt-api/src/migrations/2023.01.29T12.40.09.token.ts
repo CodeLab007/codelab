@@ -1,5 +1,5 @@
 import type { Migration } from '../umguz';
-import { DataTypes, Sequelize } from 'sequelize';
+import { DataTypes, Sequelize, UUIDV4 } from 'sequelize';
 
 export const up: Migration = async ({ context }: { context: Sequelize }) => {
   await context.getQueryInterface().createTable('Tokens', {
@@ -8,6 +8,11 @@ export const up: Migration = async ({ context }: { context: Sequelize }) => {
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
+    },
+    uuid: {
+      type: DataTypes.UUID,
+      defaultValue: UUIDV4,
+      unique: true,
     },
     token: {
       type: DataTypes.TEXT,

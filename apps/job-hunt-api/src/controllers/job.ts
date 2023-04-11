@@ -1,12 +1,15 @@
 import { Job } from '../models/Job';
+import { UserJobs } from '../models/UserJobs';
 import { Request, Response, NextFunction } from 'express';
 import { UserType, AuthType } from '../types/model-types';
 import { BadRequestError } from '@codelab/api-errors';
 import { getValidUpdates } from '../utils/validate-updates';
 import { getPaginated } from '../utils/paginate';
-import { Op } from 'sequelize';
-import { filter } from 'lodash';
-import { compareSync } from 'bcrypt';
+import sequelize, { Op } from 'sequelize';
+import { getFiltersAndSearch } from '../utils/QueryFilters';
+import { Filters, operators } from '../types/sequelize-custom-types';
+import { User } from '../models/User';
+
 export const Create = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const {
@@ -27,6 +30,7 @@ export const Create = async (req: Request, res: Response, next: NextFunction) =>
     if (req.user && req.user.type === UserType.USER) {
       const err = new BadRequestError('wrong user request');
       res.status(403).send(err);
+      return;
     }
 
     const company = req.user.Company;
@@ -55,7 +59,7 @@ export const Create = async (req: Request, res: Response, next: NextFunction) =>
 
 export const Get = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { id } = req.params;
+    const { uid } = req.params;
 
     if (req.user && req.user.type === UserType.USER) {
       const err = new BadRequestError('wrong user request');
@@ -64,7 +68,7 @@ export const Get = async (req: Request, res: Response, next: NextFunction) => {
 
     const job = await Job.findOne({
       where: {
-        id,
+        uuid: uid,
       },
     });
 
@@ -75,7 +79,7 @@ export const Get = async (req: Request, res: Response, next: NextFunction) => {
 };
 export const Update = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { id } = req.params;
+    const { uid } = req.params;
     const { body } = req;
 
     const validUpdates = [
@@ -103,7 +107,7 @@ export const Update = async (req: Request, res: Response, next: NextFunction) =>
       { ...validBody },
       {
         where: {
-          id,
+          uuid: uid,
         },
       },
     );
@@ -115,7 +119,7 @@ export const Update = async (req: Request, res: Response, next: NextFunction) =>
 };
 export const Delete = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { id } = req.params;
+    const { uid } = req.params;
 
     if (req.user && req.user.type === UserType.USER) {
       const err = new BadRequestError('wrong user request');
@@ -126,7 +130,7 @@ export const Delete = async (req: Request, res: Response, next: NextFunction) =>
 
     const job = await Job.destroy({
       where: {
-        id,
+        uuid: uid,
       },
     });
 
@@ -139,15 +143,6 @@ export const Delete = async (req: Request, res: Response, next: NextFunction) =>
 //job-seeker finding a job
 //company is not allowed to find a job
 
-interface Filters {
-  experience?: string;
-  employementType?: string;
-  projectLength?: string;
-  location?: string;
-  salaryMin?: number;
-  salaryMax?: number;
-  search: string;
-}
 export const List = async (req: Request, res: Response, next: NextFunction) => {
   try {
     if (req.user && req.user.type === UserType.COMPANY) {
@@ -158,24 +153,93 @@ export const List = async (req: Request, res: Response, next: NextFunction) => {
     // const company = req.user.Company;
     const { limit, offset } = getPaginated(req.query);
     // filters
-    const queryFilters = {
-      experience: req.query.experience,
-      employementType: req.query.employementType,
-      projectLength: req.query.projectLength,
-      location: req.query.location,
-      salaryMin: req.query.salaryMin,
-      salaryMax: req.query.salaryMax,
-      search: req.query.search,
+    const jobFilters = [
+      {
+        operator: operators.eq,
+        property: 'experience',
+        value: req.query.experience,
+        type: 'normal',
+      },
+
+      {
+        operator: operators.eq,
+        property: 'employementType',
+        value: req.query.employementType,
+        type: 'normal',
+      },
+      {
+        operator: operators.eq,
+        property: 'projectLength',
+        value: req.query.projectLength,
+        type: 'normal',
+      },
+      {
+        operator: operators.eq,
+        property: 'location',
+        value: req.query.location,
+        type: 'normal',
+      },
+      {
+        operator: operators.gte,
+        property: 'salaryMin',
+        value: req.query.salaryMin,
+        type: 'range',
+        parent: 'salary',
+        parentOperator: operators.and,
+      },
+      {
+        operator: operators.lte,
+        property: 'salaryMax',
+        value: req.query.salaryMax,
+        type: 'range',
+        parent: 'salary',
+        parentOperator: operators.and,
+      },
+      {
+        operator: operators.iLike,
+        property: 'title',
+        value: req.query.search,
+        type: 'search',
+        parentOperator: operators.or,
+      },
+    ] as Filters[];
+
+    const { filters, search } = getFiltersAndSearch(jobFilters as Filters[]);
+
+    const foundUserId = await User.scope('withId').findOne({
+      where: {
+        uuid: req.user.User?.uuid,
+      },
+    });
+    const foundIdsResult = await UserJobs.findAll({
+      where: {
+        UserId: foundUserId?.id,
+      },
+      attributes: ['JobId'],
+    });
+
+    const foundIds = foundIdsResult.map((item) => item.JobId);
+
+    let where = {
+      [Op.and]: [
+        {
+          [Op.not]: {
+            id:foundIds
+          },
+        },
+      ],
     };
-
-    const { filters, search } = getFiltersAndSearchQuery(queryFilters as unknown as Filters);
-
-    let where = {};
-    if (filters.length) {
+    if (filters.length && foundIds) {
       where = {
         [Op.and]: [
           {
+            //@ts-ignore
             [Op.or]: filters,
+          },
+          {
+            [Op.not]: {
+              id:foundIds
+            },
           },
         ],
       };
@@ -184,8 +248,11 @@ export const List = async (req: Request, res: Response, next: NextFunction) => {
       where = {
         [Op.and]: [
           {
-            title: search,
+            [Op.not]: {
+              id:foundIds
+            },
           },
+          search,
         ],
       };
     }
@@ -196,8 +263,11 @@ export const List = async (req: Request, res: Response, next: NextFunction) => {
             [Op.or]: filters,
           },
           {
-            title: search,
+            [Op.not]: {
+              id:foundIds
+            },
           },
+          search,
         ],
       };
     }
@@ -213,42 +283,22 @@ export const List = async (req: Request, res: Response, next: NextFunction) => {
       order: [[sortBy as string, sortAs]],
     });
 
-    res.status(201).send({ message: 'Success', data: jobs, total });
+    const experience = await Job.findAll({
+      attributes: ['experience', [sequelize.fn('COUNT', sequelize.col('experience')), 'count']],
+      group: ['experience'],
+    });
+    const employementType = await Job.findAll({
+      attributes: [
+        'employementType',
+        [sequelize.fn('COUNT', sequelize.col('employementType')), 'count'],
+      ],
+      group: ['employementType'],
+    });
+    const filtersData = { experience, employementType };
+
+    res.status(201).send({ message: 'Success', data: jobs, total, filtersData });
   } catch (error) {
+  
     res.status(500).send({ message: error });
   }
-};
-
-const getFiltersAndSearchQuery = (filterObject: Filters) => {
-  let filters = [] as any;
-  let search = null;
-  const customFilters = ['search', 'salaryMin', 'salaryMax', 'page', 'limit'];
-
-  if (filterObject['salaryMin'] && filterObject['salaryMax']) {
-    filters.push({
-      salary: {
-        [Op.and]: {
-          [Op.gte]: filterObject['salaryMin'],
-          [Op.lte]: filterObject['salaryMax'],
-        },
-      },
-    });
-  }
-
-  if (filterObject['search']) {
-    search = {
-      [Op.like]: `%${filterObject['search']}%`,
-    };
-  }
-
-  for (const filter in filterObject) {
-    if (!customFilters.includes(filter) && filterObject[filter as keyof Filters]) {
-      filters.push({
-        [filter]: {
-          [Op.eq]: filterObject[filter as keyof Filters],
-        },
-      });
-    }
-  }
-  return { filters, search };
 };

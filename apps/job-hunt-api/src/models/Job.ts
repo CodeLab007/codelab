@@ -5,9 +5,11 @@ import {
   CreationOptional,
   InferAttributes,
   InferCreationAttributes,
+  UUIDV4,
 } from 'sequelize';
 interface JobModel extends Model<InferAttributes<JobModel>, InferCreationAttributes<JobModel>> {
   id?: CreationOptional<number>;
+  uuid: CreationOptional<string>;
   title: string;
   descriptionShort: CreationOptional<string>;
   descriptionLong?: CreationOptional<string>;
@@ -24,6 +26,11 @@ interface JobModel extends Model<InferAttributes<JobModel>, InferCreationAttribu
   
 }
 export const Job = sequelize.define<JobModel>('Job', {
+  uuid: {
+    type: DataTypes.UUID,
+    defaultValue: UUIDV4,
+    unique: true,
+  },
   title: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -76,6 +83,17 @@ export const Job = sequelize.define<JobModel>('Job', {
     references: {
       model: 'Companies',
       key: 'id',
+    },
+  },
+},{
+  defaultScope: {
+    attributes: { exclude: ['id'] },
+  },
+  scopes: {
+    withId: {
+      attributes: {
+        exclude:[]
+      },
     },
   },
 });

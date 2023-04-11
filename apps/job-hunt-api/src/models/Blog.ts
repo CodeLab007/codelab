@@ -7,52 +7,54 @@ import {
   InferCreationAttributes,
   UUIDV4,
 } from 'sequelize';
-interface CompanyModel
-  extends Model<InferAttributes<CompanyModel>, InferCreationAttributes<CompanyModel>> {
+interface BlogModel extends Model<InferAttributes<BlogModel>, InferCreationAttributes<BlogModel>> {
   id?: CreationOptional<number>;
   uuid: CreationOptional<string>;
-  name: string;
-  vatNumber: string;
-  address: string;
-  foundationYear: number;
-  email: string;
-  contact: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  category: number;
+  sectionImage: string;
+  image1: string;
+  image2: string;
+  tags: string[];
 }
-export const Company = sequelize.define<CompanyModel>(
-  'Company',
+export const Blog = sequelize.define<BlogModel>(
+  'Blog',
   {
     uuid: {
       type: DataTypes.UUID,
       defaultValue: UUIDV4,
       unique: true,
     },
-    name: {
+    title: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    vatNumber: {
+    
+    subtitle: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    foundationYear: {
+    description: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    category: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    email: {
+    sectionImage: {
       type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-      validate: {
-        isEmail: true,
-      },
     },
-    address: {
+    image1: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
-    contact: {
+    image2: {
       type: DataTypes.STRING,
-      allowNull: false,
+    },
+    tags: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
     },
   },
   {
@@ -60,11 +62,11 @@ export const Company = sequelize.define<CompanyModel>(
       attributes: { exclude: ['id'] },
     },
     scopes: {
-      withId:{
+      withId: {
         attributes: {
-          exclude:[]
+          exclude: [],
         },
-      }
+      },
     },
   },
 );

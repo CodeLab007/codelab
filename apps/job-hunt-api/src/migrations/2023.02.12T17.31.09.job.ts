@@ -1,5 +1,5 @@
 import type { Migration } from '../umguz';
-import { DataTypes, Sequelize } from 'sequelize';
+import { DataTypes, Sequelize, UUIDV4 } from 'sequelize';
 
 export const up: Migration = async ({ context }: { context: Sequelize }) => {
   await context.getQueryInterface().createTable('Jobs', {
@@ -8,6 +8,11 @@ export const up: Migration = async ({ context }: { context: Sequelize }) => {
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
+    },
+    uuid: {
+      type: DataTypes.UUID,
+      defaultValue: UUIDV4,
+      unique: true,
     },
     title: {
       type: DataTypes.STRING,
@@ -21,11 +26,11 @@ export const up: Migration = async ({ context }: { context: Sequelize }) => {
       type: DataTypes.TEXT,
     },
     requirements: {
-      type: DataTypes.JSON,
+      type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
     },
     tags: {
-      type: DataTypes.JSON,
+      type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
     },
     category: {

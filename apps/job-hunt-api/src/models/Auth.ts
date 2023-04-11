@@ -1,7 +1,7 @@
 import { sequelize } from '../config/db';
 import bcrypt from 'bcrypt';
-import { UserType, AuthType } from '../types/model-types';
 import jwt from 'jsonwebtoken';
+import { UserType, AuthType } from '../types/model-types';
 import {
   Model,
   DataTypes,
@@ -9,6 +9,7 @@ import {
   InferAttributes,
   InferCreationAttributes,
   NonAttribute,
+UUIDV4,
 } from 'sequelize';
 import path from 'path';
 import fs from 'fs';
@@ -32,6 +33,7 @@ interface AuthModel extends Model<InferAttributes<AuthModel>, InferCreationAttri
   id?: CreationOptional<number>;
   email: string;
   password?: CreationOptional<string>;
+  uuid: CreationOptional<string>;
   type: UserType;
   verified: CreationOptional<boolean>;
   UserId?: CreationOptional<number | null>;
@@ -47,6 +49,11 @@ interface IAuthFunctions extends AuthModel {
 export const Auth = sequelize.define<AuthModel & IAuthFunctions>(
   'Auth',
   {
+    uuid: {
+      type: DataTypes.UUID,
+      defaultValue: UUIDV4,
+      unique: true,
+    },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -95,14 +102,11 @@ export const Auth = sequelize.define<AuthModel & IAuthFunctions>(
   },
   {
     defaultScope: {
-      attributes: { exclude: ['password', 'verified', 'UserId', 'CompanyId'] },
+      attributes: { exclude: ['password', 'verified', 'UserId', 'CompanyId','id'] },
     },
     scopes: {
       withPassword: {
         attributes: [],
-      },
-      withUserIds: {
-        attributes: { exclude: ['password', 'verified'] },
       },
     },
     freezeTableName: true,

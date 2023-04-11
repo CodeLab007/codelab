@@ -1,8 +1,9 @@
+import { status } from '../types/job-model';
 import type { Migration } from '../umguz';
 import { DataTypes, Sequelize, UUIDV4 } from 'sequelize';
 
 export const up: Migration = async ({ context }: { context: Sequelize }) => {
-  await context.getQueryInterface().createTable('MailToken', {
+  await context.getQueryInterface().createTable('UserJobs', {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -14,17 +15,24 @@ export const up: Migration = async ({ context }: { context: Sequelize }) => {
       defaultValue: UUIDV4,
       unique: true,
     },
-    token: {
-      type: DataTypes.TEXT,
-      allowNull: false,
+    UserId:{
+      type: DataTypes.INTEGER,
+      references:{
+        model:"Users",
+        key:"id"
+      }
     },
-    expirytime: {
+    JobId:{
+      type: DataTypes.INTEGER,
+      references:{
+        model:"Jobs",
+        key:"id"
+      }
+    },
+    status: {
       type: DataTypes.STRING,
       allowNull: false,
-    },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      defaultValue: status.APPLIED as string
     },
     createdAt: {
       type: DataTypes.DATE,
@@ -36,5 +44,5 @@ export const up: Migration = async ({ context }: { context: Sequelize }) => {
 };
 
 export const down: Migration = async ({ context }: { context: Sequelize }) => {
-  await context.getQueryInterface().dropTable('MailToken');
+  await context.getQueryInterface().dropTable('UserJobs');
 };

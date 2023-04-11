@@ -6,6 +6,7 @@ import {
   InferAttributes,
   InferCreationAttributes,
   NonAttribute,
+  UUIDV4,
 } from 'sequelize';
 interface UserModel extends Model<InferAttributes<UserModel>, InferCreationAttributes<UserModel>> {
   id?: CreationOptional<number>;
@@ -13,12 +14,18 @@ interface UserModel extends Model<InferAttributes<UserModel>, InferCreationAttri
   userName: string;
   lastName: string;
   fullName?: CreationOptional<string>;
+  uuid: CreationOptional<string>;
   email: string;
   contact: string;
 }
 export const User = sequelize.define<UserModel>(
   'User',
   {
+    uuid: {
+      type: DataTypes.UUID,
+      defaultValue: UUIDV4,
+      unique: true,
+    },
     firstName: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -48,6 +55,18 @@ export const User = sequelize.define<UserModel>(
     contact: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+  },
+  {
+    defaultScope: {
+      attributes: { exclude: ['id'] },
+    },
+    scopes: {
+      withId: {
+        attributes: {
+          exclude:[]
+        },
+      },
     },
   },
 );

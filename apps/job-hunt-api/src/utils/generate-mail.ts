@@ -2,40 +2,30 @@ import nodemailer from 'nodemailer';
 import hbs from 'nodemailer-express-handlebars';
 import nodemailerSendgrid from 'nodemailer-sendgrid';
 import path from 'path';
-import dotenv from 'dotenv';
-dotenv.config({ path: path.resolve(__dirname, '../', '../.env') });
+
 
 const mailconfig = () => {
-  // let transporter = nodemailer.createTransport(
-  //   nodemailerSendgrid({
-  //     apiKey: process.env.EMAIL_API_KEY as string,
-  //   }),
-  // );
   const transporter = nodemailer.createTransport({
-    host: 'smtp-relay.sendinblue.com',
+    host: process.env.SMTP_HOST,
     port: 587,
     auth: {
-      user: 'kiki.vidovic.6969@gmail.com',
+      user: process.env.EMAIL_API_KEY,
       pass: process.env.EMAIL_API_KEY,
     },
-    
   });
   const hbsConfig = {
     viewEngine: {
-      extName: '.hbs',
-      partialsDir: path.join(__dirname, '../views', 'mail-templates/'),
-      layoutsDir: path.join(__dirname, '../views/'),
-      defaultLayout: '',
+      extName: ".hbs",
+      partialsDir: path.join(__dirname, "../views", "mail-templates/"),
+      layoutsDir: path.join(__dirname, "../views/"),
+      defaultLayout: "",
     },
-    viewPath: path.join(__dirname, '../views', 'mail-templates/'),
-    extName: '.hbs',
+    viewPath: path.join(__dirname, "../views", "mail-templates/"),
+    extName: ".hbs",
   };
-  transporter.use('compile', hbs(hbsConfig));
+  transporter.use("compile", hbs(hbsConfig));
 
   return transporter;
-
-
-
 };
 
 export const generateVerificationMail = async (email: string, token: string) => {

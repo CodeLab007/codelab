@@ -2,7 +2,7 @@ import type { Migration } from '../umguz';
 import { DataTypes, Sequelize, UUIDV4 } from 'sequelize';
 
 export const up: Migration = async ({ context }: { context: Sequelize }) => {
-  await context.getQueryInterface().createTable('MailToken', {
+  await context.getQueryInterface().createTable('Blogs', {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -14,17 +14,33 @@ export const up: Migration = async ({ context }: { context: Sequelize }) => {
       defaultValue: UUIDV4,
       unique: true,
     },
-    token: {
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    subtitle: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    description: {
       type: DataTypes.TEXT,
       allowNull: false,
     },
-    expirytime: {
+    category: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    email: {
+    sectionImage: {
       type: DataTypes.STRING,
-      allowNull: false,
+    },
+    image1:{
+      type: DataTypes.STRING,
+    },
+    image2:{
+      type: DataTypes.STRING,
+    },
+    tags: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
     },
     createdAt: {
       type: DataTypes.DATE,
@@ -36,5 +52,5 @@ export const up: Migration = async ({ context }: { context: Sequelize }) => {
 };
 
 export const down: Migration = async ({ context }: { context: Sequelize }) => {
-  await context.getQueryInterface().dropTable('MailToken');
+  await context.getQueryInterface().dropTable('Blogs');
 };
